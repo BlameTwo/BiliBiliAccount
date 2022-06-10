@@ -36,7 +36,8 @@ namespace BilibiliAPI
                 HttpWebRequest req = (HttpWebRequest)WebRequest.Create(url);
                 req.Method = "GET";
                 req.ContentType = dataType == DataType.JSON ? "application/json" : "application/xml";
-                req.Headers.Add("Cookie",data);
+                
+                req.Headers.Add("cookie", data);
                 HttpWebResponse resp = (HttpWebResponse)req.GetResponse();
                 Stream stream = resp.GetResponseStream();
                 using (StreamReader read = new StreamReader(stream))
