@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BilibiliAPI.Models;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -28,15 +29,32 @@ namespace BilibiliAPI
             });
         }
 
-
-        public static Task<string> Post(string url, Dictionary<string, string> dic)
+        public static Task<string> Get(string url,DataType dataType, string data)
         {
             return Task.Run(() =>
             {
+                HttpWebRequest req = (HttpWebRequest)WebRequest.Create(url);
+                req.Method = "GET";
+                req.ContentType = dataType == DataType.JSON ? "application/json" : "application/xml";
+                req.Headers.Add("Cookie",data);
+                HttpWebResponse resp = (HttpWebResponse)req.GetResponse();
+                Stream stream = resp.GetResponseStream();
+                using (StreamReader read = new StreamReader(stream))
+                {
+                    return read.ReadToEnd();
+                }
+            });
+        }
+
+        public static Task<PostModel> Post(string url, Dictionary<string, string> dic)
+        {
+            return Task.Run(() =>
+            {
+                PostModel model = new PostModel();
                 string result = "";
                 HttpWebRequest req = (HttpWebRequest)WebRequest.Create(url);
                 req.Method = "POST";
-                req.ContentType = "application/x-www-form-urlencoded";
+                req.ContentType = "application/xml";
                 #region 添加Post 参数
                 StringBuilder builder = new StringBuilder();
                 int i = 0;
@@ -62,7 +80,13 @@ namespace BilibiliAPI
                 {
                     result = reader.ReadToEnd();
                 }
-                return result;
+                var cookie = resp.Headers["Set-Cookie"];
+                if (cookie != null)
+                {
+                    model.Cookies = cookie;
+                }
+                model.Body = result;
+                return model;
             });
         }
     }
