@@ -9,7 +9,12 @@
 
   <ItemGroup>
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+    <PackageReference Include="PCLCrypto" Version="2.0.147" />
     <PackageReference Include="QRCoder" Version="1.4.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\BiliBiliAPI.Models\BiliBiliAPI.Models.csproj" />
   </ItemGroup>
 
 </Project>

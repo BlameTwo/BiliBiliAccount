@@ -1,7 +1,10 @@
-﻿using BilibiliAPI.Models;
+﻿using BilibiliAPI.ApiTools;
+using BilibiliAPI.Models;
+using BiliBiliAPI.Models;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,7 +15,7 @@ namespace BilibiliAPI.Account
 {
     public class AccountLogin
     {
-
+        private MyHttpClient HttpClient  = new MyHttpClient();
         Timer time = new Timer();
         /// <summary>
         /// 当前实例的密钥校验码
@@ -20,46 +23,43 @@ namespace BilibiliAPI.Account
         private string QRKey { get; set; } = "";
         public async Task<AccountLoginArg> GetQR()
         {
-            string jo =  await MyWebClient.Get("https://passport.bilibili.com/qrcode/getLoginUrl", MyWebClient.DataType.JSON);
-            var model =  JsonConvert.ReadObject<AccountLoginArg>(jo);
+            string url = "https://passport.bilibili.com/x/passport-tv-login/qrcode/auth_code";
+            string data = $"local_id={Current.LocalID}";
+            string result = await HttpClient.PostResults(url, data, ApiProvider.AndroidTVKey);
+            var model =  JsonConvert.ReadObject<AccountLoginArg>(result);
             QRKey = model.Data.QRKey;
             return model;
         }
 
-
-        public async Task<LoginTrueString> Check()
+        public async Task<LoginTrueString> PollQRAuthInfo()
         {
-            Dictionary<string, string> checkper = new Dictionary<string, string>();
-            LoginTrueString resule = new LoginTrueString();
-            checkper.Add("oauthKey", QRKey);
-            var result = await MyWebClient.Post("https://passport.bilibili.com/qrcode/getLoginInfo", checkper);
-            var oj = JObject.Parse(result.Body);
-            if (oj == null)
+            try
             {
-                return new LoginTrueString() { Check = Checkenum.NULL };
-            }
-            if (oj["data"]!.ToString()! == "-2")
-            {
-                return new LoginTrueString() { Check = Checkenum.OnTime };
-            }
-            if (oj["data"]!.ToString() == "-4")
-            {
-                return new LoginTrueString() { Check = Checkenum.No };
-            }
-            if (oj["data"]!.ToString() == "-5")
-            {
-                return new LoginTrueString() { Check = Checkenum.YesOrNo };
-            }
-            if (oj.ContainsKey("code"))
-            {
-                if (oj["code"]!.ToString() == "0")
+                string url = "https://passport.bilibili.com/x/passport-tv-login/qrcode/poll";
+                string data = $"auth_code={QRKey}&guid={Guid.NewGuid()}&local_id={Current.LocalID}";
+                string result = await HttpClient.PostResults(url, data, ApiProvider.AndroidTVKey);
+                var jo =  JObject.Parse(result);
+                switch (jo["code"].ToString())
                 {
-                    BiliBiliArgs.Cookie = result.Cookies;
-                    return new LoginTrueString() { Body = oj.ToString(), Check =  Checkenum.Yes};
+                    case "86039":
+                        return new LoginTrueString() { Check = Checkenum.No };
+                    case "86038":
+                        return new LoginTrueString() { Check = Checkenum.OnTime };
+                    case "0":
+                        return new LoginTrueString() { Check = Checkenum.Yes, Body = jo["data"]!.ToString() };
+                    default:
+                        return new LoginTrueString() { Check = Checkenum.NULL };
                 }
             }
-            return new LoginTrueString() { Check = Checkenum.NULL };
+            catch (Exception ex)
+            {
+                Debug.WriteLine("错误！");
+                return null!;
+            }
         }
+
+
+        
 
 
 

@@ -7,18 +7,18 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Web;
 
-namespace BilibiliAPI.Models
+namespace BiliBiliAPI.Models
 {
     public class AccountLoginArg
     {
         [JsonProperty("code")]
         public string Code { get; set; }
 
-        [JsonProperty("status")]
-        public string Status { get; set; }
+        [JsonProperty("message")]
+        public string Message { get; set; }
 
-        [JsonProperty("ts")]
-        public string Ts { get; set; }
+        [JsonProperty("tt1")]
+        public string TT1 { get; set; }
 
         [JsonProperty("data")]
         public AccountLoginData Data { get; set; }
@@ -29,7 +29,7 @@ namespace BilibiliAPI.Models
         [JsonProperty("url")]
         public string PicUrl { get; set; }
 
-        [JsonProperty("oauthKey")]
+        [JsonProperty("auth_code")]
         public string QRKey { get; set; }
     }
 
@@ -42,6 +42,7 @@ namespace BilibiliAPI.Models
         /// 返回的Cookie信息
         /// </summary>
         public string Cookie { get; set; }
+
     }
 
     /// <summary>
@@ -80,14 +81,53 @@ namespace BilibiliAPI.Models
     /// </summary>
     public class AccountToken
     {
+        [JsonProperty("mid")]
         public string DedeUserId { get; set; } = "";
-        public string DedeUserid_MD5 { get; set; } = "";
-        public string Expires { get; set; } = "";
+
+        [JsonProperty("access_token")]
         public string SECCDATA { get; set; } = "";
-        public string Bili_JCT { get; set; } = "";
-        public string URL { get; set; } = "";
+
+
+        [JsonProperty("refresh_token")]
+        public string RefToken { get; set; } 
+
+        [JsonProperty("expires_in")]
+        public string Expires_in { get; set; }
+        [JsonProperty("token_info")]
+        public AccountToken Info { get; set; }
+
+        [JsonProperty("cookie_info")]
+        public AccountTokenCookies cookies { get; set; }
+
+
+        [JsonProperty("sso")]
+        public string[] SSO { get; set; }
     }
 
+    public class AccountTokenCookies
+    {
+        [JsonProperty("cookies")]
+        public List<Cookie> Cookies { get; set; }
+
+        [JsonProperty("domains")]
+        public string[] Domains { get; set; }
+
+    }
+
+    public class Cookie
+    {
+        [JsonProperty("name")]
+        public string Name { get; set; }
+
+        [JsonProperty("value")]
+        public string Value { get; set; }
+
+        [JsonProperty("http_only")]
+        public string Http_Only { get; set; }
+
+        [JsonProperty("expires")]
+        public string Expires { get; set; }
+    }
 
 
 }

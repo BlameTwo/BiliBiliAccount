@@ -16,6 +16,7 @@
   <ItemGroup>
     <ProjectReference Include="..\BiliBiliAccount\BilibiliAPI.csproj" />
     <ProjectReference Include="..\BiliBiliAPI.GUI.VIewModel\BiliBiliAPI.GUI.VIewModel.csproj" />
+    <ProjectReference Include="..\BiliBiliAPI.Models\BiliBiliAPI.Models.csproj" />
   </ItemGroup>
 
 </Project>

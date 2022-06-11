@@ -13,5 +13,11 @@ namespace BiliBiliAPI.GUI
     /// </summary>
     public partial class App : Application
     {
+        protected override void OnStartup(StartupEventArgs e)
+        {
+            //初始化基础配置
+            BilibiliAPI.ApiTools.Current.Init();
+            base.OnStartup(e);
+        }
     }
 }

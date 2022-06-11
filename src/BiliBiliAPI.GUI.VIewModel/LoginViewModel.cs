@@ -1,6 +1,7 @@
 ﻿using BilibiliAPI;
 using BilibiliAPI.Account;
 using BilibiliAPI.Models;
+using BiliBiliAPI.Models;
 using Microsoft.Toolkit.Mvvm.ComponentModel;
 using Microsoft.Toolkit.Mvvm.Input;
 using Newtonsoft.Json.Linq;
@@ -51,41 +52,46 @@ namespace BiliBiliAPI.GUI.VIewModel
 
         private async  void Time_Tick(object? sender, EventArgs e)
         {
-            var result =await api.Check();
+            var result = await api.PollQRAuthInfo();
             switch (result.Check)
             {
                 case Checkenum.OnTime:
-                    Debug.WriteLine("超时！正在重新尝试");
+                    Debug.WriteLine("二维码已经失效");
                     break;
-                case Checkenum.Post:
-                    Debug.WriteLine("Post错误！！正在重新尝试");
-                    break;
+                //case Checkenum.Post:
+                //    break;
                 case Checkenum.NULL:
-                    Debug.WriteLine("未收录的code！正在重新尝试");
-                    break;
-                case Checkenum.YesOrNo:
-
-                    Debug.WriteLine("请在手机上点击确定登录！");
+                    Debug.WriteLine("未收录的code状态");
                     break;
                 case Checkenum.Yes:
-                    Debug.WriteLine("登录成功！");
-                    var Jo = JObject.Parse(result.Body);
-                    BiliBiliArgs.TokenSESSDATA = WebFormat.UrlToClass(Jo["data"]!["url"]!.ToString());
-                    BiliBiliArgs.Refresh_Token = Jo["data"]!["refresh_token"]!.ToString();
-                    RefAccount();
+                    Debug.WriteLine($"登录成功！携带的返回值为:\n{result.Body}");
+                    var result2  =  WebFormat.UrlToClass(result.Body);
+                    BiliBiliArgs.TokenSESSDATA = result2;
+                    RefAccount(result2);
                     time.Stop();
                     break;
                 case Checkenum.No:
-                    Debug.WriteLine("未检测到扫码！");
+                    Debug.WriteLine($"二维码尚未确认");
                     break;
             }
         }
 
-        private async  void RefAccount()
+        private async void RefAccount(AccountToken token)
         {
             AccountInfo info = new AccountInfo();
-            string value = await  info.GetAccount();
+            _LoginResult = await info.GetAccount(token);
+            MessageBox.Show($"登录名为:{_LoginResult.Data.Name}，等级为:{_LoginResult.Data.Level}");
         }
+
+
+        private AccountLoginResult LoginResult;
+
+        public AccountLoginResult _LoginResult
+        {
+            get { return LoginResult; }
+            set => SetProperty(ref LoginResult, value);
+        }
+
 
         private BitmapImage QRImage;
 
