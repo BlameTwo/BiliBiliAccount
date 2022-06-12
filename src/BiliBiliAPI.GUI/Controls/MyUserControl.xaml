@@ -39,5 +39,7 @@
                 <Run Text="{Binding _LoginResult.Data.MyVIp.Vip_Stop,Converter={StaticResource TimeConvert1}}"/>
                 <Run Text="到期" />
         </TextBlock>
+
+        <Button Margin="0 45 0 0" Content="退出登录" Padding="10" Command="{Binding UnLogin}"/>
     </StackPanel>
 </UserControl>

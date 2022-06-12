@@ -1,11 +1,14 @@
 ﻿using BilibiliAPI;
 using BilibiliAPI.Account;
+using BiliBiliAPI.GUI.Event;
 using BiliBiliAPI.Models;
 using BiliBiliAPI.Models.Settings;
 using Microsoft.Toolkit.Mvvm.ComponentModel;
 using Microsoft.Toolkit.Mvvm.Input;
+using Microsoft.Toolkit.Mvvm.Messaging;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -22,6 +25,13 @@ namespace BiliBiliAPI.GUI.VIewModels
                 Logins logins = new Logins();
                 BiliBiliArgs.TokenSESSDATA = token;
                 _LoginResult = await logins.Login(token);
+               
+            });
+
+            UnLogin = new RelayCommand(() =>
+            {
+                File.Delete(Models.Settings.AccountSettings.FilePath);
+                WeakReferenceMessenger.Default.Send(new MainEvent() { Controlenum = ControlEnum.Login });
             });
         }
 
@@ -36,7 +46,7 @@ namespace BiliBiliAPI.GUI.VIewModels
 
 
 
-
+        public RelayCommand UnLogin { get; private set; }
         public RelayCommand Loaded { get; private set; }
     }
 }
