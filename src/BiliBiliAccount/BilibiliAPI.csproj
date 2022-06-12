@@ -1,10 +1,12 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <OutputType>Library</OutputType>
-    <TargetFramework>net6.0-windows7.0</TargetFramework>
-    <Nullable>enable</Nullable>
-    <UseWPF>true</UseWPF>
+    <!--<OutputType>Library</OutputType>-->
+    <TargetFramework>net6.0</TargetFramework>
+    <!--
+	<Nullable>enable</Nullable>
+    <UseWPF>false</UseWPF>
+	-->
   </PropertyGroup>
 
   <ItemGroup>

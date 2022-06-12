@@ -1,5 +1,6 @@
 ﻿
 using BilibiliAPI.Account;
+using BiliBiliAPI.GUI.Controls;
 using BiliBiliAPI.GUI.VIewModel;
 using System;
 using System.Collections.Generic;
@@ -27,13 +28,18 @@ namespace BiliBiliAPI.GUI
         {
             InitializeComponent();
             this.DataContext = new MainViewModel();
-            this.Loaded += MainWindow_Loaded;
+            Loaded += MainWindow_Loaded;
         }
 
-        private async void MainWindow_Loaded(object sender, RoutedEventArgs e)
+        private void MainWindow_Loaded(object sender, RoutedEventArgs e)
         {
-            AccountLogin login = new AccountLogin();
-            var a = await login.GetQR();
+            var value = Models.Settings.AccountSettings.Read();
+            if (value != null)
+            {
+                MyContent.Content = new MyUserControl();
+                return;
+            }
+            MyContent.Content = new LoginControl();
         }
     }
 }

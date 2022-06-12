@@ -5,8 +5,16 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:BiliBiliAPI.GUI" xmlns:dc="clr-namespace:BiliBiliAPI.GUI.Controls"
         mc:Ignorable="d"
+        xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+        xmlns:viewmodel="clr-namespace:BiliBiliAPI.GUI.VIewModel;assembly=BiliBiliAPI.GUI.VIewModel" 
+        d:DataContext="{d:DesignInstance Type=viewmodel:MainViewModel}"
         Title="MainWindow" Height="450" Width="800">
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <i:InvokeCommandAction Command="{Binding Loaded}"/>
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
     <Grid>
-        <dc:LoginControl/>
+        <ContentControl x:Name="MyContent"/>
     </Grid>
 </Window>

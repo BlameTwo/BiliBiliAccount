@@ -2,6 +2,7 @@
 using BilibiliAPI.Account;
 using BilibiliAPI.Models;
 using BiliBiliAPI.Models;
+using BiliBiliAPI.Models.Settings;
 using Microsoft.Toolkit.Mvvm.ComponentModel;
 using Microsoft.Toolkit.Mvvm.Input;
 using Newtonsoft.Json.Linq;
@@ -14,7 +15,6 @@ using System.Threading.Tasks;
 using System.Timers;
 using System.Windows;
 using System.Windows.Media.Imaging;
-
 namespace BiliBiliAPI.GUI.VIewModel
 {
     public class LoginViewModel:ObservableObject
@@ -66,6 +66,8 @@ namespace BiliBiliAPI.GUI.VIewModel
                 case Checkenum.Yes:
                     Debug.WriteLine($"登录成功！携带的返回值为:\n{result.Body}");
                     var result2  =  WebFormat.UrlToClass(result.Body);
+
+                    AccountSettings.Write(result2);
                     BiliBiliArgs.TokenSESSDATA = result2;
                     RefAccount(result2);
                     time.Stop();
