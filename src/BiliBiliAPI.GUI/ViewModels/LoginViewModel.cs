@@ -1,10 +1,12 @@
 ﻿using BilibiliAPI;
 using BilibiliAPI.Account;
 using BilibiliAPI.Models;
+using BiliBiliAPI.GUI.Event;
 using BiliBiliAPI.Models;
 using BiliBiliAPI.Models.Settings;
 using Microsoft.Toolkit.Mvvm.ComponentModel;
 using Microsoft.Toolkit.Mvvm.Input;
+using Microsoft.Toolkit.Mvvm.Messaging;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
@@ -15,7 +17,7 @@ using System.Threading.Tasks;
 using System.Timers;
 using System.Windows;
 using System.Windows.Media.Imaging;
-namespace BiliBiliAPI.GUI.VIewModel
+namespace BiliBiliAPI.GUI.VIewModels
 {
     public class LoginViewModel:ObservableObject
     {
@@ -82,7 +84,8 @@ namespace BiliBiliAPI.GUI.VIewModel
         {
             AccountInfo info = new AccountInfo();
             _LoginResult = await info.GetAccount(token);
-            MessageBox.Show($"登录名为:{_LoginResult.Data.Name}，等级为:{_LoginResult.Data.Level}");
+            MessageBox.Show("登录成功！点击确定跳转");
+            WeakReferenceMessenger.Default.Send(new MainEvent() { Controlenum = ControlEnum.User});
         }
 
 

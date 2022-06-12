@@ -50,28 +50,31 @@ namespace BilibiliAPI
 
         public async Task<string> GetResults(string url, string cookie,ApiKeyInfo apiKeyInfo = null)
         {
-            try
+            return await Task.Run(async () =>
             {
-                if (apiKeyInfo == null)
-                    apiKeyInfo = ApiProvider.AndroidTVKey;
-                if (url.IndexOf("?") > -1)
-                    url += "&access_key=" + BiliBiliArgs.TokenSESSDATA.SECCDATA + "&appkey=" + apiKeyInfo.Appkey + "&platform=android&device=android&actionKey=appkey&build=5442100&mobi_app=android_comic&ts=" + ApiProvider.TimeSpanSeconds;
-                else
-                    url += "?access_key=" + BiliBiliArgs.TokenSESSDATA.SECCDATA + "&appkey=" + apiKeyInfo.Appkey + "&platform=android&device=android&actionKey=appkey&build=5442100&mobi_app=android_comic&ts=" + ApiProvider.TimeSpanSeconds;
-                url += "&sign=" + ApiProvider.GetSign(url, apiKeyInfo);
-                
-                HttpResponseMessage hr = await HttpClient.GetAsync(url).ConfigureAwait(false);
-                hr.Headers.Add("Cookie", cookie);
-                hr.EnsureSuccessStatusCode();
-                var encodeResults = await hr.Content.ReadAsByteArrayAsync().ConfigureAwait(false);
-                return Encoding.UTF8.GetString(encodeResults, 0, encodeResults.Length);
-            }
-            catch (Exception ex)
-            {
+                try
+                {
+                    if (apiKeyInfo == null)
+                        apiKeyInfo = ApiProvider.AndroidKey;
+                    if (url.IndexOf("?") > -1)
+                        url += "&access_key=" + BiliBiliArgs.TokenSESSDATA.SECCDATA + "&appkey=" + apiKeyInfo.Appkey + "&platform=android&device=android&actionKey=appkey&build=5442100&mobi_app=android_comic&ts=" + ApiProvider.TimeSpanSeconds;
+                    else
+                        url += "?access_key=" + BiliBiliArgs.TokenSESSDATA.SECCDATA + "&appkey=" + apiKeyInfo.Appkey + "&platform=android&device=android&actionKey=appkey&build=5442100&mobi_app=android_comic&ts=" + ApiProvider.TimeSpanSeconds;
+                    url += "&sign=" + ApiProvider.GetSign(url, apiKeyInfo);
 
-                Debug.WriteLine(ex.Message);
-                return string.Empty;
-            }
+                    HttpResponseMessage hr = await HttpClient.GetAsync(url).ConfigureAwait(false);
+                    hr.Headers.Add("Cookie", cookie);
+                    hr.EnsureSuccessStatusCode();
+                    var encodeResults = await hr.Content.ReadAsByteArrayAsync().ConfigureAwait(false);
+                    return Encoding.UTF8.GetString(encodeResults, 0, encodeResults.Length);
+                }
+                catch (Exception ex)
+                {
+
+                    Debug.WriteLine(ex.Message);
+                    return string.Empty;
+                }
+            });
         }
 
 

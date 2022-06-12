@@ -17,14 +17,14 @@ using System.Windows.Shapes;
 namespace BiliBiliAPI.GUI.Controls
 {
     /// <summary>
-    /// LoginControl.xaml 的交互逻辑
+    /// UserControl.xaml 的交互逻辑
     /// </summary>
-    public partial class LoginControl : UserControl
+    public partial class MyUserControl : UserControl
     {
-        public LoginControl()
+        public MyUserControl()
         {
             InitializeComponent();
-            this.DataContext = new LoginViewModel();
+            this.DataContext = new MyUserViewModel();
         }
     }
 }

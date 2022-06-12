@@ -99,6 +99,20 @@ namespace BiliBiliAPI.Models
         [JsonProperty("cookie_info")]
         public AccountTokenCookies cookies { get; set; }
 
+        public string CookieString
+        {
+            get
+            {
+                if (cookies == null)
+                    return null;
+                string str = "";
+                foreach (var item in cookies.Cookies)
+                {
+                    str += $"{item.Name}={item.Value};";
+                }
+                return str;
+            }
+        }
 
         [JsonProperty("sso")]
         public string[] SSO { get; set; }

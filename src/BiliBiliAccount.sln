@@ -7,9 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BilibiliAPI", "BiliBiliAcco
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BiliBiliAPI.GUI", "BiliBiliAPI.GUI\BiliBiliAPI.GUI.csproj", "{702FB0BB-0BC9-4552-9C5B-BE934AB0089A}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BiliBiliAPI.GUI.VIewModel", "BiliBiliAPI.GUI.VIewModel\BiliBiliAPI.GUI.VIewModel.csproj", "{8F9DE718-C178-4411-A1EE-F415E2CD7A33}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BiliBiliAPI.Models", "BiliBiliAPI.Models\BiliBiliAPI.Models.csproj", "{ADDA3AA5-2F39-41B7-94A6-30C8810D92D0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BiliBiliAPI.Models", "BiliBiliAPI.Models\BiliBiliAPI.Models.csproj", "{ADDA3AA5-2F39-41B7-94A6-30C8810D92D0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -25,10 +23,6 @@ Global
 		{702FB0BB-0BC9-4552-9C5B-BE934AB0089A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{702FB0BB-0BC9-4552-9C5B-BE934AB0089A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{702FB0BB-0BC9-4552-9C5B-BE934AB0089A}.Release|Any CPU.Build.0 = Release|Any CPU
-		{8F9DE718-C178-4411-A1EE-F415E2CD7A33}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{8F9DE718-C178-4411-A1EE-F415E2CD7A33}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{8F9DE718-C178-4411-A1EE-F415E2CD7A33}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{8F9DE718-C178-4411-A1EE-F415E2CD7A33}.Release|Any CPU.Build.0 = Release|Any CPU
 		{ADDA3AA5-2F39-41B7-94A6-30C8810D92D0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{ADDA3AA5-2F39-41B7-94A6-30C8810D92D0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{ADDA3AA5-2F39-41B7-94A6-30C8810D92D0}.Release|Any CPU.ActiveCfg = Release|Any CPU

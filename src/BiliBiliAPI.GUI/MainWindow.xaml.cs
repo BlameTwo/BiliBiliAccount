@@ -1,7 +1,8 @@
 ﻿
 using BilibiliAPI.Account;
 using BiliBiliAPI.GUI.Controls;
-using BiliBiliAPI.GUI.VIewModel;
+using BiliBiliAPI.GUI.VIewModels;
+using Microsoft.Toolkit.Mvvm.Messaging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -28,18 +29,8 @@ namespace BiliBiliAPI.GUI
         {
             InitializeComponent();
             this.DataContext = new MainViewModel();
-            Loaded += MainWindow_Loaded;
         }
 
-        private void MainWindow_Loaded(object sender, RoutedEventArgs e)
-        {
-            var value = Models.Settings.AccountSettings.Read();
-            if (value != null)
-            {
-                MyContent.Content = new MyUserControl();
-                return;
-            }
-            MyContent.Content = new LoginControl();
-        }
+        
     }
 }

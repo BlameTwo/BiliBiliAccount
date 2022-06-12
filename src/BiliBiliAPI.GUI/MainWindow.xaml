@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:BiliBiliAPI.GUI" xmlns:dc="clr-namespace:BiliBiliAPI.GUI.Controls"
         mc:Ignorable="d"
         xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
-        xmlns:viewmodel="clr-namespace:BiliBiliAPI.GUI.VIewModel;assembly=BiliBiliAPI.GUI.VIewModel" 
+        xmlns:viewmodel="clr-namespace:BiliBiliAPI.GUI.VIewModels" 
         d:DataContext="{d:DesignInstance Type=viewmodel:MainViewModel}"
         Title="MainWindow" Height="450" Width="800">
     <i:Interaction.Triggers>
@@ -15,6 +15,6 @@
         </i:EventTrigger>
     </i:Interaction.Triggers>
     <Grid>
-        <ContentControl x:Name="MyContent"/>
+        <ContentControl x:Name="MyContent" Content="{Binding _ControlObject}"/>
     </Grid>
 </Window>

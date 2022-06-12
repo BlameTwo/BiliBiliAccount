@@ -10,14 +10,17 @@ namespace BilibiliAPI.Account
     /// <summary>
     /// Logins是一个调用集合，指登陆过后的第一次登录
     /// </summary>
-    public static class Logins
+    public class Logins
     {
-        public static Task<AccountLoginResult> Login(AccountToken token)
+
+        private MyHttpClient HttpClient = new MyHttpClient();
+        public async  Task<AccountLoginResult> Login(AccountToken token)
         {
-            return Task.Run(() =>
+            return await Task.Run(async () =>
             {
                 AccountInfo info = new AccountInfo();
-                return info.GetAccount(token);
+                string str = await HttpClient.GetResults($"http://api.bilibili.com/x/web-interface/nav");
+                return await info.GetAccount(token);
             });
         }
     }

@@ -71,6 +71,9 @@ namespace BiliBiliAPI.Models
         [JsonProperty("due_date")]
         public string Vip_Stop { get; set; }
 
+
+       
+
     }
 
     public class Official
