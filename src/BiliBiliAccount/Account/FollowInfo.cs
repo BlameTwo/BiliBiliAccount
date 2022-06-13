@@ -55,7 +55,7 @@ namespace BilibiliAPI.Account
                 string url = $"http://api.vc.bilibili.com/link_draw/v1/doc/upload_count?uid={BiliBiliArgs.TokenSESSDATA.Mid}";
                 string json = await HttpClient.GetResults(url);
                 return json;
-            })
-        };
+            });
+        }
     }
 }

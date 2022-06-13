@@ -1,6 +1,5 @@
 ﻿using BilibiliAPI;
 using BilibiliAPI.Account;
-using BilibiliAPI.Models;
 using BiliBiliAPI.GUI.Event;
 using BiliBiliAPI.Models;
 using BiliBiliAPI.Models.Settings;
