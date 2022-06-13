@@ -17,8 +17,8 @@ namespace BiliBiliAPI.Models
         [JsonProperty("message")]
         public string Message { get; set; }
 
-        [JsonProperty("tt1")]
-        public string TT1 { get; set; }
+        [JsonProperty("ttl")]
+        public string TTl { get; set; }
 
         [JsonProperty("data")]
         public AccountLoginData Data { get; set; }
@@ -26,8 +26,15 @@ namespace BiliBiliAPI.Models
 
     public class AccountLoginData
     {
+        /// <summary>
+        /// 二维码Url
+        /// </summary>
         [JsonProperty("url")]
         public string PicUrl { get; set; }
+
+        /// <summary>
+        /// 校验码
+        /// </summary>
 
         [JsonProperty("auth_code")]
         public string QRKey { get; set; }
@@ -35,7 +42,14 @@ namespace BiliBiliAPI.Models
 
     public class LoginTrueString
     {
+        /// <summary>
+        /// 携带的json字符串
+        /// </summary>
         public string Body { get; set; }
+
+        /// <summary>
+        /// 检查状态
+        /// </summary>
         public Checkenum Check { get; set; }
 
         /// <summary>
@@ -81,18 +95,32 @@ namespace BiliBiliAPI.Models
     /// </summary>
     public class AccountToken
     {
+        /// <summary>
+        /// 你滴账号
+        /// </summary>
         [JsonProperty("mid")]
-        public string DedeUserId { get; set; } = "";
+        public string Mid { get; set; } = "";
 
+        /// <summary>
+        /// 你滴访问权限
+        /// </summary>
         [JsonProperty("access_token")]
         public string SECCDATA { get; set; } = "";
 
-
+        /// <summary>
+        /// 用来刷新Token的字符串
+        /// </summary>
         [JsonProperty("refresh_token")]
         public string RefToken { get; set; } 
 
+        /// <summary>
+        /// 有效时间
+        /// </summary>
         [JsonProperty("expires_in")]
         public string Expires_in { get; set; }
+
+
+
         [JsonProperty("token_info")]
         public AccountToken Info { get; set; }
 
@@ -120,8 +148,16 @@ namespace BiliBiliAPI.Models
 
     public class AccountTokenCookies
     {
+        /// <summary>
+        /// Cookie列表
+        /// </summary>
         [JsonProperty("cookies")]
         public List<Cookie> Cookies { get; set; }
+
+
+        /// <summary>
+        /// 可跨的域
+        /// </summary>
 
         [JsonProperty("domains")]
         public string[] Domains { get; set; }
@@ -130,14 +166,29 @@ namespace BiliBiliAPI.Models
 
     public class Cookie
     {
+        /// <summary>
+        /// Cookie名称
+        /// </summary>
         [JsonProperty("name")]
         public string Name { get; set; }
+
+        /// <summary>
+        /// Cookie值
+        /// </summary>
 
         [JsonProperty("value")]
         public string Value { get; set; }
 
+        /// <summary>
+        /// 暂时不明白
+        /// </summary>
+
         [JsonProperty("http_only")]
         public string Http_Only { get; set; }
+
+        /// <summary>
+        /// 剩余时间？
+        /// </summary>
 
         [JsonProperty("expires")]
         public string Expires { get; set; }

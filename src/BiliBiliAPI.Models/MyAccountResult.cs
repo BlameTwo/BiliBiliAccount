@@ -6,8 +6,7 @@ using System.Threading.Tasks;
 
 namespace BiliBiliAPI.Models
 {
-    public class AccountInfoArgs
+    public class MyAccountResult
     {
-
     }
 }

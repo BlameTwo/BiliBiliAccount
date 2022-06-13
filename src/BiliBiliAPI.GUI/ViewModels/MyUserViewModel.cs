@@ -12,6 +12,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace BiliBiliAPI.GUI.VIewModels
 {
@@ -23,9 +24,14 @@ namespace BiliBiliAPI.GUI.VIewModels
             Loaded = new RelayCommand(async () =>
             {
                 Logins logins = new Logins();
+
                 BiliBiliArgs.TokenSESSDATA = token;
                 _LoginResult = await logins.Login(token);
-               
+                if(_LoginResult == null)
+                {
+                    MessageBox.Show("信息错误，或者计算机已经断网，\n即将退出…………");
+                    System.Environment.Exit(0);
+                }
             });
 
             UnLogin = new RelayCommand(() =>
@@ -33,6 +39,15 @@ namespace BiliBiliAPI.GUI.VIewModels
                 File.Delete(Models.Settings.AccountSettings.FilePath);
                 WeakReferenceMessenger.Default.Send(new MainEvent() { Controlenum = ControlEnum.Login });
             });
+        }
+
+
+        private MyTips MyTip;
+
+        public MyTips _MyTip
+        {
+            get { return MyTip; }
+            set => SetProperty(ref MyTip, value);
         }
 
 

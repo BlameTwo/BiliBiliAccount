@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BilibiliAPI.Models
+namespace BiliBiliAPI.Models
 {
     public class ApiKeyInfo
     {

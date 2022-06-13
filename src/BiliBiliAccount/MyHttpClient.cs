@@ -1,5 +1,5 @@
 ﻿using BilibiliAPI.ApiTools;
-using BilibiliAPI.Models;
+using BiliBiliAPI.Models;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;

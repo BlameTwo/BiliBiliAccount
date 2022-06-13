@@ -14,6 +14,12 @@ namespace BilibiliAPI.Account
     {
 
         private MyHttpClient HttpClient = new MyHttpClient();
+
+        /// <summary>
+        /// 使用保存的Cookie进行登录登录
+        /// </summary>
+        /// <param name="token"></param>
+        /// <returns></returns>
         public async  Task<AccountLoginResult> Login(AccountToken token)
         {
             return await Task.Run(async () =>
@@ -23,5 +29,59 @@ namespace BilibiliAPI.Account
                 return await info.GetAccount(token);
             });
         }
+
+        /// <summary>
+        /// 获得消息
+        /// </summary>
+        /// <returns></returns>
+        public async Task<MyTips> GetTip()
+        {
+            return await Task.Run(async () =>
+            {
+                TipInfo info = new TipInfo();
+                return await info.GetTips();
+            });
+        }
+
+        /// <summary>
+        /// 获得私信
+        /// </summary>
+        /// <returns></returns>
+        public async Task<MyLetter> GetLetter()
+        {
+            return await Task.Run(async () =>
+            {
+                TipInfo info = new TipInfo();
+                return await info.GetLetter();
+            });
+        }
+
+
+        /// <summary>
+        /// 测试接口
+        /// </summary>
+        /// <param name="url"></param>
+        /// <returns></returns>
+        public async Task<string> Test(string url)
+        {
+            return await Task.Run(async () =>
+            {
+                AccountInfo info = new AccountInfo();
+                string str = await HttpClient.GetResults(url);
+                return str;
+            });
+        }
+
+        /// <summary>
+        /// 获得关注
+        /// </summary>
+        /// <returns></returns>
+        public async Task<MyFollow> GetFllow()
+        {
+            FollowInfo info = new FollowInfo();
+            return await info.GetFollow();
+        }
+
+
     }
 }
