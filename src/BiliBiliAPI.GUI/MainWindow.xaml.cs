@@ -29,6 +29,7 @@ namespace BiliBiliAPI.GUI
         {
             InitializeComponent();
             this.DataContext = new MainViewModel();
+            AccountPasswordLogin login = new AccountPasswordLogin();
         }
 
         

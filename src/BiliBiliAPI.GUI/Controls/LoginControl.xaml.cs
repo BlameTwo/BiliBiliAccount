@@ -26,5 +26,9 @@ namespace BiliBiliAPI.GUI.Controls
             InitializeComponent();
             this.DataContext = new LoginViewModel();
         }
+
+        private void WebBrowser_Navigated(object sender, NavigationEventArgs e)
+        {
+        }
     }
 }

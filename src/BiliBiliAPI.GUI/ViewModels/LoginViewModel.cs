@@ -6,6 +6,7 @@ using BiliBiliAPI.Models.Settings;
 using Microsoft.Toolkit.Mvvm.ComponentModel;
 using Microsoft.Toolkit.Mvvm.Input;
 using Microsoft.Toolkit.Mvvm.Messaging;
+using Microsoft.Web.WebView2.Wpf;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
@@ -15,7 +16,10 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Timers;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
+
 namespace BiliBiliAPI.GUI.VIewModels
 {
     public class LoginViewModel:ObservableObject
@@ -31,7 +35,48 @@ namespace BiliBiliAPI.GUI.VIewModels
             {
                 refQR();
             });
+
+            PasswordLogin = new RelayCommand(async () =>
+            {
+                AccountPasswordLogin login = new AccountPasswordLogin();
+                var result = await login.LoginV3(_User, _Password);
+                switch (result.Data.message)
+                {
+                    case "本次登录环境存在风险, 需使用手机号进行验证或绑定":
+                        browser!.Visibility = Visibility.Visible;
+                        browser!.Source = new Uri(result.Data.GoUrl);
+                        break;
+                    default:
+                        break;
+                }
+            });
+            LoadMyWeb = new RelayCommand<WebView2>((arg)=>
+            {
+                browser = arg!;
+                browser.NavigationCompleted += Browser_NavigationCompleted;
+            });
+            TabSelected = new RelayCommand<TabItem>((arg) =>
+            {
+                switch (arg!.Header.ToString())
+                {
+                    case "账号密码登录":
+                        time.Stop();
+                        break;
+                    case "扫码登陆":
+                        refQR();
+                        break;
+                }
+            });
         }
+
+        private async void Browser_NavigationCompleted(object? sender, Microsoft.Web.WebView2.Core.CoreWebView2NavigationCompletedEventArgs e)
+        {
+
+            var b = await browser.CoreWebView2.CookieManager.GetCookiesAsync(browser.Source.AbsoluteUri);
+        }
+
+
+        
 
         AccountLogin api = new AccountLogin();
 
@@ -67,7 +112,6 @@ namespace BiliBiliAPI.GUI.VIewModels
                 case Checkenum.Yes:
                     Debug.WriteLine($"登录成功！携带的返回值为:\n{result.Body}");
                     var result2  =  WebFormat.UrlToClass(result.Body);
-
                     AccountSettings.Write(result2);
                     BiliBiliArgs.TokenSESSDATA = result2;
                     RefAccount(result2);
@@ -107,5 +151,32 @@ namespace BiliBiliAPI.GUI.VIewModels
 
         public RelayCommand RefQR { get; private set; }
         public RelayCommand Loaded { get; private set; }
+
+        private string User;
+
+        public string _User
+        {
+            get { return User; }
+            set => SetProperty(ref User, value);
+        }
+
+
+        private string Password;
+
+        public string _Password
+        {
+            get { return Password; }
+            set => SetProperty(ref Password, value);
+        }
+        public WebView2 browser { get; set; }
+        public RelayCommand<WebView2> LoadMyWeb { get; set; }
+
+
+
+
+
+        public RelayCommand PasswordLogin { get; set; }
+
+        public RelayCommand<TabItem> TabSelected { get; set; }
     }
 }
