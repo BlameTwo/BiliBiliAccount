@@ -12,6 +12,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using System.Timers;
@@ -76,24 +77,34 @@ namespace BiliBiliAPI.GUI.VIewModels
             if(browser.Source.Host == "www.bilibili.com")
             {
                 var b = await browser.CoreWebView2.CookieManager.GetCookiesAsync(browser.Source.AbsoluteUri);
-                AccountToken token = new AccountToken();
-                foreach (var item in b)
-                {
-                    if(item.Name == "SESSDATA")
-                    {
-                        token.SECCDATA = item.Value;
-                    }
-                }
-                Logins logins = new Logins();
-                BiliBiliArgs.TokenSESSDATA = token;
-                var c = await logins.Test("https://passport.bilibili.com/login/app/third?appkey=27eb53fc9058f8c3&api=http%3A%2F%2Flink.acg.tv%2Fforum.php&sign=67ec798004373253d60114caaad89a8c");
+                var str = await GetConfirmUriAsync();
             }
-            
-            
         }
 
 
-        
+        internal async Task<string> GetConfirmUriAsync()
+        {
+            var url = "https://passport.bilibili.com/login/app/third?appkey=27eb53fc9058f8c3&api=http%3A%2F%2Flink.acg.tv%2Fforum.php&sign=67ec798004373253d60114caaad89a8c";
+
+            try
+            {
+                using (var httpClient = new HttpClient())
+                {
+                    var result = await httpClient.GetStringAsync(new Uri(url));
+                    var jobj = JObject.Parse(result);
+                    if (Convert.ToInt32(jobj["code"]!.ToString()) == 0)
+                    {
+                        return jobj["data"]!["confirm_uri"]!.ToString();
+                    }
+                }
+            }
+            catch (Exception)
+            {
+            }
+
+            return null;
+        }
+
 
         AccountLogin api = new AccountLogin();
 
