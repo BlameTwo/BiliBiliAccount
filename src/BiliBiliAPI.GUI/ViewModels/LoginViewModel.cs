@@ -55,6 +55,8 @@ namespace BiliBiliAPI.GUI.VIewModels
                 browser = arg!;
                 browser.NavigationCompleted += Browser_NavigationCompleted;
             });
+
+
             TabSelected = new RelayCommand<TabItem>((arg) =>
             {
                 switch (arg!.Header.ToString())
@@ -62,7 +64,7 @@ namespace BiliBiliAPI.GUI.VIewModels
                     case "账号密码登录":
                         time.Stop();
                         break;
-                    case "扫码登陆":
+                    case "扫码登录":
                         refQR();
                         break;
                 }
@@ -71,8 +73,23 @@ namespace BiliBiliAPI.GUI.VIewModels
 
         private async void Browser_NavigationCompleted(object? sender, Microsoft.Web.WebView2.Core.CoreWebView2NavigationCompletedEventArgs e)
         {
-
-            var b = await browser.CoreWebView2.CookieManager.GetCookiesAsync(browser.Source.AbsoluteUri);
+            if(browser.Source.Host == "www.bilibili.com")
+            {
+                var b = await browser.CoreWebView2.CookieManager.GetCookiesAsync(browser.Source.AbsoluteUri);
+                AccountToken token = new AccountToken();
+                foreach (var item in b)
+                {
+                    if(item.Name == "SESSDATA")
+                    {
+                        token.SECCDATA = item.Value;
+                    }
+                }
+                Logins logins = new Logins();
+                BiliBiliArgs.TokenSESSDATA = token;
+                var c = await logins.Test("https://passport.bilibili.com/login/app/third?appkey=27eb53fc9058f8c3&api=http%3A%2F%2Flink.acg.tv%2Fforum.php&sign=67ec798004373253d60114caaad89a8c");
+            }
+            
+            
         }
 
 
