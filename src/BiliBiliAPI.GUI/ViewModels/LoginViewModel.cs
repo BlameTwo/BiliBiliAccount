@@ -16,6 +16,7 @@ using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using System.Timers;
+using System.Web;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media.Imaging;
@@ -55,6 +56,7 @@ namespace BiliBiliAPI.GUI.VIewModels
             {
                 browser = arg!;
                 browser.NavigationCompleted += Browser_NavigationCompleted;
+                browser.NavigationStarting += Browser_NavigationStarting;
             });
 
 
@@ -72,12 +74,35 @@ namespace BiliBiliAPI.GUI.VIewModels
             });
         }
 
+        private void Browser_NavigationStarting(object? sender, Microsoft.Web.WebView2.Core.CoreWebView2NavigationStartingEventArgs e)
+        {
+            if (HttpUtility.ParseQueryString(e.Uri).Get("access_key") != null)
+            {
+                MessageBox.Show("登录成功！");
+            }
+        }
         private async void Browser_NavigationCompleted(object? sender, Microsoft.Web.WebView2.Core.CoreWebView2NavigationCompletedEventArgs e)
         {
-            if(browser.Source.Host == "www.bilibili.com")
+            if (browser.Source.AbsolutePath == "https://www.bilibili.com/")
             {
-                var b = await browser.CoreWebView2.CookieManager.GetCookiesAsync(browser.Source.AbsoluteUri);
-                var str = await GetConfirmUriAsync();
+                browser.CoreWebView2.Navigate("https://passport.bilibili.com/login/app/third?appkey=27eb53fc9058f8c3&api=http%3A%2F%2Flink.acg.tv%2Fforum.php&sign=67ec798004373253d60114caaad89a8c");
+            }
+            if(browser.Source.AbsolutePath == "https://passport.bilibili.com/login/app/third?appkey=27eb53fc9058f8c3&api=http%3A%2F%2Flink.acg.tv%2Fforum.php&sign=67ec798004373253d60114caaad89a8c")
+            {
+                try
+                {
+                    object obj = await browser.CoreWebView2.ExecuteScriptAsync("document.body.innerText");//第一次获取没法获取后端的数据
+                    string result = "";
+                    string result2 = obj.ToString()!.Replace(@"\", "").Substring(1);
+                    string result3 = result2.Substring(0, result2.Length - 1);
+                    string a = JObject.Parse(result3)["data"]!["confirm_uri"]!.ToString();
+
+                    browser.CoreWebView2.Navigate(a);
+                }
+                catch (Exception)
+                {
+
+                }
             }
         }
 
