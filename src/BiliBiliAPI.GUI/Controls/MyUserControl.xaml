@@ -7,7 +7,7 @@
              xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800"
-        xmlns:viewmodel="clr-namespace:BiliBiliAPI.GUI.VIewModels" xmlns:convert="clr-namespace:BiliBiliAPI.GUI.Converter"
+             xmlns:viewmodel="clr-namespace:BiliBiliAPI.GUI.VIewModels" xmlns:convert="clr-namespace:BiliBiliAPI.GUI.Converter"
              d:DataContext="{d:DesignInstance Type=viewmodel:MyUserViewModel}">
     <UserControl.Resources>
         <convert:TimeConvert x:Key="TimeConvert1"/>
@@ -39,7 +39,10 @@
                 <Run Text="{Binding _LoginResult.Data.MyVIp.Vip_Stop,Converter={StaticResource TimeConvert1}}"/>
                 <Run Text="到期" />
         </TextBlock>
-
-        <Button Margin="0 45 0 0" Content="退出登录" Padding="10" Command="{Binding UnLogin}"/>
+        <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center" >
+            
+            <Button Margin="0 45 0 0" Content="退出登录" Padding="10" Command="{Binding UnLogin}"/>
+            <Button Margin="10 45 0 0" Content="打开搜索页面" Padding="10" Command="{Binding OpenSearch}"/>
+        </StackPanel>
     </StackPanel>
 </UserControl>

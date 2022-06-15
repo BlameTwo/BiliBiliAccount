@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "BiliBili.WinUI3 (Package)": {
+      "commandName": "MsixPackage"
+    },
+    "BiliBili.WinUI3 (Unpackaged)": {
+      "commandName": "Project"
+    }
+  }
+}

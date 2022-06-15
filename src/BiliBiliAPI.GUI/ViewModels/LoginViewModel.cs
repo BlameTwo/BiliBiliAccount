@@ -1,6 +1,8 @@
 ﻿using BilibiliAPI;
 using BilibiliAPI.Account;
+using BiliBiliAPI.GUI.Controls;
 using BiliBiliAPI.GUI.Event;
+using BiliBiliAPI.GUI.Windows;
 using BiliBiliAPI.Models;
 using BiliBiliAPI.Models.Settings;
 using Microsoft.Toolkit.Mvvm.ComponentModel;
@@ -37,98 +39,16 @@ namespace BiliBiliAPI.GUI.VIewModels
             {
                 refQR();
             });
-
-            PasswordLogin = new RelayCommand(async () =>
+            GoPassword = new RelayCommand(() =>
             {
-                AccountPasswordLogin login = new AccountPasswordLogin();
-                var result = await login.LoginV3(_User, _Password);
-                switch (result.Data.message)
-                {
-                    case "本次登录环境存在风险, 需使用手机号进行验证或绑定":
-                        browser!.Visibility = Visibility.Visible;
-                        browser!.Source = new Uri(result.Data.GoUrl);
-                        break;
-                    default:
-                        break;
-                }
-            });
-            LoadMyWeb = new RelayCommand<WebView2>((arg)=>
-            {
-                browser = arg!;
-                browser.NavigationCompleted += Browser_NavigationCompleted;
-                browser.NavigationStarting += Browser_NavigationStarting;
-            });
-
-
-            TabSelected = new RelayCommand<TabItem>((arg) =>
-            {
-                switch (arg!.Header.ToString())
-                {
-                    case "账号密码登录":
-                        time.Stop();
-                        break;
-                    case "扫码登录":
-                        refQR();
-                        break;
-                }
+                PassowrdLogin passowrdLogin = new PassowrdLogin();
+                passowrdLogin.ShowDialog();
             });
         }
 
-        private void Browser_NavigationStarting(object? sender, Microsoft.Web.WebView2.Core.CoreWebView2NavigationStartingEventArgs e)
-        {
-            if (HttpUtility.ParseQueryString(e.Uri).Get("access_key") != null)
-            {
-                MessageBox.Show("登录成功！");
-            }
-        }
-        private async void Browser_NavigationCompleted(object? sender, Microsoft.Web.WebView2.Core.CoreWebView2NavigationCompletedEventArgs e)
-        {
-            if (browser.Source.AbsolutePath == "https://www.bilibili.com/")
-            {
-                browser.CoreWebView2.Navigate("https://passport.bilibili.com/login/app/third?appkey=27eb53fc9058f8c3&api=http%3A%2F%2Flink.acg.tv%2Fforum.php&sign=67ec798004373253d60114caaad89a8c");
-            }
-            if(browser.Source.AbsolutePath == "https://passport.bilibili.com/login/app/third?appkey=27eb53fc9058f8c3&api=http%3A%2F%2Flink.acg.tv%2Fforum.php&sign=67ec798004373253d60114caaad89a8c")
-            {
-                try
-                {
-                    object obj = await browser.CoreWebView2.ExecuteScriptAsync("document.body.innerText");//第一次获取没法获取后端的数据
-                    string result = "";
-                    string result2 = obj.ToString()!.Replace(@"\", "").Substring(1);
-                    string result3 = result2.Substring(0, result2.Length - 1);
-                    string a = JObject.Parse(result3)["data"]!["confirm_uri"]!.ToString();
-
-                    browser.CoreWebView2.Navigate(a);
-                }
-                catch (Exception)
-                {
-
-                }
-            }
-        }
 
 
-        internal async Task<string> GetConfirmUriAsync()
-        {
-            var url = "https://passport.bilibili.com/login/app/third?appkey=27eb53fc9058f8c3&api=http%3A%2F%2Flink.acg.tv%2Fforum.php&sign=67ec798004373253d60114caaad89a8c";
-
-            try
-            {
-                using (var httpClient = new HttpClient())
-                {
-                    var result = await httpClient.GetStringAsync(new Uri(url));
-                    var jobj = JObject.Parse(result);
-                    if (Convert.ToInt32(jobj["code"]!.ToString()) == 0)
-                    {
-                        return jobj["data"]!["confirm_uri"]!.ToString();
-                    }
-                }
-            }
-            catch (Exception)
-            {
-            }
-
-            return null;
-        }
+       
 
 
         AccountLogin api = new AccountLogin();
@@ -179,6 +99,7 @@ namespace BiliBiliAPI.GUI.VIewModels
         private async void RefAccount(AccountToken token)
         {
             AccountInfo info = new AccountInfo();
+            BiliBiliArgs.TokenSESSDATA = token;
             _LoginResult = await info.GetAccount(token);
             MessageBox.Show("登录成功！点击确定跳转");
             WeakReferenceMessenger.Default.Send(new MainEvent() { Controlenum = ControlEnum.User});
@@ -205,31 +126,6 @@ namespace BiliBiliAPI.GUI.VIewModels
         public RelayCommand RefQR { get; private set; }
         public RelayCommand Loaded { get; private set; }
 
-        private string User;
-
-        public string _User
-        {
-            get { return User; }
-            set => SetProperty(ref User, value);
-        }
-
-
-        private string Password;
-
-        public string _Password
-        {
-            get { return Password; }
-            set => SetProperty(ref Password, value);
-        }
-        public WebView2 browser { get; set; }
-        public RelayCommand<WebView2> LoadMyWeb { get; set; }
-
-
-
-
-
-        public RelayCommand PasswordLogin { get; set; }
-
-        public RelayCommand<TabItem> TabSelected { get; set; }
+        public RelayCommand GoPassword { get; set; }
     }
 }

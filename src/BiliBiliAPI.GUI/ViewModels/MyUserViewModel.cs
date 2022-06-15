@@ -1,6 +1,7 @@
 ﻿using BilibiliAPI;
 using BilibiliAPI.Account;
 using BiliBiliAPI.GUI.Event;
+using BiliBiliAPI.GUI.Windows;
 using BiliBiliAPI.Models;
 using BiliBiliAPI.Models.Settings;
 using Microsoft.Toolkit.Mvvm.ComponentModel;
@@ -39,6 +40,12 @@ namespace BiliBiliAPI.GUI.VIewModels
                 File.Delete(Models.Settings.AccountSettings.FilePath);
                 WeakReferenceMessenger.Default.Send(new MainEvent() { Controlenum = ControlEnum.Login });
             });
+
+            OpenSearch = new RelayCommand(() =>
+            {
+                SearchWindow search = new SearchWindow();
+                search.Show();
+            });
         }
 
 
@@ -62,6 +69,8 @@ namespace BiliBiliAPI.GUI.VIewModels
 
 
         public RelayCommand UnLogin { get; private set; }
+
+        public RelayCommand OpenSearch { get; private set; }
         public RelayCommand Loaded { get; private set; }
     }
 }
