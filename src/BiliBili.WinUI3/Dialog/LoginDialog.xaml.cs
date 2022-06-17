@@ -16,17 +16,13 @@ using Windows.Foundation.Collections;
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
 
-namespace BiliBili.WinUI3
+namespace BiliBili.WinUI3.Dialog
 {
-    /// <summary>
-    /// An empty window that can be used on its own or navigated to within a Frame.
-    /// </summary>
-    public sealed partial class MainWindow : Window
+    public sealed partial class LoginDialog : ContentDialog
     {
-        public MainWindow()
+        public LoginDialog()
         {
             this.InitializeComponent();
         }
-
     }
 }
