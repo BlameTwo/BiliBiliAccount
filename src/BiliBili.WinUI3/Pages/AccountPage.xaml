@@ -6,6 +6,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
+    Loaded="{x:Bind vm.MyLoaded}"
     Background="Transparent">
 
     <Grid>
@@ -13,6 +14,41 @@
             <RowDefinition/>
             <RowDefinition/>
         </Grid.RowDefinitions>
-        <Button Content="登录" Click="Button_Click"/>
+        <StackPanel  Margin="0 50 0 0">
+            <StackPanel.Resources>
+                <Style TargetType="TextBlock">
+                    <Setter Property="HorizontalAlignment" Value="Center" />
+                    <Setter Property="Margin" Value="0 10 0 0"/>
+                </Style>
+                <Style TargetType="HyperlinkButton">
+                    <Setter Property="Margin" Value="0 10 0 0"/>
+                    <Setter Property="CornerRadius" Value="5"/>
+                    <Setter Property="HorizontalAlignment" Value="Center" />
+                    <Setter Property="Padding" Value="8"/>
+                </Style>
+            </StackPanel.Resources>
+            <Ellipse HorizontalAlignment="Center" Height="60" Width="60">
+                <Ellipse.Fill>
+                    <ImageBrush Stretch="UniformToFill" ImageSource="{x:Bind vm._LoginResult.Data.Face_Image,Mode=OneWay}"/>
+                </Ellipse.Fill>
+            </Ellipse>
+            <Button x:Name="MyButton" Content="{x:Bind vm._ButtonText,Mode=OneWay}" Click="{x:Bind vm.MyButton_Click}"  Margin="0 10 0 0" HorizontalAlignment="Center" />
+            <HyperlinkButton
+                Content="{x:Bind vm._LoginResult.Data.Name,Mode=OneWay}"
+                FontFamily="微软雅黑" ToolTipService.ToolTip="{x:Bind vm._LoginResult.Data.Sign,Mode=OneWay}">
+            </HyperlinkButton>
+            <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center" >
+                <TextBlock 
+                FontFamily="等线"
+                    HorizontalAlignment="Center" 
+                Foreground="{ThemeResource AccentAAFillColorDefaultBrush}" 
+                FontWeight="SemiBold"
+                FontSize="15" Text="Lv:"/>
+                <TextBlock
+                    HorizontalAlignment="Center"
+                    Foreground="{ThemeResource AccentAAFillColorDefaultBrush}" 
+                    FontSize="15" Text="{x:Bind vm._LoginResult.Data.Level,Mode=OneWay}"/>
+            </StackPanel>
+        </StackPanel>
     </Grid>
 </Page>

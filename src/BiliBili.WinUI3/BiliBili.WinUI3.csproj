@@ -28,9 +28,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="CommunityToolkit.WinUI.UI.Controls.Markdown" Version="7.1.2" />
-    <PackageReference Include="Microsoft.WindowsAppSDK" Version="1.1.1" />
+    <PackageReference Include="Microsoft.Toolkit.Mvvm" Version="7.1.2" />
     <PackageReference Include="Microsoft.Windows.SDK.BuildTools" Version="10.0.22621.1" />
+    <PackageReference Include="Microsoft.WindowsAppSDK" Version="1.1.1" />
     <Manifest Include="$(ApplicationManifest)" />
   </ItemGroup>
 
@@ -44,6 +44,10 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="MyControls\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\BiliBiliAccount\BilibiliAPI.csproj" />
+    <ProjectReference Include="..\BiliBiliAPI.Models\BiliBiliAPI.Models.csproj" />
   </ItemGroup>
   <ItemGroup>
     <Page Update="Pages\AccountPage.xaml">

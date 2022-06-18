@@ -5,9 +5,44 @@
     xmlns:local="using:BiliBili.WinUI3.Dialog"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    mc:Ignorable="d">
-
+    mc:Ignorable="d" PrimaryButtonText="登录"
+    CloseButtonText="关闭" 
+    CornerRadius="10"
+    PrimaryButtonClick="{x:Bind vm.LoginClick}"
+    CloseButtonClick="{x:Bind vm.LoginClose}"
+    PrimaryButtonStyle="{ThemeResource DefaultContentDialogStyle}"
+    CloseButtonStyle="{ThemeResource DefaultContentDialogStyle}"
+    Loaded="{x:Bind vm.ContentDialog_Loaded}"
+    Width="350"
+    >
     <Grid>
-
+        <Pivot SelectionChanged="{x:Bind vm.Pivot_SelectionChanged}">
+            <PivotItem Header="扫码登录">
+                <StackPanel Margin="0 10 0 0">
+                    <Image HorizontalAlignment="Center" Width="200"  Source="{x:Bind vm._QRImage,Mode=TwoWay}"/>
+                    <Button Content="刷新二维码"
+                            Margin="0 10 0 0"
+                            HorizontalAlignment="Center" Click="{x:Bind vm.GetQR}" />
+                </StackPanel>
+            </PivotItem>
+            <PivotItem Header="账号密码">
+                <Grid >
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    
+                    <TextBlock Text="账户："/>
+                    <TextBox Grid.Row="1" Text="{x:Bind vm._User,Mode=TwoWay}" PlaceholderText="输入账户名或者手机号"/>
+                    <TextBlock Text="密码："  Grid.Row="2"/>
+                    <PasswordBox Grid.Row="3" PasswordChar="⚪" Password="{x:Bind vm._Password,Mode=TwoWay}" PlaceholderText="密码内容"/>
+                    <WebView2 Loaded="{x:Bind vm.WebViewLoad}"
+                              Height="500"
+                               Grid.RowSpan="4" Visibility="Collapsed"/>
+                </Grid>
+            </PivotItem>
+        </Pivot>
     </Grid>
 </ContentDialog>

@@ -44,6 +44,9 @@ namespace BiliBili.WinUI3
         /// <param name="args">Details about the launch request and process.</param>
         protected override void OnLaunched(Microsoft.UI.Xaml.LaunchActivatedEventArgs args)
         {
+            //初始化基础配置
+            BilibiliAPI.ApiTools.Current.Init();
+            BilibiliAPI.BiliBiliArgs.TokenSESSDATA = new BiliBiliAPI.Models.AccountToken();
             m_window = new Home();
             MainWindow = m_window;
             m_window.Activate();

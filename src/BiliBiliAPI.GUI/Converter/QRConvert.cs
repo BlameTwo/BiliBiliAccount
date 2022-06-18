@@ -27,7 +27,7 @@ namespace BiliBiliAPI.GUI.Converter
         }
 
 
-        private ImageSource ToBitmapSourceA(Bitmap bitmap)
+        private static ImageSource ToBitmapSourceA(Bitmap bitmap)
         {
             MemoryStream stream = new MemoryStream();
             bitmap.Save(stream, ImageFormat.Png);

@@ -8,7 +8,6 @@ using BiliBiliAPI.Models.Settings;
 using Microsoft.Toolkit.Mvvm.ComponentModel;
 using Microsoft.Toolkit.Mvvm.Input;
 using Microsoft.Toolkit.Mvvm.Messaging;
-using Microsoft.Web.WebView2.Wpf;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
@@ -84,7 +83,7 @@ namespace BiliBiliAPI.GUI.VIewModels
                     break;
                 case Checkenum.Yes:
                     Debug.WriteLine($"登录成功！携带的返回值为:\n{result.Body}");
-                    var result2  =  WebFormat.UrlToClass(result.Body);
+                    var result2  =  WebFormat.GoToken(result.Body);
                     AccountSettings.Write(result2);
                     BiliBiliArgs.TokenSESSDATA = result2;
                     RefAccount(result2);

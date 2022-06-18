@@ -1,4 +1,5 @@
-﻿using Microsoft.UI.Xaml;
+﻿using BiliBili.WinUI3.ViewModels;
+using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Controls.Primitives;
 using Microsoft.UI.Xaml.Data;
@@ -23,6 +24,14 @@ namespace BiliBili.WinUI3.Dialog
         public LoginDialog()
         {
             this.InitializeComponent();
+            vm.DIalog = this;
+            this.DataContext = vm;
+            
         }
+
+       
+
+        LoginDialogVM vm = new LoginDialogVM();
+
     }
 }

@@ -1,4 +1,5 @@
 ﻿using BiliBili.WinUI3.Dialog;
+using BiliBiliAPI.GUI.VIewModels;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Controls.Primitives;
@@ -27,13 +28,9 @@ namespace BiliBili.WinUI3.Pages
         public AccountPage()
         {
             this.InitializeComponent();
+            this.DataContext = vm;
         }
+        AccountPageVM vm = new AccountPageVM();
 
-        private async void Button_Click(object sender, RoutedEventArgs e)
-        {
-            LoginDialog logindialog = new LoginDialog();
-            logindialog.XamlRoot = this.XamlRoot;
-            await logindialog.ShowAsync();
-        }
     }
 }

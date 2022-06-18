@@ -10,7 +10,7 @@ namespace BilibiliAPI
 {
     public static class WebFormat
     {
-        public static AccountToken UrlToClass(string body)
+        public static AccountToken GoToken(string body)
         {
             return JsonConvert.ReadObject<AccountToken>(body);
         }
