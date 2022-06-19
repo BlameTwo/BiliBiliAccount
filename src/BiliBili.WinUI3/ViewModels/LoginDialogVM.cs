@@ -78,9 +78,9 @@ namespace BiliBili.WinUI3.ViewModels
             }
         }
 
-        private BitmapImage QRImage;
+        private ImageSource QRImage;
 
-        public BitmapImage _QRImage
+        public ImageSource  _QRImage
         {
             get { return QRImage; }
             set { QRImage = value; OnPropertyChanged(); }
@@ -139,6 +139,7 @@ namespace BiliBili.WinUI3.ViewModels
                     BiliBiliArgs.TokenSESSDATA =  WebFormat.GoToken(result.Body);
                     AccountSettings.Write(BiliBiliArgs.TokenSESSDATA);
                     timer.Stop();
+                    timer.Tick -= Timer_Tick;
                     this.DIalog.Hide();
                     break;
                 case Checkenum.No:
@@ -148,11 +149,13 @@ namespace BiliBili.WinUI3.ViewModels
         }
 
        
-
-
-        public async  void LoginClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
+        public void Close()
         {
-            args.Cancel = true;
+            DIalog.Hide();
+        }
+
+        public async  void LoginClick()
+        {
             if (_PrimaryEnable)
             {
                 AccountPasswordLogin passlogin = new AccountPasswordLogin();
@@ -162,10 +165,6 @@ namespace BiliBili.WinUI3.ViewModels
                     webview2.Source = new Uri(result.Data.GoUrl);
                     webview2.Visibility = Visibility.Visible;
                 }
-            }
-            else
-            {
-                args.Cancel = false;
             }
         }
         public void WebView2_NavigationStarting(WebView2 sender, Microsoft.Web.WebView2.Core.CoreWebView2NavigationStartingEventArgs args)
@@ -231,6 +230,7 @@ namespace BiliBili.WinUI3.ViewModels
         {
             if (sender.Source.Host == "www.bilibili.com")
             {
+                webview2.Visibility = Visibility.Collapsed;
                 sender.CoreWebView2.Navigate("https://passport.bilibili.com/login/app/third?appkey=27eb53fc9058f8c3&api=http%3A%2F%2Flink.acg.tv%2Fforum.php&sign=67ec798004373253d60114caaad89a8c");
             }
             if (sender.Source.ToString() == "https://passport.bilibili.com/login/app/third?appkey=27eb53fc9058f8c3&api=http%3A%2F%2Flink.acg.tv%2Fforum.php&sign=67ec798004373253d60114caaad89a8c")

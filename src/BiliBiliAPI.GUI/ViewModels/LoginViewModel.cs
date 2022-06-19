@@ -20,6 +20,7 @@ using System.Timers;
 using System.Web;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 
@@ -114,9 +115,9 @@ namespace BiliBiliAPI.GUI.VIewModels
         }
 
 
-        private BitmapImage QRImage;
+        private ImageSource QRImage;
 
-        public BitmapImage _QRImage
+        public ImageSource _QRImage
         {
             get { return QRImage; }
             set => SetProperty(ref QRImage, value);

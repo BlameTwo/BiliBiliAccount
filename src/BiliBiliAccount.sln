@@ -11,6 +11,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BiliBiliAPI.Models", "BiliB
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BiliBili.WinUI3", "BiliBili.WinUI3\BiliBili.WinUI3.csproj", "{55EFE9B6-BC7B-4386-8762-A1816CDE4AC5}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Codes", "Codes", "{AA65C24D-F322-48F5-A0D9-89C995F319AF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU

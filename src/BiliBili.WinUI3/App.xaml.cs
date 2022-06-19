@@ -33,8 +33,14 @@ namespace BiliBili.WinUI3
         public App()
         {
             this.InitializeComponent();
+            this.UnhandledException += App_UnhandledException;
+            
         }
 
+        private void App_UnhandledException(object sender, Microsoft.UI.Xaml.UnhandledExceptionEventArgs e)
+        {
+             File.WriteAllText(System.Environment.GetFolderPath(Environment.SpecialFolder.Desktop)+"\\Exit.txt",$"错误内容为{e.Exception.Message}\n第二个错误信息为:{e.Message }");
+        }
 
         public static Window MainWindow { get; set; }
         /// <summary>

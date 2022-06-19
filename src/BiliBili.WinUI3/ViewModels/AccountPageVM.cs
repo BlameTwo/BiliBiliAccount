@@ -17,6 +17,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using Windows.Foundation.Metadata;
 
 namespace BiliBiliAPI.GUI.VIewModels
 {
@@ -60,9 +61,17 @@ namespace BiliBiliAPI.GUI.VIewModels
             switch ((sender as Button).Content.ToString())
             {
                 case "登录":
-                    LoginDialog Logindialog = new LoginDialog();
-                    Logindialog.XamlRoot = (App.MainWindow as Home).MyFrame.XamlRoot;
-                    await Logindialog.ShowAsync();
+                    LoginDialog login = new LoginDialog();
+                    ContentDialog CD = new ContentDialog
+                    {
+                        Content = login 
+                    };
+                    if (ApiInformation.IsApiContractPresent("Windows.Foundation.UniversalApiContract", 8))
+                    {
+                        CD.XamlRoot = (App.MainWindow as Home).MyGrid.XamlRoot;
+                    }
+                    login.MyDialog = CD;
+                    ContentDialogResult result = await CD.ShowAsync();
                     break;
                 case "退出登录":
                     File.Delete(AccountSettings.FilePath);

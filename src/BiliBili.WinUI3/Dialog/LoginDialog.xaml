@@ -1,25 +1,31 @@
-﻿<ContentDialog 
+﻿<UserControl  
     x:Class="BiliBili.WinUI3.Dialog.LoginDialog"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:BiliBili.WinUI3.Dialog"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    mc:Ignorable="d" PrimaryButtonText="登录"
-    CloseButtonText="关闭" 
+    mc:Ignorable="d"
     CornerRadius="10"
-    PrimaryButtonClick="{x:Bind vm.LoginClick}"
-    CloseButtonClick="{x:Bind vm.LoginClose}"
-    PrimaryButtonStyle="{ThemeResource DefaultContentDialogStyle}"
-    CloseButtonStyle="{ThemeResource DefaultContentDialogStyle}"
     Loaded="{x:Bind vm.ContentDialog_Loaded}"
     Width="350"
     >
     <Grid>
-        <Pivot SelectionChanged="{x:Bind vm.Pivot_SelectionChanged}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <TextBlock Margin="0 5  0 0" FontSize="20" Text=" 选择你的登录方式" HorizontalAlignment="Left"/>
+        <Button Style="{ThemeResource ButtonRevealStyle }" RenderTransformOrigin="0.5,0.5" Padding="5" Click="{x:Bind vm.Close}" HorizontalAlignment="Right" CornerRadius="30" Width="42" Height="42">
+            <Button.RenderTransform>
+                <CompositeTransform ScaleX="0.8" ScaleY="0.8"/>
+            </Button.RenderTransform>
+            <SymbolIcon Margin="2 0 0 0"  Symbol="Clear" HorizontalAlignment="Center" VerticalAlignment="Center" />
+        </Button>
+        <Pivot Grid.Row="1" SelectionChanged="{x:Bind vm.Pivot_SelectionChanged}">
             <PivotItem Header="扫码登录">
                 <StackPanel Margin="0 10 0 0">
-                    <Image HorizontalAlignment="Center" Width="200"  Source="{x:Bind vm._QRImage,Mode=TwoWay}"/>
+                    <Image HorizontalAlignment="Center" ImageOpened="QRImage_ImageOpened" Opacity="1" x:Name="QRImage" Width="200"  Source="{x:Bind vm._QRImage,Mode=TwoWay}"/>
                     <Button Content="刷新二维码"
                             Margin="0 10 0 0"
                             HorizontalAlignment="Center" Click="{x:Bind vm.GetQR}" />
@@ -32,17 +38,19 @@
                         <RowDefinition/>
                         <RowDefinition/>
                         <RowDefinition/>
+                        <RowDefinition/>
                     </Grid.RowDefinitions>
-                    
-                    <TextBlock Text="账户："/>
+
+                    <TextBlock Margin="0 15 0 5" Text="账户：" FontWeight="Light" FontSize="15"  FontFamily="等线"/>
                     <TextBox Grid.Row="1" Text="{x:Bind vm._User,Mode=TwoWay}" PlaceholderText="输入账户名或者手机号"/>
-                    <TextBlock Text="密码："  Grid.Row="2"/>
+                    <TextBlock Margin="0 15 0 5" Text="密码：" FontWeight="Light" FontSize="15"  FontFamily="等线"   Grid.Row="2"/>
                     <PasswordBox Grid.Row="3" PasswordChar="⚪" Password="{x:Bind vm._Password,Mode=TwoWay}" PlaceholderText="密码内容"/>
                     <WebView2 Loaded="{x:Bind vm.WebViewLoad}"
-                              Height="500"
-                               Grid.RowSpan="4" Visibility="Collapsed"/>
+                              Height="400"
+                               Grid.RowSpan="5" Visibility="Collapsed"/>
+                    <Button Content="登录" Grid.Row="4" Click="{x:Bind vm.LoginClick}" HorizontalAlignment="Center" Margin="0 10 0 0"></Button>
                 </Grid>
             </PivotItem>
         </Pivot>
     </Grid>
-</ContentDialog>
+</UserControl>
