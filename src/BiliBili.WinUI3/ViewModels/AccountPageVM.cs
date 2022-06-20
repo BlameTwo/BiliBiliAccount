@@ -1,14 +1,19 @@
-﻿using BiliBili.WinUI3;
+﻿
+using BiliBili.WinUI3;
 using BiliBili.WinUI3.Dialog;
+using BiliBili.WinUI3.WindowHelpers;
 using BilibiliAPI;
 using BilibiliAPI.Account;
 using BiliBiliAPI.Models;
 using BiliBiliAPI.Models.Settings;
+using CommunityToolkit.WinUI.UI.Controls;
 using Microsoft.Toolkit.Mvvm.ComponentModel;
 using Microsoft.Toolkit.Mvvm.Input;
 using Microsoft.Toolkit.Mvvm.Messaging;
+using Microsoft.UI;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
+using Microsoft.UI.Xaml.Media;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -55,6 +60,7 @@ namespace BiliBiliAPI.GUI.VIewModels
 
         }
 
+        
 
         public async  void MyButton_Click(object sender, RoutedEventArgs e)
         {
@@ -81,6 +87,16 @@ namespace BiliBiliAPI.GUI.VIewModels
             MyLoaded(null, null);
         }
 
+
+        public void NewWindow()
+        {
+            ScrollViewer view = new ScrollViewer() { Padding = new Thickness(10)};
+            string str = File.ReadAllText(System.Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + @"\BiliBiliSettings\MD\LoginMD.md");
+            MarkdownTextBlock textblock = new MarkdownTextBlock() { Text = str ,Background = new SolidColorBrush(Windows.UI.Color.FromArgb(255,30,30,30 ))};
+            view.Content = textblock;
+            var newWindow = CreateWindows.GetWindow("登录源码", view);
+            newWindow.Activate();
+        }
 
         private MyTips MyTip;
 

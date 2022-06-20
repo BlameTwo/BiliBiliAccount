@@ -29,8 +29,10 @@ namespace BiliBili.WinUI3.Pages
         {
             this.InitializeComponent();
             this.DataContext = vm;
+            
+            //string str = File.ReadAllText(System.Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments)+ @"\BiliBiliSettings\MD\LoginMD.md");
+            //MyMarkDown.Text = str;
         }
         AccountPageVM vm = new AccountPageVM();
-
     }
 }

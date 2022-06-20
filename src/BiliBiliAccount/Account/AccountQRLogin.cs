@@ -12,7 +12,7 @@ using System.Timers;
 
 namespace BilibiliAPI.Account
 {
-    public class AccountLogin
+    public class AccountQRLogin
     {
         private MyHttpClient HttpClient  = new MyHttpClient();
         Timer time = new Timer();

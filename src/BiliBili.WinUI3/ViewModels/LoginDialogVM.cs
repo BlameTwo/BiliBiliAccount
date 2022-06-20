@@ -55,7 +55,7 @@ namespace BiliBili.WinUI3.ViewModels
         }
 
 
-        AccountLogin api = new AccountLogin();
+        AccountQRLogin api = new AccountQRLogin();
 
         private AccountLoginArg QR;
 

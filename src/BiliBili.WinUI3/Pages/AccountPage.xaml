@@ -10,7 +10,7 @@
     Background="Transparent">
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition/>
+            <RowDefinition Height="auto"/>
             <RowDefinition/>
         </Grid.RowDefinitions>
         <StackPanel  Margin="0 50 0 0">
@@ -49,6 +49,23 @@
                     FontSize="15" Text="{x:Bind vm._LoginResult.Data.Level,Mode=OneWay}"/>
             </StackPanel>
         </StackPanel>
-        <mark1:MarkdownTextBlock Text="# 示例代码" Grid.Row="1" Background="Transparent"/>
+        <Border   Grid.Row="1" CornerRadius="5" Padding="100" HorizontalAlignment="Center" VerticalAlignment="Center"  Background="{ThemeResource  BackButtonPointerOverBackgroundThemeBrush}">
+            <StackPanel >
+                <StackPanel.Resources>
+                    <Style TargetType="TextBlock">
+                        <Setter Property="HorizontalAlignment" Value="Center" />
+                        <Setter Property="VerticalAlignment"  Value="Center" />
+                    </Style>
+                </StackPanel.Resources>
+                <TextBlock  Text ="点击上面的登录按钮尝试一下登录吧！" FontSize="25" FontWeight="Bold"/>
+                <HyperlinkButton Click="{x:Bind vm.NewWindow}" Content="打开登录源码" Margin="0 10 0 0" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                <HyperlinkButton NavigateUri="https://github.com/123456fsdaf/BiliBiliAccount/blob/master/src/BiliBili.WinUI3/ViewModels/AccountPageVM.cs" Content="跳转到GitHub" Margin="0 10 0 0" VerticalAlignment="Center" HorizontalAlignment="Center" />
+            </StackPanel>
+        </Border>
+        <!--<ScrollViewer Grid.Row="1" x:Name="my">
+            <mark1:MarkdownTextBlock CornerRadius="10" Margin="10" HorizontalAlignment="Center" VerticalAlignment="Center"  x:Name="MyMarkDown" Background="Transparent" mark1:Menu.InputGestureText="登录">
+
+            </mark1:MarkdownTextBlock>
+        </ScrollViewer>-->
     </Grid>
 </Page>

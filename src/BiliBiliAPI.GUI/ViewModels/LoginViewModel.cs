@@ -51,7 +51,7 @@ namespace BiliBiliAPI.GUI.VIewModels
        
 
 
-        AccountLogin api = new AccountLogin();
+        AccountQRLogin api = new AccountQRLogin();
 
         private AccountLoginArg QR;
 

@@ -13,12 +13,17 @@
             <RowDefinition/>
         </Grid.RowDefinitions>
         <TeachingTip x:FieldModifier="public" x:Name="Tip"/>
+        
         <Border x:Name="AppTitleBar" Grid.Column="1" VerticalAlignment="Top">
             <TextBlock x:Name="AppTitle" Text="BiLiAPI演示" VerticalAlignment="Top" Margin="10" />
         </Border>
         <NavigationView x:Name="Navigation" IsSettingsVisible="True" Grid.Row="1" SelectionChanged="Navigation_SelectionChanged">
             <NavigationView.MenuItems>
-                <NavigationViewItem Content="登录" Icon="Account" x:Name="AccountPage"/>
+                <NavigationViewItem Content="账号相关" Icon="Account">
+                    <NavigationViewItem.MenuItems>
+                        <NavigationViewItem Content="登录" Icon="Accept" x:Name="AccountPage"/>
+                    </NavigationViewItem.MenuItems>
+                </NavigationViewItem>
                 <NavigationViewItem Content="视频" Icon="Video"/>
             </NavigationView.MenuItems>
             <NavigationView.Content>
