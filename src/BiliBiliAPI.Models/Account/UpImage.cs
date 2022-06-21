@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BiliBiliAPI.Models
+namespace BiliBiliAPI.Models.Account
 {
     /// <summary>
     /// UP的相簿投稿
@@ -22,7 +22,7 @@ namespace BiliBiliAPI.Models
         public string TTl { get; set; }
 
         [JsonProperty("data")]
-        public UpImageData Data {get;set;}
+        public UpImageData Data { get; set; }
     }
 
     public class UpImageData

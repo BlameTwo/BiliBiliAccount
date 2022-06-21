@@ -1,4 +1,4 @@
-﻿using BiliBiliAPI.Models;
+﻿using BiliBiliAPI.Models.Account;
 using PCLCrypto;
 using System;
 using System.Collections.Generic;

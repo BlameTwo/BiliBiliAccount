@@ -7,7 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Web;
 
-namespace BiliBiliAPI.Models
+namespace BiliBiliAPI.Models.Account
 {
     public class AccountLoginArg
     {
@@ -111,7 +111,7 @@ namespace BiliBiliAPI.Models
         /// 用来刷新Token的字符串
         /// </summary>
         [JsonProperty("refresh_token")]
-        public string RefToken { get; set; } 
+        public string RefToken { get; set; }
 
         /// <summary>
         /// 有效时间

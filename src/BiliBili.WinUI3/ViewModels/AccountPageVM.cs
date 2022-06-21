@@ -4,7 +4,8 @@ using BiliBili.WinUI3.Dialog;
 using BiliBili.WinUI3.WindowHelpers;
 using BilibiliAPI;
 using BilibiliAPI.Account;
-using BiliBiliAPI.Models;
+using BilibiliAPI.User;
+using BiliBiliAPI.Models.Account;
 using BiliBiliAPI.Models.Settings;
 using CommunityToolkit.WinUI.UI.Controls;
 using Microsoft.Toolkit.Mvvm.ComponentModel;
@@ -38,6 +39,7 @@ namespace BiliBiliAPI.GUI.VIewModels
         Logins logins = new Logins();
         public async void MyLoaded(object sender, RoutedEventArgs e)
         {
+            
             if (File.Exists(AccountSettings.FilePath))
             {
                 token = AccountSettings.Read();

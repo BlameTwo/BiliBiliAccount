@@ -1,5 +1,5 @@
 ﻿using BilibiliAPI.ApiTools;
-using BiliBiliAPI.Models;
+using BiliBiliAPI.Models.Account;
 using Newtonsoft.Json.Linq;
 using PCLCrypto;
 using System;

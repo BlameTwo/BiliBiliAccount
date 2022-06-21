@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BiliBiliAPI.Models
+namespace BiliBiliAPI.Models.Account
 {
     public class AccountLoginResult
     {
@@ -51,7 +51,7 @@ namespace BiliBiliAPI.Models
         public string Face_Image { get; set; } = "";
 
         /// <summary>
-        /// 性别，0私密，1男，2女
+        /// 性别，文字
         /// </summary>
         [JsonProperty("sex")]
         public string Sex { get; set; } = "";
@@ -65,7 +65,7 @@ namespace BiliBiliAPI.Models
 
 
         /// <summary>
-        /// 用户是否被封禁
+        /// 用户是否被封禁，0为正常，1为封禁
         /// </summary>
         [JsonProperty("silence")]
         public string Silence { get; set; } = "";
@@ -75,6 +75,12 @@ namespace BiliBiliAPI.Models
         /// </summary>
         [JsonProperty("vip")]
         public Vip MyVIp { get; set; } = new Vip();
+
+        /// <summary>
+        /// 经验信息
+        /// </summary>
+        [JsonProperty("level_exp")]
+        public Level_Exp Exp { get; set; } = new Level_Exp();
 
     }
 
@@ -92,7 +98,7 @@ namespace BiliBiliAPI.Models
         /// 0无，1有
         /// </summary>
         [JsonProperty("status")]
-        public string Status {get;set;} = "";
+        public string Status { get; set; } = "";
 
         /// <summary>
         /// 会员类型
@@ -148,4 +154,32 @@ namespace BiliBiliAPI.Models
         public string Text_Back { get; set; } = "";
     }
 
+
+
+    public class Level_Exp
+    {
+        /// <summary>
+        /// 当前等级
+        /// </summary>
+        [JsonProperty("current_level")]
+        public string Level { get; set; }
+
+        /// <summary>
+        /// 当前的等级从多少经验开始
+        /// </summary>
+        [JsonProperty("current_min")]
+        public string Crrent_Min { get; set; }
+
+        /// <summary>
+        /// 当前账户的经验
+        /// </summary>
+        [JsonProperty("current_exp")]
+        public string Current_Exp { get; set; }
+
+        /// <summary>
+        /// 下一个等级需要多少经验
+        /// </summary>
+        [JsonProperty("next_exp")]
+        public string Next_Exp { get; set; }
+    }
 }

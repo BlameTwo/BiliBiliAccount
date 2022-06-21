@@ -1,4 +1,5 @@
-﻿using Microsoft.UI.Xaml;
+﻿using BilibiliAPI.Account;
+using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Controls.Primitives;
 using Microsoft.UI.Xaml.Data;
@@ -34,7 +35,6 @@ namespace BiliBili.WinUI3
         {
             this.InitializeComponent();
             this.UnhandledException += App_UnhandledException;
-            
         }
 
         private void App_UnhandledException(object sender, Microsoft.UI.Xaml.UnhandledExceptionEventArgs e)
@@ -52,7 +52,7 @@ namespace BiliBili.WinUI3
         {
             //初始化基础配置
             BilibiliAPI.ApiTools.Current.Init();
-            BilibiliAPI.BiliBiliArgs.TokenSESSDATA = new BiliBiliAPI.Models.AccountToken();
+            BilibiliAPI.BiliBiliArgs.TokenSESSDATA = new BiliBiliAPI.Models.Account.AccountToken();
             m_window = new Home();
             MainWindow = m_window;
             m_window.Activate();

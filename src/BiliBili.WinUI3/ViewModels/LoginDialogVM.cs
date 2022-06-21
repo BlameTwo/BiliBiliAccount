@@ -1,7 +1,7 @@
 ﻿using BilibiliAPI;
 using BilibiliAPI.Account;
 using BiliBiliAPI.GUI.Converter;
-using BiliBiliAPI.Models;
+using BiliBiliAPI.Models.Account;
 using BiliBiliAPI.Models.Settings;
 using Microsoft.Toolkit.Mvvm.ComponentModel;
 using Microsoft.UI.Xaml;

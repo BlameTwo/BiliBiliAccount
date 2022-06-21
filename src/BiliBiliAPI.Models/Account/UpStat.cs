@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BiliBiliAPI.Models
+namespace BiliBiliAPI.Models.Account
 {
     /// <summary>
     /// UP主统计，一般用于账号为Up的人使用

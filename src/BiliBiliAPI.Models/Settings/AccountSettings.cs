@@ -4,8 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.IO;
-using BiliBiliAPI.Models;
 using Newtonsoft.Json;
+using BiliBiliAPI.Models.Account;
 
 namespace BiliBiliAPI.Models.Settings
 {

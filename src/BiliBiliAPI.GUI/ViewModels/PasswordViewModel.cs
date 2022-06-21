@@ -2,7 +2,7 @@
 using BilibiliAPI.Account;
 using BiliBiliAPI.GUI.Controls;
 using BiliBiliAPI.GUI.Event;
-using BiliBiliAPI.Models;
+using BiliBiliAPI.Models.Account;
 using BiliBiliAPI.Models.Settings;
 using Microsoft.Toolkit.Mvvm.ComponentModel;
 using Microsoft.Toolkit.Mvvm.Input;

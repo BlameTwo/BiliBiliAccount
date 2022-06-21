@@ -1,5 +1,5 @@
 ﻿using BilibiliAPI.ApiTools;
-using BiliBiliAPI.Models;
+using BiliBiliAPI.Models.Account;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -35,7 +35,7 @@ namespace BilibiliAPI
                     url += "?access_key=" + BiliBiliArgs.TokenSESSDATA.SECCDATA + "&appkey=" + apiKeyInfo.Appkey + "&platform=android&device=android&actionKey=appkey&build=5442100&mobi_app=android_comic&ts=" + ApiProvider.TimeSpanSeconds;
                 url += "&sign=" + ApiProvider.GetSign(url, apiKeyInfo);
                 HttpResponseMessage hr = await HttpClient.GetAsync(url).ConfigureAwait(false);
-              
+                hr.Headers.Add("referer","https:bilibili.com");
                 hr.EnsureSuccessStatusCode();
                 var encodeResults = await hr.Content.ReadAsByteArrayAsync().ConfigureAwait(false);
                 return Encoding.UTF8.GetString(encodeResults, 0, encodeResults.Length);

@@ -1,4 +1,4 @@
-﻿using BiliBiliAPI.Models;
+﻿using BiliBiliAPI.Models.Account;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,7 +16,7 @@ namespace BilibiliAPI.Account
         private MyHttpClient HttpClient = new MyHttpClient();
 
         /// <summary>
-        /// 使用保存的Cookie进行登录登录
+        /// 使用保存的Cookie进行登录登录，获取登录信息
         /// </summary>
         /// <param name="token"></param>
         /// <returns></returns>
