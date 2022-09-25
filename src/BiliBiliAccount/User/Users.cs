@@ -18,7 +18,7 @@ namespace BilibiliAPI.User
         /// <summary>
         /// 获得用户的基本信息
         /// </summary>
-        /// <param name="mid"></param>
+        /// <param name="mid">用户的mid</param>
         /// <returns></returns>
         public async Task<UserResult> GetUser(string mid)
         {

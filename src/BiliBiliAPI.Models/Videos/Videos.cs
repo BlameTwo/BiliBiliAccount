@@ -10,7 +10,7 @@ namespace BiliBiliAPI.Models.Videos
     /// <summary>
     /// 视频基本信息
     /// </summary>
-    public class Videos
+    public class VideosContent
     {
         /// <summary>
         /// BV号
@@ -139,6 +139,10 @@ namespace BiliBiliAPI.Models.Videos
 
         [JsonProperty("pages")]
         public List<Page> Pages { get; set; }
+
+
+        [JsonProperty("first_frame")]
+        public string First_Image { get; set; }
     }
 
     public class NewDesc
@@ -343,13 +347,38 @@ namespace BiliBiliAPI.Models.Videos
 
         [JsonProperty("dimension")]
         public PageDimension PageDim { get; set; }
+
+    }
+
+    public class SubTitle
+    {
+        [JsonProperty("allow_submit")]
+        public bool Allow_SubMit { get; set; }
+
+        [JsonProperty("list")]
+        public List<SubTitleList> List { get; set; }
+    }
+
+    public class SubTitleList
+    {
+        [JsonProperty("id_str")]
+        public string id { get; set; }
+
+        [JsonProperty("lan")]
+        public string lang { get; set; }
+
+        [JsonProperty("lan_doc")]
+        public string Name { get; set; }
+
+        [JsonProperty("subtitle_url")]
+        public string SubUrl { get; set; }
     }
 
     public class PageDimension
     {
 
         /// <summary>
-        /// 款
+        /// 宽度
         /// </summary>
         public string Width { get; set; }
 

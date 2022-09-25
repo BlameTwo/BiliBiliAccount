@@ -11,5 +11,6 @@ namespace BiliBiliAPI.Models.Videos
     /// </summary>
     public class VideoPartition
     {
+
     }
 }
