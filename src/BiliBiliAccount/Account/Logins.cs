@@ -1,4 +1,5 @@
-﻿using BiliBiliAPI.Models.Account;
+﻿using BiliBiliAPI.Models;
+using BiliBiliAPI.Models.Account;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,7 +21,7 @@ namespace BilibiliAPI.Account
         /// </summary>
         /// <param name="token"></param>
         /// <returns></returns>
-        public async  Task<AccountLoginResult> Login(AccountToken token)
+        public async  Task<ResultCode<AccountLoginResultData>> Login(AccountToken token)
         {
             return await Task.Run(async () =>
             {
@@ -34,7 +35,7 @@ namespace BilibiliAPI.Account
         /// 获得消息
         /// </summary>
         /// <returns></returns>
-        public async Task<MyTips> GetTip()
+        public async Task<ResultCode<MyTipsData>> GetTip()
         {
             return await Task.Run(async () =>
             {
@@ -47,7 +48,7 @@ namespace BilibiliAPI.Account
         /// 获得私信
         /// </summary>
         /// <returns></returns>
-        public async Task<MyLetter> GetLetter()
+        public async Task<ResultCode<MyLetterData>> GetLetter()
         {
             return await Task.Run(async () =>
             {
@@ -76,7 +77,7 @@ namespace BilibiliAPI.Account
         /// 获得关注
         /// </summary>
         /// <returns></returns>
-        public async Task<MyFollow> GetFllow()
+        public async Task<ResultCode<MyFolloweData>> GetFllow()
         {
             FollowInfo info = new FollowInfo();
             return await info.GetFollow();

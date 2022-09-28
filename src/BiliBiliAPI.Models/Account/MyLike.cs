@@ -7,23 +7,6 @@ using System.Threading.Tasks;
 
 namespace BiliBiliAPI.Models.Account
 {
-    /// <summary>
-    /// 关注数量
-    /// </summary>
-    public class MyFollow
-    {
-        [JsonProperty("code")]
-        public string Code { get; set; }
-
-        [JsonProperty("message")]
-        public string Message { get; set; }
-
-        [JsonProperty("ttl")]
-        public string TTl { get; set; }
-
-        [JsonProperty("data")]
-        public MyFolloweData Data { get; set; }
-    }
 
     public class MyFolloweData
     {

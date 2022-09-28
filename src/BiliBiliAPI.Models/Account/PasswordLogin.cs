@@ -7,20 +7,6 @@ using System.Threading.Tasks;
 
 namespace BiliBiliAPI.Models.Account
 {
-    public class PasswordLogin
-    {
-        [JsonProperty("code")]
-        public string Code { get; set; } = "";
-
-        [JsonProperty("message")]
-        public string Message { get; set; } = "";
-
-        [JsonProperty("ttl")]
-        public string Ttl { get; set; } = "";
-
-        [JsonProperty("data")]
-        public PasswordLoginData Data { get; set; }
-    }
 
     public class PasswordLoginData
     {

@@ -7,20 +7,6 @@ using System.Threading.Tasks;
 
 namespace BiliBiliAPI.Models.Account
 {
-    public class MyTips
-    {
-        [JsonProperty("code")]
-        public string Code { get; set; }
-
-        [JsonProperty("message")]
-        public string Message { get; set; }
-
-        [JsonProperty("ttl")]
-        public string TTl { get; set; }
-
-        [JsonProperty("data")]
-        public MyTipsData Data { get; set; }
-    }
 
     public class MyTipsData
     {

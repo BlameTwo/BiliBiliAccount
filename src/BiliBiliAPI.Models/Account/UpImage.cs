@@ -7,24 +7,6 @@ using System.Threading.Tasks;
 
 namespace BiliBiliAPI.Models.Account
 {
-    /// <summary>
-    /// UP的相簿投稿
-    /// </summary>
-    public class UpImage
-    {
-        [JsonProperty("code")]
-        public string Code { get; set; }
-
-        [JsonProperty("message")]
-        public string Message { get; set; }
-
-        [JsonProperty("ttl")]
-        public string TTl { get; set; }
-
-        [JsonProperty("data")]
-        public UpImageData Data { get; set; }
-    }
-
     public class UpImageData
     {
         /// <summary>

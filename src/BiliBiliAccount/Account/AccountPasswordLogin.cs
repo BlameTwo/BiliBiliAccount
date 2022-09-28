@@ -1,4 +1,5 @@
 ﻿using BilibiliAPI.ApiTools;
+using BiliBiliAPI.Models;
 using BiliBiliAPI.Models.Account;
 using Newtonsoft.Json.Linq;
 using PCLCrypto;
@@ -17,13 +18,13 @@ namespace BilibiliAPI.Account
     {
 
         private MyHttpClient HttpClient = new MyHttpClient();
-        public async Task<PasswordLogin> LoginV3(string username, string password)
+        public async Task<ResultCode<PasswordLoginData>> LoginV3(string username, string password)
         {
             string url = "https://passport.bilibili.com/x/passport-login/oauth2/login";
             var pwd = await FormatPassword(password);
             string data = $"username={Uri.EscapeDataString(username)}&password={Uri.EscapeDataString(pwd)}&gee_type=10";
             var results = await HttpClient.PostResults(url, data, ApiProvider.AndroidTVKey);
-            return JsonConvert.ReadObject<PasswordLogin>(results);
+            return JsonConvert.ReadObject<PasswordLoginData>(results);
         }
 
 

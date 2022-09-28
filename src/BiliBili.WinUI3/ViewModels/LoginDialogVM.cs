@@ -57,9 +57,9 @@ namespace BiliBili.WinUI3.ViewModels
 
         AccountQRLogin api = new AccountQRLogin();
 
-        private AccountLoginArg QR;
+        private AccountLoginData QR;
 
-        public AccountLoginArg _QR
+        public AccountLoginData _QR
         {
             get { return QR; }
             set => SetProperty(ref QR, value);
@@ -94,8 +94,8 @@ namespace BiliBili.WinUI3.ViewModels
 
         async  void RefQr()
         {
-            _QR = await api.GetQR();
-            _QRImage = await QRConvert.Convert(_QR.Data.PicUrl);
+            _QR = (await api.GetQR()).Data;
+            _QRImage = await QRConvert.Convert(_QR.PicUrl);
             timer.Start();
         }
 

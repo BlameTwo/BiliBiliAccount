@@ -81,7 +81,7 @@ namespace BiliBiliAPI.Models.Videos
         /// 新版视频简介
         /// </summary>
         [JsonProperty("desc_v2")]
-        public NewDesc Desc_V2 { get; set; }
+        public List<NewDesc> Desc_V2 { get; set; }
 
         /// <summary>
         /// 视频状态信息
@@ -122,11 +122,6 @@ namespace BiliBiliAPI.Models.Videos
         [JsonProperty("cid")]
         public string First_Cid { get; set; }
 
-        /// <summary>
-        /// 第一P的分辨率
-        /// </summary>
-        [JsonProperty("dimension")]
-        public string Screen_Size { get; set; }
 
         [JsonProperty("rights")]
         public CopyRight Right { get; set; }
@@ -218,7 +213,7 @@ namespace BiliBiliAPI.Models.Videos
         [JsonProperty("face")]
         public string Face { get; set; }
 
-        [JsonProperty("face")]
+        [JsonProperty("name")]
         public string Name { get; set; }
     }
 
@@ -345,6 +340,9 @@ namespace BiliBiliAPI.Models.Videos
         [JsonProperty("weblink")]
         public string Link { get; set; }
 
+        /// <summary>
+        /// 第一P的视频分辨率
+        /// </summary>
         [JsonProperty("dimension")]
         public PageDimension PageDim { get; set; }
 
@@ -353,7 +351,7 @@ namespace BiliBiliAPI.Models.Videos
     public class SubTitle
     {
         [JsonProperty("allow_submit")]
-        public bool Allow_SubMit { get; set; }
+        public string Allow_SubMit { get; set; }
 
         [JsonProperty("list")]
         public List<SubTitleList> List { get; set; }

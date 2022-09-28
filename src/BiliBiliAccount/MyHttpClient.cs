@@ -120,10 +120,13 @@ namespace BilibiliAPI
                 if (apiKeyInfo == null)
                     apiKeyInfo = ApiProvider.AndroidTVKey;
                 if (!string.IsNullOrEmpty(postContent))
-                    postContent += "&access_key=" + ApiProvider.AndroidTVKey + "&appkey=" + apiKeyInfo.Appkey + "&mobi_app=android_comic&device=android&version="
+                {
+                   
+                    postContent += "&access_key=" + BiliBiliArgs.TokenSESSDATA.SECCDATA + "&appkey=" + apiKeyInfo.Appkey + "&mobi_app=android_comic&device=android&version="
                         + ApiProvider.version + "&actionKey=appkey&platform=android&ts=" + ApiProvider.TimeSpanSeconds;
+                }
                 else
-                    postContent += "access_key=" + ApiProvider.AndroidTVKey + "&appkey=" + apiKeyInfo.Appkey + "&mobi_app=android_comic&device=android&version="
+                    postContent += "access_key=" + BiliBiliArgs.TokenSESSDATA.SECCDATA + "&appkey=" + apiKeyInfo.Appkey + "&mobi_app=android_comic&device=android&version="
                         + ApiProvider.version + "&actionKey=appkey&platform=android&ts=" + ApiProvider.TimeSpanSeconds;
                 postContent += "&sign=" + ApiProvider.GetSign(postContent, apiKeyInfo);
                 StringContent stringContent = new StringContent(postContent, Encoding.UTF8, "application/x-www-form-urlencoded");

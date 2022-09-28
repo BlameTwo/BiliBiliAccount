@@ -12,7 +12,7 @@ namespace BilibiliAPI
     {
         public static AccountToken GoToken(string body)
         {
-            return JsonConvert.ReadObject<AccountToken>(body);
+            return JsonConvert.Deserialize<AccountToken>(body);
         }
 
 

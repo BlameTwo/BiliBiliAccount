@@ -9,21 +9,6 @@ using System.Web;
 
 namespace BiliBiliAPI.Models.Account
 {
-    public class AccountLoginArg
-    {
-        [JsonProperty("code")]
-        public string Code { get; set; }
-
-        [JsonProperty("message")]
-        public string Message { get; set; }
-
-        [JsonProperty("ttl")]
-        public string TTl { get; set; }
-
-        [JsonProperty("data")]
-        public AccountLoginData Data { get; set; }
-    }
-
     public class AccountLoginData
     {
         /// <summary>

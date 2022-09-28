@@ -1,4 +1,5 @@
-﻿using BiliBiliAPI.Models.User;
+﻿using BiliBiliAPI.Models;
+using BiliBiliAPI.Models.Account;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,10 +21,10 @@ namespace BilibiliAPI.User
         /// </summary>
         /// <param name="mid">用户的mid</param>
         /// <returns></returns>
-        public async Task<UserResult> GetUser(string mid)
+        public async Task<ResultCode<AccountLoginResultData>> GetUser(string mid)
         {
             string url = $"http://api.bilibili.com/x/space/acc/info?mid={mid}";
-            return JsonConvert.ReadObject<UserResult>(await HttpClient.GetResults(url));
+            return JsonConvert.ReadObject<AccountLoginResultData>(await HttpClient.GetResults(url));
         }
     }
 }

@@ -10,24 +10,6 @@ namespace BiliBiliAPI.Models.Account
     /// <summary>
     /// 私信
     /// </summary>
-    public class MyLetter
-    {
-        [JsonProperty("code")]
-        public string Code { get; set; }
-
-        [JsonProperty("message")]
-        public string Message { get; set; }
-
-        [JsonProperty("ttl")]
-        public string TTl { get; set; }
-
-        [JsonProperty("data")]
-        public MyLetterData Data { get; set; }
-    }
-
-    /// <summary>
-    /// 私信
-    /// </summary>
     public class MyLetterData
     {
         /// <summary>

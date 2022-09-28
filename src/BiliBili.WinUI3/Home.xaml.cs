@@ -42,6 +42,7 @@ namespace BiliBili.WinUI3
             this.ExtendsContentIntoTitleBar = true;  // enable custom titlebar
             this.SetTitleBar(AppTitleBar);      // set user ui element as titlebar
             SetBackdrop(BackdropType.DesktopAcrylic);
+
         }
 
         public enum BackdropType

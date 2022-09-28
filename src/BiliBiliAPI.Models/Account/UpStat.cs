@@ -7,23 +7,6 @@ using System.Threading.Tasks;
 
 namespace BiliBiliAPI.Models.Account
 {
-    /// <summary>
-    /// UP主统计，一般用于账号为Up的人使用
-    /// </summary>
-    public class UpStat
-    {
-        [JsonProperty("code")]
-        public string Code { get; set; }
-
-        [JsonProperty("message")]
-        public string Message { get; set; }
-
-        [JsonProperty("ttl")]
-        public string TTl { get; set; }
-
-        [JsonProperty("data")]
-        public UpStatData Data { get; set; }
-    }
     public class UpStatData
     {
         [JsonProperty("archive")]

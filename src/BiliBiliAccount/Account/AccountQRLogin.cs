@@ -1,4 +1,5 @@
 ﻿using BilibiliAPI.ApiTools;
+using BiliBiliAPI.Models;
 using BiliBiliAPI.Models.Account;
 using Newtonsoft.Json.Linq;
 using System;
@@ -20,12 +21,12 @@ namespace BilibiliAPI.Account
         /// 当前实例的密钥校验码
         /// </summary>
         private string QRKey { get; set; } = "";
-        public async Task<AccountLoginArg> GetQR()
+        public async Task<ResultCode<AccountLoginData>> GetQR()
         {
             string url = "https://passport.bilibili.com/x/passport-tv-login/qrcode/auth_code";
             string data = $"local_id={Current.LocalID}";
             string result = await HttpClient.PostResults(url, data, ApiProvider.AndroidTVKey);
-            var model =  JsonConvert.ReadObject<AccountLoginArg>(result);
+            var model = JsonConvert.ReadObject<AccountLoginData>(result);
             QRKey = model.Data.QRKey;
             return model;
         }

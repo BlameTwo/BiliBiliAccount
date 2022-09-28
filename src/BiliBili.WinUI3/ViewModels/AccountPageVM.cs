@@ -44,7 +44,7 @@ namespace BiliBiliAPI.GUI.VIewModels
             {
                 token = AccountSettings.Read();
                 BiliBiliArgs.TokenSESSDATA = token;
-                _LoginResult = await logins.Login(token);
+                _LoginResult = (await logins.Login(token)).Data;
                 if (_LoginResult == null)
                 {
                     _ButtonText = "登录";
@@ -83,7 +83,7 @@ namespace BiliBiliAPI.GUI.VIewModels
                     break;
                 case "退出登录":
                     File.Delete(AccountSettings.FilePath);
-                    _LoginResult.Data = new AccountLoginResultData();
+                    _LoginResult = new AccountLoginResultData();
                     break;
             }
             MyLoaded(null, null);
@@ -100,18 +100,18 @@ namespace BiliBiliAPI.GUI.VIewModels
             newWindow.Activate();
         }
 
-        private MyTips MyTip;
+        private MyTipsData MyTip;
 
-        public MyTips _MyTip
+        public MyTipsData _MyTip
         {
             get { return MyTip; }
             set => SetProperty(ref MyTip, value);
         }
 
 
-        private AccountLoginResult LoginResult;
+        private AccountLoginResultData LoginResult;
 
-        public AccountLoginResult _LoginResult
+        public AccountLoginResultData _LoginResult
         {
             get { return LoginResult; }
             set => SetProperty(ref LoginResult, value);

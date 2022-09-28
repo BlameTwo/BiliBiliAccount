@@ -1,4 +1,5 @@
-﻿using BiliBiliAPI.Models.Account;
+﻿using BiliBiliAPI.Models;
+using BiliBiliAPI.Models.Account;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,11 +19,11 @@ namespace BilibiliAPI.Account
         /// 获得本身关注
         /// </summary>
         /// <returns></returns>
-        public async  Task<MyFollow> GetFollow()
+        public async  Task<ResultCode<MyFolloweData>> GetFollow()
         {
             return await Task.Run(async () =>
             {
-                return JsonConvert.ReadObject<MyFollow>(await Get("http://api.bilibili.com/x/msgfeed/unread"));
+                return JsonConvert.ReadObject<MyFolloweData>(await Get("http://api.bilibili.com/x/msgfeed/unread"));
             });
         }
 
@@ -31,20 +32,20 @@ namespace BilibiliAPI.Account
         /// UP主播放量简单统计信息
         /// </summary>
         /// <returns></returns>
-        public async Task<UpStat> GetUp()
+        public async Task<ResultCode<UpStatData>> GetUp()
         {
             return await Task.Run(async () =>
             {
-                return JsonConvert.ReadObject<UpStat>(await Get("http://api.bilibili.com/x/space/upstat?mid={BiliBiliArgs.TokenSESSDATA.Mid}"));
+                return JsonConvert.ReadObject<UpStatData>(await Get("http://api.bilibili.com/x/space/upstat?mid={BiliBiliArgs.TokenSESSDATA.Mid}"));
             });
         }
 
 
-        public async Task<UpImage> GetUpImage()
+        public async Task<ResultCode<UpImageData>> GetUpImage()
         {
             return await Task.Run(async () =>
             {
-                return  JsonConvert.ReadObject<UpImage>(await Get("http://api.vc.bilibili.com/link_draw/v1/doc/upload_count?uid={BiliBiliArgs.TokenSESSDATA.Mid}"));
+                return  JsonConvert.ReadObject<UpImageData>(await Get("http://api.vc.bilibili.com/link_draw/v1/doc/upload_count?uid={BiliBiliArgs.TokenSESSDATA.Mid}"));
             });
         }
 
