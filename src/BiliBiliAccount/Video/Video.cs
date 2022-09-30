@@ -16,7 +16,7 @@ namespace BilibiliAPI.Video
 
 
         /// <summary>
-        /// 获得视频的基本信息
+        /// 获得视频的Web页面信息
         /// </summary>
         /// <param name="bvidoravid">视频的avid或bvid</param>
         /// <returns></returns>
@@ -24,9 +24,9 @@ namespace BilibiliAPI.Video
         {
             string url = "";
             if(videoIDType == VideoIDType.BV)
-                url = $"http://api.bilibili.com/x/web-interface/view?bvid={id}";
+                url = $"https://app.bilibili.com/x/v2/view?bvid={id}";
             else
-                url = $"http://api.bilibili.com/x/web-interface/view?avid={id}";
+                url = $"https://app.bilibili.com/x/v2/view?avid={id}";
             object a = JsonConvert.ReadObject<VideosContent>(await HttpClient.GetResults(url));
 
             return (ResultCode<VideosContent>)a;
@@ -44,10 +44,6 @@ namespace BilibiliAPI.Video
         }
 
 
-        public enum VideoIDType
-        {
-            AV,BV
-        }
 
     }
 }

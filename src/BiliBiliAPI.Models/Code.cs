@@ -23,14 +23,9 @@ namespace BiliBiliAPI.Models
     }
 
 
-    [System.AttributeUsage(System.AttributeTargets.Method)]
-    public class BiliTypeAttribute : System.Attribute
-    {
-        public Type Type;
 
-        public BiliTypeAttribute(Type type)
-        {
-            this.Type = type;
-        }
+    public enum VideoIDType
+    {
+        AV, BV
     }
 }

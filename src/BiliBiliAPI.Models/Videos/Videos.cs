@@ -1,7 +1,9 @@
 ﻿using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
+using System.Net.NetworkInformation;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -138,6 +140,107 @@ namespace BiliBiliAPI.Models.Videos
 
         [JsonProperty("first_frame")]
         public string First_Image { get; set; }
+
+        /// <summary>
+        /// 用户对于该视频的推广信息（投币，点赞，收藏）
+        /// </summary>
+        [JsonProperty("req_user")]
+        public ReqUser ReqUser { get; set; }
+
+        [JsonProperty("tag")]
+        public List<Tag> Tag { get; set; }
+
+        [JsonProperty("relates")]
+        public List<Relates> Relates { get; set; }
+
+    }
+
+    public class Relates
+    {
+        public string aid { get; set; }
+        public string pic { get; set; }
+        public string title { get; set; }
+
+        [JsonProperty("owner")]
+        public Owner Owner { get; set; }
+
+        [JsonProperty("stat")]
+        public RelatesStat Stat { get; set; }
+
+        [JsonProperty("goto")]
+        public string Goto { get; set; }
+
+        [JsonProperty("param")]
+        public string Param { get; set; }
+
+        [JsonProperty("cid")]
+        public string CId { get; set; }
+    }
+
+    public class RelatesStat
+    {
+        public string aid { get; set; }
+        public string view { get; set; }
+        public string danmaku { get; set; }
+        public string reply { get; set; }
+        public string favorite { get; set; }
+        public string coin { get; set; }
+        public string share { get; set; }
+        /// <summary>
+        /// 当前排行
+        /// </summary>
+        public string now_rank { get; set; }
+
+        /// <summary>
+        /// 历史排行
+        /// </summary>
+        public string his_rank { get; set; }
+
+        public string like { get; set; }
+        public string dislike { get; set; }
+    }
+
+    public class Owner
+    {
+        public string mid { get; set; }
+        public string name { get; set; }
+        public string stat { get; set; }
+    }
+
+    public class Tag
+    {
+        [JsonProperty("tag_id")]
+        public string ID { get; set; }
+
+        [JsonProperty("tag_name")]
+        public string Name { get; set; }
+
+        [JsonProperty("cover")]
+        public string Conver { get; set; }
+
+        [JsonProperty("likes")]
+        public string Likes { get; set; }
+
+        [JsonProperty("hates")]
+        public string Hates { get; set; }
+
+        [JsonProperty("liked")]
+        public string liked { get; set; }
+
+        [JsonProperty("hated")]
+        public string Hated { get; set; }
+
+        [JsonProperty("attribute")]
+        public string Attribute { get; set; }
+
+        [JsonProperty("is_activity")]
+        public string Is_activity { get; set; }
+
+        [JsonProperty("uri")]
+        public string Uri { get; set; }
+
+        [JsonProperty("tag_type")]
+        public string Tag_Type { get; set; }
     }
 
     public class NewDesc
@@ -217,6 +320,35 @@ namespace BiliBiliAPI.Models.Videos
         public string Name { get; set; }
     }
 
+    public class ReqUser
+    {
+        [JsonProperty("attention")]
+        public string Attention { get; set; } = "0";
+
+        /// <summary>
+        /// 作用尚不明确
+        /// </summary>
+        [JsonProperty("guest_attention")]
+        public string Guest_attention { get; set; }
+
+        /// <summary>
+        /// 是否收藏
+        /// </summary>
+        [JsonProperty("favorite")]
+        public string Favorite { get; set; } = "0";
+
+        /// <summary>
+        /// 是否点赞
+        /// </summary>
+        [JsonProperty("like")]
+        public string Like { get; set; } = "0";
+
+        /// <summary>
+        /// 受否投币
+        /// </summary>
+        [JsonProperty("coin")]
+        public string Coin { get; set; } = "0";
+    }
 
     public class Stat
     {
