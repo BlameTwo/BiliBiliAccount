@@ -43,7 +43,23 @@ namespace BilibiliAPI.Video
             return JsonConvert.ReadObject<VideoState>(await HttpClient.GetResults(url));
         }
 
-
+        public async Task<ResultCode<VideoInfo>> GetVideo(VideosContent info,VideoIDType videoIDType)
+        {
+            string url = null;
+            switch (videoIDType)
+            {
+                case VideoIDType.AV:
+                    url = $"http://api.bilibili.com/x/player/playurl?avid={info.Aid}&cid={info.First_Cid}&fourk=1&qn=120";
+                    break;
+                case VideoIDType.BV:
+                    url = $"http://api.bilibili.com/x/player/playurl?bvid={info.Aid}&cid={info.First_Cid}&fourk=1&qn=120";
+                    break;
+            }
+            if (url != null)
+                return JsonConvert.ReadObject<VideoInfo>(await HttpClient.GetResults(url));
+            else
+                return new ResultCode<VideoInfo>() { Code = "信息错误" };
+        }
 
     }
 }

@@ -23,6 +23,8 @@ namespace BilibiliAPI
             HttpClient = new HttpClient(clientHandler) { Timeout = Timeout };
             HttpClient.DefaultRequestHeaders.Referrer = new Uri("http://www.bilibili.com/");
         }
+
+
         public async Task<string> GetResults(string url, ApiKeyInfo apiKeyInfo = null)
         {
             try
