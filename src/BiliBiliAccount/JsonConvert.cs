@@ -34,5 +34,6 @@ namespace BilibiliAPI
             result = Deserialize<ResultCode<T>>(Data);
             return result;
         }
+
     }
 }

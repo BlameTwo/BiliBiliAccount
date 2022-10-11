@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using static BilibiliAPI.Video.Video;
@@ -43,22 +44,46 @@ namespace BilibiliAPI.Video
             return JsonConvert.ReadObject<VideoState>(await HttpClient.GetResults(url));
         }
 
-        public async Task<ResultCode<VideoInfo>> GetVideo(VideosContent info,VideoIDType videoIDType)
+        public async Task<ResultCode<VideoInfo>> GetVideo(VideosContent info,VideoIDType videoIDType, DashEnum dashEnum, FnvalEnum fnvalEnum = FnvalEnum.FLV)
         {
             string url = null;
-            switch (videoIDType)
-            {
-                case VideoIDType.AV:
-                    url = $"http://api.bilibili.com/x/player/playurl?avid={info.Aid}&cid={info.First_Cid}&fourk=1&qn=120";
-                    break;
-                case VideoIDType.BV:
-                    url = $"http://api.bilibili.com/x/player/playurl?bvid={info.Aid}&cid={info.First_Cid}&fourk=1&qn=120";
-                    break;
-            }
+            string avorbv = videoIDType == VideoIDType.AV ? "avid" : "bvid";
+            url = $"http://api.bilibili.com/x/player/playurl?{avorbv}={info.Aid}&cid={info.First_Cid}&fourk=1&qn={(int)dashEnum}";
             if (url != null)
                 return JsonConvert.ReadObject<VideoInfo>(await HttpClient.GetResults(url));
             else
                 return new ResultCode<VideoInfo>() { Code = "信息错误" };
+        }
+
+        /// <summary>
+        /// 获得高能进度条数据条
+        /// </summary>
+        /// <param name="cid"></param>
+        /// <returns></returns>
+        public async Task<HigitPoint> GetPoint(string cid)
+        {
+            //http://bvc.bilivideo.com/pbp/data?cid=239973476
+            string url = $"http://bvc.bilivideo.com/pbp/data?cid={cid}";
+            return JsonConvert.Deserialize<HigitPoint>(await HttpClient.GetResults(url));
+        }
+
+        public async Task<ResultCode<VidonOnline>> GetVideoOnline(VideosContent info, string cid = null)
+        {
+            string url = "";
+            if (!string.IsNullOrWhiteSpace(cid))
+            {
+                url = $"http://api.bilibili.com/x/player/online/total?bvid={info.Bvid}&cid={cid}";
+            }
+            else
+            {
+                url = $"http://api.bilibili.com/x/player/online/total?bvid={info.Bvid}&cid={info.First_Cid}";
+            }
+            return JsonConvert.ReadObject<VidonOnline>(await HttpClient.GetResults(url));
+        }
+
+        public async Task<ResultCode<VideoInfo>> GetACGVideo()
+        {
+
         }
 
     }

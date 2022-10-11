@@ -10,19 +10,19 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace BiliBiliAPI.GUI
+namespace SY
 {
     /// <summary>
-    /// UserWindow.xaml 的交互逻辑
+    /// Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class UserWindow : Window
+    public partial class MainWindow : Window
     {
-        public UserWindow()
+        public MainWindow()
         {
             InitializeComponent();
-
         }
     }
 }

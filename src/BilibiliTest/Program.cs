@@ -16,7 +16,8 @@ namespace BilibiliTest
             UserVideo user = new UserVideo();
             BiliBiliArgs.TokenSESSDATA = token;
             Video video = new Video();
-            var bv = await video.GetVideosContent("BV1LB4y1E7iD", VideoIDType.BV);
+            var bv = await video.GetVideosContent("BV15z4y1Z734", VideoIDType.BV);
+            #region 检查视频是否是用户收藏
             //Console.WriteLine((await user.CoinsVideo(1,bv.Data.Aid)).Data.Guide.Title);
             //string url = $"http://api.bilibili.com/x/v3/fav/folder/created/list-all?up_mid={token.Mid}";
             //var a = await Test.Go(url);
@@ -29,10 +30,18 @@ namespace BilibiliTest
 
             //    var a = await users.GetFavMedios(item,20);
             //}
-            string uri = $"https://api.bilibili.com/x/player/playurl?avid={bv.Data.Aid}&cid={bv.Data.First_Cid}&fourk=1&qn=120";
-            var a = await video.GetVideo(bv.Data, VideoIDType.AV);
-            DownLoad downLoad = new DownLoad();
-            downLoad.DownLoadAsync(a.Data.Durl[0].Url);
+
+            #endregion
+
+            #region 下载视频
+            //var a = await video.GetVideo(bv.Data, VideoIDType.AV, DashEnum.Dash4K);
+            //Console.WriteLine(a.Data.Durl[0].Url);
+            //DownLoad downLoad = new DownLoad();
+            //downLoad.DownLoadAsync(a.Data.Durl[0].Url);
+            #endregion
+
+            //var test = await Test.Go($"http://api.bilibili.com/x/player/online/total?bvid={bv.Data.Bvid}&cid={bv.Data.First_Cid}");
+            var test2 = await video.GetVideoOnline(bv.Data);
             Console.ReadLine();
         }
     }
