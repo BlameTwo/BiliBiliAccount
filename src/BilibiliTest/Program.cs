@@ -4,6 +4,7 @@ using BilibiliAPI.Video;
 using BiliBiliAPI.Models;
 using BiliBiliAPI.Models.Account;
 using BiliBiliAPI.Models.Settings;
+using System.Security.Cryptography;
 
 namespace BilibiliTest
 {
@@ -17,31 +18,32 @@ namespace BilibiliTest
             BiliBiliArgs.TokenSESSDATA = token;
             Video video = new Video();
             var bv = await video.GetVideosContent("BV15z4y1Z734", VideoIDType.BV);
-            #region 检查视频是否是用户收藏
-            //Console.WriteLine((await user.CoinsVideo(1,bv.Data.Aid)).Data.Guide.Title);
-            //string url = $"http://api.bilibili.com/x/v3/fav/folder/created/list-all?up_mid={token.Mid}";
-            //var a = await Test.Go(url);
-            //Users users = new Users();
-            //var b = await users.GetFavourites(bv.Data.Aid);
-            //foreach (var item in b.Data.List)
-            //{
-            //    if (item.FavState == "1")
-            //        Console.WriteLine($"视频:  【{bv.Data.Title}】  存在于  【{item.Title}】  收藏夹中");
+        #region 检查视频是否是用户收藏
+        //Console.WriteLine((await user.CoinsVideo(1,bv.Data.Aid)).Data.Guide.Title);
+        //string url = $"http://api.bilibili.com/x/v3/fav/folder/created/list-all?up_mid={token.Mid}";
+        //var a = await Test.Go(url);
+        //Users users = new Users();
+        //var b = await users.GetFavourites(bv.Data.Aid);
+        //foreach (var item in b.Data.List)
+        //{
+        //    if (item.FavState == "1")
+        //        Console.WriteLine($"视频:  【{bv.Data.Title}】  存在于  【{item.Title}】  收藏夹中");
 
-            //    var a = await users.GetFavMedios(item,20);
-            //}
+        //    var a = await users.GetFavMedios(item,20);
+        //}
 
-            #endregion
+        #endregion
 
-            #region 下载视频
-            //var a = await video.GetVideo(bv.Data, VideoIDType.AV, DashEnum.Dash4K);
-            //Console.WriteLine(a.Data.Durl[0].Url);
-            //DownLoad downLoad = new DownLoad();
-            //downLoad.DownLoadAsync(a.Data.Durl[0].Url);
-            #endregion
-
-            //var test = await Test.Go($"http://api.bilibili.com/x/player/online/total?bvid={bv.Data.Bvid}&cid={bv.Data.First_Cid}");
-            var test2 = await video.GetVideoOnline(bv.Data);
+        #region 下载视频
+        //var a = await video.GetVideo(bv.Data, VideoIDType.AV, DashEnum.Dash4K);
+        //Console.WriteLine(a.Data.Durl[0].Url);
+        //DownLoad downLoad = new DownLoad();
+        //downLoad.DownLoadAsync(a.Data.Durl[0].Url);
+        #endregion
+        
+            var test = await Test.Go($"https://app.bilibili.com/x/v2/feed/index");
+            var test2 = test.Deflate();
+            //var test2 = await video.GetVideoOnline(bv.Data);
             Console.ReadLine();
         }
     }

@@ -8,11 +8,7 @@ namespace BilibiliAPI.ApiTools
 {
     public static class Current
     {
-        public static string LocalID { get; private set; }
-        private static object HasInit { get; set; } = false;
-        public static Random Radom { get; private set; }
-        public static MyHttpClient HttpClient { get; private set; }
-        public static void Init()
+        static Current()
         {
             if (HasInit is bool value && value == false)
             {
@@ -22,5 +18,9 @@ namespace BilibiliAPI.ApiTools
                 LocalID = Guid.NewGuid().ToString();
             }
         }
+        public static string LocalID { get; private set; }
+        private static object HasInit { get; set; } = false;
+        public static Random Radom { get; private set; }
+        public static MyHttpClient HttpClient { get; private set; }
     }
 }

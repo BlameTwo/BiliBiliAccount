@@ -81,10 +81,6 @@ namespace BilibiliAPI.Video
             return JsonConvert.ReadObject<VidonOnline>(await HttpClient.GetResults(url));
         }
 
-        public async Task<ResultCode<VideoInfo>> GetACGVideo()
-        {
-
-        }
 
     }
 }

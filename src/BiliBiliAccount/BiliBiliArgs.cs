@@ -9,6 +9,9 @@ namespace BilibiliAPI
 {
     public static class BiliBiliArgs
     {
+        /// <summary>
+        /// 哔哩哔哩账号凭证存储点
+        /// </summary>
         public static AccountToken TokenSESSDATA { get; set; } = new AccountToken();
         public static string Cookie { get; set; } = "";
 
