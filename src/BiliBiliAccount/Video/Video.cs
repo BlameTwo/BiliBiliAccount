@@ -81,6 +81,11 @@ namespace BilibiliAPI.Video
             return JsonConvert.ReadObject<VidonOnline>(await HttpClient.GetResults(url));
         }
 
+        public async Task<ResultCode<BiliBiliAPI.Models.HomeVideo.Video>> GetHomeVideo()
+        {
+            string url = "https://app.bilibili.com/x/v2/feed/index";
+            return JsonConvert.ReadObject<BiliBiliAPI.Models.HomeVideo.Video>(await HttpClient.GetResults(url));
+        }
 
     }
 }
