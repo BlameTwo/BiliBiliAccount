@@ -4,6 +4,7 @@ using BilibiliAPI.Video;
 using BiliBiliAPI.Models;
 using BiliBiliAPI.Models.Account;
 using BiliBiliAPI.Models.Settings;
+using BiliBiliAPI.Models.Videos;
 using System.Security.Cryptography;
 
 namespace BilibiliTest
@@ -14,11 +15,12 @@ namespace BilibiliTest
 
         public static  async Task Main(string[] args)
         {
+            #region 初始化视频相关
             UserVideo user = new UserVideo();
             BiliBiliArgs.TokenSESSDATA = token;
             Video video = new Video();
             var bv = await video.GetVideosContent("BV15z4y1Z734", VideoIDType.BV);
-
+            #endregion
 
             #region 检查视频是否是用户收藏
             //Console.WriteLine((await user.CoinsVideo(1,bv.Data.Aid)).Data.Guide.Title);
@@ -48,9 +50,16 @@ namespace BilibiliTest
             #endregion
 
             #region 获得首页推荐
-            var result = await video.GetHomeVideo();
+            //var result = await video.GetHomeVideo();
+            //Console.WriteLine($"获得推荐共计{result.Data.Item.Count}个视频");
             #endregion
-            Console.WriteLine($"获得推荐共计{result.Data.Item.Count}个视频");
+
+            #region 获得视频弹幕
+            //Danmaku danmaku = new Danmaku();
+            //var result = await danmaku.GetDanmakuTest(bv.Data.First_Cid);
+            #endregion
+
+
             Console.ReadLine();
         }
     }

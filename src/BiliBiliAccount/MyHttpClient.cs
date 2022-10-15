@@ -38,6 +38,7 @@ namespace BilibiliAPI
                 url += "&sign=" + ApiProvider.GetSign(url, apiKeyInfo);
                 HttpResponseMessage hr = await HttpClient.GetAsync(url).ConfigureAwait(false);
                 hr.Headers.Add("referer","https:bilibili.com");
+                hr.Headers.Add("Accept_Encoding", "gzip,deflate");
                 hr.EnsureSuccessStatusCode();
                 var encodeResults = await hr.Content.ReadAsByteArrayAsync().ConfigureAwait(false);
                 return Encoding.UTF8.GetString(encodeResults, 0, encodeResults.Length);
