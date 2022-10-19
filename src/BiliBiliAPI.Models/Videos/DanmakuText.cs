@@ -43,5 +43,39 @@ namespace BiliBiliAPI.Models.Videos
 
         [XmlText()]
         public string Text { get; set; }
+
+        
     }
+
+    public class FormatDanmakuTextModel
+    {
+        public double Time { get; set; }
+
+        public string DanmakuType { get; set; }
+
+        public int FontSize { get; set; }
+        /// <summary>
+        /// 十进制颜色值
+        /// </summary>
+        public int Color { get; set; }
+
+        public int CreateTime { get; set; }
+
+        /// <summary>
+        /// 弹幕池
+        /// </summary>
+        public string DanmakuTypeSw { get; set; }
+
+        public string MidHash { get; set; }
+
+        public string Dmid { get; set; }
+
+        /// <summary>
+        /// 屏蔽等级
+        /// </summary>
+        public string Level { get; set; }
+
+        public string Text { get; set; }
+    }
+
 }

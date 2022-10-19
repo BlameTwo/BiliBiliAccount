@@ -51,7 +51,6 @@ namespace BiliBili.WinUI3
         protected override void OnLaunched(Microsoft.UI.Xaml.LaunchActivatedEventArgs args)
         {
             //初始化基础配置
-            BilibiliAPI.ApiTools.Current.Init();
             BilibiliAPI.BiliBiliArgs.TokenSESSDATA = new BiliBiliAPI.Models.Account.AccountToken();
             m_window = new Home();
             MainWindow = m_window;

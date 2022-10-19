@@ -52,29 +52,27 @@ namespace BiliBiliAPI.Models.HomeVideo
         /// <summary>
         /// 播放数量（字符串）
         /// </summary>
-        [JsonProperty("cover_left_text_1")]
+        [JsonProperty("cover_left_text_2")]
         public string PlayerCount { get; set; }
-
-        [JsonProperty("cover_left_1_content_description")]
-        public string PlayerCountCaption { get; set; }
 
         /// <summary>
         /// 历史弹幕数量
         /// </summary>
-        [JsonProperty("cover_left_text_2")]
+        [JsonProperty("cover_left_text_3")]
         public string LeftText { get; set; }
 
-        [JsonProperty("cover_left_2_content_description")]
-        public string LeftTextCaption { get; set; }
+        [JsonProperty("desc")]
+        public string Desc { get; set; }
 
-        [JsonProperty("cover_right_text")]
+        [JsonProperty("cover_left_text_1")]
         public string DurationText { get; set; }
-
-        [JsonProperty("cover_right_content_description")]
-        public string DurationTextCaption { get; set; }
 
         [JsonProperty("three_point_v2")]
         public List<Three_Point_V2> Three_Point_V2 { get; set; }
+
+
+        [JsonProperty("mask")]
+        public Mask Mask { get; set; }
     }
 
     public class Three_Point_V2
@@ -93,7 +91,53 @@ namespace BiliBiliAPI.Models.HomeVideo
 
     }
 
+    public class Mask
+    {
+        [JsonProperty("avatar")]
+        public UP Avatar { get; set; }
 
+        [JsonProperty("button")]
+        public MaskButton MaskButton{get;set;}
+    }
+
+    public class UP
+    {
+        [JsonProperty("cover")]
+        public string cover { get; set; }
+
+        [JsonProperty("text")]
+        public string Name { get; set; }
+
+        [JsonProperty("uri")]
+        public string Uri { get; set; }
+
+        [JsonProperty("event")]
+        public string Event{ get;set; }
+
+        [JsonProperty("event_V2")]
+        public string Event_V2 { get; set; }
+
+        [JsonProperty("up_id")]
+        public string up_id { get; set; }
+    }
+
+    public class MaskButton
+    {
+        [JsonProperty("text")]
+        public string LikeState { get; set; }
+
+        [JsonProperty("param")]
+        public string commandparam { get; set; }
+
+        [JsonProperty("event")]
+        public string Event { get; set; }
+
+        [JsonProperty("event_V2")]
+        public string Event_V2 { get; set; }
+
+        [JsonProperty("type")]
+        public string Type { get; set; }
+    }
 
     public class PlayerArgs
     {

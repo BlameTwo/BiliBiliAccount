@@ -27,7 +27,7 @@ namespace BilibiliAPI.Video
             if(videoIDType == VideoIDType.BV)
                 url = $"https://app.bilibili.com/x/v2/view?bvid={id}";
             else
-                url = $"https://app.bilibili.com/x/v2/view?avid={id}";
+                url = $"https://app.bilibili.com/x/v2/view?aid={id}";
             object a = JsonConvert.ReadObject<VideosContent>(await HttpClient.GetResults(url));
 
             return (ResultCode<VideosContent>)a;
@@ -83,8 +83,16 @@ namespace BilibiliAPI.Video
 
         public async Task<ResultCode<BiliBiliAPI.Models.HomeVideo.Video>> GetHomeVideo()
         {
-            string url = "https://app.bilibili.com/x/v2/feed/index";
-            return JsonConvert.ReadObject<BiliBiliAPI.Models.HomeVideo.Video>(await HttpClient.GetResults(url));
+            string url = "https://app.bilibili.com/x/v2/feed/index?device_name=iPad206&device=pad&flush=5&mobi_app=iphone&platform=ios&pull=true";
+            var a =  JsonConvert.ReadObject<BiliBiliAPI.Models.HomeVideo.Video>(await HttpClient.GetResults(url));
+            foreach (var item in a.Data.Item.ToArray())
+            {
+                if (string.IsNullOrWhiteSpace(item.Title))
+                {
+                    a.Data.Item.Remove(item);
+                }
+            }
+            return a;
         }
 
     }
