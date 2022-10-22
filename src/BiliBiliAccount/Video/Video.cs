@@ -44,11 +44,20 @@ namespace BilibiliAPI.Video
             return JsonConvert.ReadObject<VideoState>(await HttpClient.GetResults(url));
         }
 
-        public async Task<ResultCode<VideoInfo>> GetVideo(VideosContent info,VideoIDType videoIDType, DashEnum dashEnum, FnvalEnum fnvalEnum = FnvalEnum.FLV)
+        public async Task<ResultCode<VideoInfo>> GetVideo(VideosContent info,VideoIDType videoIDType, int dashEnum = 0, FnvalEnum fnvalEnum = FnvalEnum.FLV)
         {
             string url = null;
             string avorbv = videoIDType == VideoIDType.AV ? "avid" : "bvid";
-            url = $"http://api.bilibili.com/x/player/playurl?{avorbv}={info.Aid}&cid={info.First_Cid}&fourk=1&qn={(int)dashEnum}";
+            string value = videoIDType == VideoIDType.AV ? $"{info.Aid}" : $"{info.Bvid}";
+            if(dashEnum == 0)
+            {
+                url = $"http://api.bilibili.com/x/player/playurl?{avorbv}={value}&cid={info.First_Cid}&mid={BiliBiliArgs.TokenSESSDATA.Mid}&qn=64&otype=json&platform=web&fnval=4048&fnver=0&fourk=1";
+            }
+            else
+            {
+                url = $"http://api.bilibili.com/x/player/playurl?{avorbv}={value}&cid={info.First_Cid}&mid={BiliBiliArgs.TokenSESSDATA.Mid}&qn={(int)dashEnum}&otype=json&platform=web&fnval=4048&fnver=0&fourk=1";
+            }
+            
             if (url != null)
                 return JsonConvert.ReadObject<VideoInfo>(await HttpClient.GetResults(url));
             else
@@ -83,7 +92,7 @@ namespace BilibiliAPI.Video
 
         public async Task<ResultCode<BiliBiliAPI.Models.HomeVideo.Video>> GetHomeVideo()
         {
-            string url = "https://app.bilibili.com/x/v2/feed/index?device_name=iPad206&device=pad&flush=5&mobi_app=iphone&platform=ios&pull=true";
+            string url = "https://app.bilibili.com/x/v2/feed/index?device_name=iPad206&device=pad&bulid=6235200&mobi_app=iphone&platform=ios&pull=true";
             var a =  JsonConvert.ReadObject<BiliBiliAPI.Models.HomeVideo.Video>(await HttpClient.GetResults(url));
             foreach (var item in a.Data.Item.ToArray())
             {

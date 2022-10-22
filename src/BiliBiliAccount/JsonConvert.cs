@@ -26,6 +26,7 @@ namespace BilibiliAPI
 
         public static ResultCode<T> ReadObject<T>(string Data)
         {
+            
             JsonReader reader = new JsonTextReader(new StringReader(Data));
             JsonSerializer jsonSerializer = new JsonSerializer();
             JObject jo = JObject.Parse(Data);

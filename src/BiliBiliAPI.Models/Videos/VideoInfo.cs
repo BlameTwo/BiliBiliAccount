@@ -17,8 +17,6 @@ namespace BiliBiliAPI.Models.Videos
         public string message { get; set; }
         [JsonProperty("format")]
         public string Format { get; set; }
-        [JsonProperty("quality")]
-        public string Quality { get; set; }
 
         /// <summary>
         /// 视频长度
@@ -36,34 +34,90 @@ namespace BiliBiliAPI.Models.Videos
         public List<string> Description { get; set; }
 
         /// <summary>
-        /// 视频清晰度代码
-        /// </summary>
-        [JsonProperty("accept_quality")]
-        public List<string> Accept_Code { get; set; }
-
-        /// <summary>
         /// 视频流编码ID
         /// </summary>
         [JsonProperty("video_codecid")]
         public string VideoCodeCid { get; set; }
 
-        [JsonProperty("durl")]
-        public List<Durl> Durl { get; set; }
-
-        [JsonProperty("support_formats")]
-        public List<Supports> Supports { get; set; }
 
         [JsonProperty("dash")]
-        public string Dash { get; set; }
+        public Dash Dash { get; set; }
 
         [JsonProperty("last_play_time")]
         public long LastPlay { get; set; }
 
         [JsonProperty("last_play_cid")]
         public long LastCid { get; set; }
+
+        [JsonProperty("accept_quality")]
+        public List<int> Quality { get; set; }
+
+
+        [JsonProperty("support_formats")]
+        public List<Support_Formats> Support_Formats { get; set; }
     }
 
-    public class Supports
+
+    public class Dash
+    {
+        [JsonProperty("duration")]
+        public int Duration { get; set; }
+
+        [JsonProperty("minBufferTime")]
+        public string MinBufferTime { get; set; }
+
+        [JsonProperty("min_buffer_time")]
+        public string Min_buffer_time { get; set; }
+
+        [JsonProperty("video")]
+        public List<DashVideo> DashVideos { get; set; }
+
+        [JsonProperty("audio")]
+        public List<DashVideo> DashAudio { get; set; }
+    }
+
+    public class DashVideo
+    {
+        [JsonProperty("id")]
+        public string ID { get; set; }
+
+        [JsonProperty("baseUrl")]
+        public string BaseUrl { get; set; }
+
+        [JsonProperty("base_url")]
+        public string Base_Url { get; set; }
+
+        [JsonProperty("backupUrl")]
+        public List<string> BackupUrl { get; set; }
+
+        [JsonProperty("backup_url")]
+        public List<string> Backup_Url { get; set; }
+
+        /// <summary>
+        /// 视频流格式
+        /// </summary>
+        [JsonProperty("mimeType")]
+        public string VideoType { get; set; }
+
+        /// <summary>
+        /// 视频流编码器
+        /// </summary>
+        [JsonProperty("codecs")]
+        public string Codecs { get; set; }
+
+        [JsonProperty("height")]
+        public string Height { get; set; }
+
+        [JsonProperty("width")]
+        public string Width { get; set; }
+
+        [JsonProperty("frameRate")]
+        public string FPS { get; set; }
+    }
+
+
+
+    public class Support_Formats
     {
         [JsonProperty("quality")]
         public string Quality { get; set; }
@@ -72,41 +126,15 @@ namespace BiliBiliAPI.Models.Videos
         public string Format { get; set; }
 
         [JsonProperty("new_description")]
-        public string NowDescription { get; set; }
+        public string New_description { get; set; }
+
+        [JsonProperty("display_desc")]
+        public string Display_Desc { get; set; }
 
         [JsonProperty("superscript")]
-        public string Superscript { get; set; }
+        public string SuperScript { get; set; }
 
         [JsonProperty("codecs")]
-        public string Codecs { get; set; }
-    }
-
-    public class Durl
-    {
-        /// <summary>
-        /// 分段序号
-        /// </summary>
-        [JsonProperty("order")]
-        public string Order { get; set; }
-        /// <summary>
-        /// 视频长度
-        /// </summary>
-        [JsonProperty("length")]
-        public string Length { get; set; }
-
-        /// <summary>
-        /// 视频大小，单位为Byte
-        /// </summary>
-        [JsonProperty("size")]
-        public string Size { get; set; }
-
-        /// <summary>
-        /// 视频Url
-        /// </summary>
-        [JsonProperty("url")]
-        public string Url { get; set; }
-
-        [JsonProperty("backup_url")]
-        public List<string> Backup_Url { get; set; }
+        public List<string> Codec { get; set; }
     }
 }

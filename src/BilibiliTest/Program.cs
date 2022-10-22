@@ -19,7 +19,7 @@ namespace BilibiliTest
             UserVideo user = new UserVideo();
             BiliBiliArgs.TokenSESSDATA = token;
             Video video = new Video();
-            var bv = await video.GetVideosContent("BV15z4y1Z734", VideoIDType.BV);
+            var bv = await video.GetVideosContent("BV1DF41137BG", VideoIDType.BV);
             #endregion
 
             #region 检查视频是否是用户收藏
@@ -45,6 +45,9 @@ namespace BilibiliTest
             //downLoad.DownLoadAsync(a.Data.Durl[0].Url);
             #endregion
 
+            #region 获得视频清晰度列表
+            //var download = await video.GetVideo(bv.Data, VideoIDType.AV);
+            #endregion
             #region 获得视频在线信息
             //var test2 = await video.GetVideoOnline(bv.Data);
             #endregion
@@ -59,6 +62,11 @@ namespace BilibiliTest
             //var result = await danmaku.GetDanmakuTest(bv.Data.First_Cid);
             #endregion
 
+            #region 上传播放历史
+            string url = $"http://api.bilibili.com/x/v2/history/report";
+            string data = $"aid={bv.Data.Aid}&cid={bv.Data.First_Cid}&progress={5}&platform=android";
+            var text = await Test.PostGo(url,data);
+            #endregion
 
             Console.ReadLine();
         }

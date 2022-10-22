@@ -25,7 +25,8 @@ namespace BiliBiliAPI.Models
         Dash1080P60 = 116,
         Dash4K= 120,
         DashHDR = 125,
-        DashDB=126
+        DashDB=126,
+        None = 0
     }
 
     /// <summary>

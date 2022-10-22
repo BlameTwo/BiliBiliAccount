@@ -71,5 +71,18 @@ namespace BilibiliAPI.Video
             return JsonConvert.ReadObject<VideoToConis>(await MyHttpClient.PostResults("https://app.biliapi.net/x/v2/view/coin/add?",content));
         }
 
+        /// <summary>
+        /// 上传视频播放时间
+        /// </summary>
+        /// <param name="aid">视频aid</param>
+        /// <param name="cid">视频cid</param>
+        /// <param name="progress">视频进度</param>
+        /// <returns></returns>
+        public async Task<string> PostProgress(int aid,string cid,TimeSpan progress)
+        {
+            int value = int.Parse(progress.Seconds.ToString());
+            string data = $"aid={aid}&cid={cid}&progress={value}&platform=android";
+            return (await MyHttpClient.PostResults("http://api.bilibili.com/x/v2/history/report",data));
+        }
     }
 }
