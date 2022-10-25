@@ -14,6 +14,68 @@ namespace BiliBiliAPI.Models.HomeVideo
        
     }
 
+    public class HotVideo
+    {
+
+        [JsonProperty("Config")]
+        public Config Config { get; set; }
+
+        [JsonProperty("data")]
+        public List<Item> Item { get; set; }
+    }
+
+    public class Config
+    {
+
+        [JsonProperty("item_title")]
+        public string Title { get; set; }
+
+        [JsonProperty("head_image")]
+        public string Icon { get; set; }
+
+        [JsonProperty("top_items")]
+        public List<Top_Item> Top_Item { get; set; }
+
+        [JsonProperty("share_info")]
+        public Share_Info Share_Info { get; set; }
+    }
+
+    public class Share_Info
+    {
+        [JsonProperty("current_title")]
+        public string Title { get; set; }
+
+        [JsonProperty("share_title")]
+        public string Share_Title { get; set; }
+
+        [JsonProperty("share_sub_title")]
+        public string Sub_Title { get; set; }
+
+        [JsonProperty("share_icon")]
+        public string Icon { get; set; }
+
+        [JsonProperty("current_top_photo")]
+        public string Back_Image { get; set; }
+    }
+
+    public class Top_Item
+    {
+        [JsonProperty("icon")]
+        public string Icon { get; set; }
+
+        [JsonProperty("title")]
+        public string Title { get; set; }
+
+        [JsonProperty("module_id")]
+        public string Rank { get; set; }
+
+        [JsonProperty("uri")]
+        public string StartUri { get; set; }
+
+        [JsonProperty("entrance_id")]
+        public string Entrance_id { get; set; }
+    }
+
     public class Item
     {
         [JsonProperty("card_type")]

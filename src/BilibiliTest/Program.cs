@@ -1,4 +1,5 @@
 ﻿using BilibiliAPI;
+using BilibiliAPI.TopVideos;
 using BilibiliAPI.User;
 using BilibiliAPI.Video;
 using BiliBiliAPI.Models;
@@ -19,6 +20,7 @@ namespace BilibiliTest
             UserVideo user = new UserVideo();
             BiliBiliArgs.TokenSESSDATA = token;
             Video video = new Video();
+            TopListVideo topvideo = new TopListVideo();
             var bv = await video.GetVideosContent("BV1DF41137BG", VideoIDType.BV);
             #endregion
 
@@ -63,11 +65,14 @@ namespace BilibiliTest
             #endregion
 
             #region 上传播放历史
-            string url = $"http://api.bilibili.com/x/v2/history/report";
-            string data = $"aid={bv.Data.Aid}&cid={bv.Data.First_Cid}&progress={5}&platform=android";
-            var text = await Test.PostGo(url,data);
+            //string url = $"http://api.bilibili.com/x/v2/history/report";
+            //string data = $"aid={bv.Data.Aid}&cid={bv.Data.First_Cid}&progress={5}&platform=android";
+            //var text = await Test.PostGo(url,data);
             #endregion
 
+            #region 获得排行榜
+            var list = await topvideo.GetTopVideo(Cid.Music,7);
+            #endregion
             Console.ReadLine();
         }
     }

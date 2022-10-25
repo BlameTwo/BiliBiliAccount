@@ -1,4 +1,6 @@
-﻿using BiliBiliAPI.Models;
+﻿using BilibiliAPI.ApiTools;
+using BiliBiliAPI.Models;
+using BiliBiliAPI.Models.HomeVideo;
 using BiliBiliAPI.Models.Videos;
 using System;
 using System.Collections.Generic;
@@ -92,16 +94,41 @@ namespace BilibiliAPI.Video
 
         public async Task<ResultCode<BiliBiliAPI.Models.HomeVideo.Video>> GetHomeVideo()
         {
-            string url = "https://app.bilibili.com/x/v2/feed/index?device_name=iPad206&device=pad&bulid=6235200&mobi_app=iphone&platform=ios&pull=true";
-            var a =  JsonConvert.ReadObject<BiliBiliAPI.Models.HomeVideo.Video>(await HttpClient.GetResults(url));
-            foreach (var item in a.Data.Item.ToArray())
+            return await GetUrl(VideoType.Home);
+        }
+
+        enum VideoType
+        {
+            Home,Hot
+        }
+
+        async Task<ResultCode<BiliBiliAPI.Models.HomeVideo.Video>> GetUrl(VideoType videoType)
+        {
+            string url = "";
+            switch (videoType)
             {
-                if (string.IsNullOrWhiteSpace(item.Title))
-                {
-                    a.Data.Item.Remove(item);
-                }
+                case VideoType.Home:
+                    url = "https://app.bilibili.com/x/v2/feed/index?device_name=iPad206&device=pad&bulid=6235200&mobi_app=iphone&platform=ios&pull=true";
+                    break;
+                case VideoType.Hot:
+                    url = "https://app.bilibili.com/x/v2/show/popular/index?device_name=iPad206&device=pad&bulid=6235200&mobi_app=iphone&platform=ios&pull=true";
+                    break;
             }
-            return a;
+            var result = JsonConvert.ReadObject<BiliBiliAPI.Models.HomeVideo.Video>(await HttpClient.GetResults(url));
+            var list = result.Data.Item.Where(p => !string.IsNullOrWhiteSpace(p.Title));
+            result.Data.Item = list.ToList();
+            return result;
+        }
+
+        public async Task<BiliBiliAPI.Models.HomeVideo.HotVideo> GetHotVideo()
+        {
+            var url = "https://app.bilibili.com/x/v2/show/popular/index?";
+            var text = "device_name=iPad206&device=pad&bulid=6235200&mobi_app=iphone&platform=ios&pull=true";
+            string jo = await HttpClient.GetResults(url, ApiProvider.AndroidTVKey, text);
+            var result = JsonConvert.Deserialize<BiliBiliAPI.Models.HomeVideo.HotVideo>(jo);
+            var list = result.Item.Where(p => !string.IsNullOrWhiteSpace(p.Title));
+            result.Item = list.ToList();
+            return result;
         }
 
     }

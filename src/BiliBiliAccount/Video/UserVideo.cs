@@ -80,7 +80,16 @@ namespace BilibiliAPI.Video
         /// <returns></returns>
         public async Task<string> PostProgress(int aid,string cid,TimeSpan progress)
         {
-            int value = int.Parse(progress.Seconds.ToString());
+            int hour = progress.Hours;int minute = progress.Minutes;
+            int value2 = 0;
+            if (hour > 0)
+            {
+                value2 = minute * 60 + (hour * 60) * 60;
+            }else if(minute > 0)
+            {
+                value2 = minute * 60;
+            }
+            int value = int.Parse(progress.Seconds.ToString())+value2;
             string data = $"aid={aid}&cid={cid}&progress={value}&platform=android";
             return (await MyHttpClient.PostResults("http://api.bilibili.com/x/v2/history/report",data));
         }
