@@ -78,8 +78,7 @@ namespace BilibiliTest
             #region 搜索视频
             var text = $"?search_type=video&keyword=崩坏3&page=5";
             string uri = "http://api.bilibili.com/x/web-interface/search/type";
-            string str = (string)await Search.SearchVideo("崩坏世界的歌姬","5");
-            Console.WriteLine(str);
+            var str = await Search.SearchAnimation("夏日重现",1);
             #endregion
             Console.ReadLine();
         }

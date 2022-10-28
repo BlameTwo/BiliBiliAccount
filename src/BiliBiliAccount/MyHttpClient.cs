@@ -26,16 +26,16 @@ namespace BilibiliAPI
         }
 
 
-        public async Task<string> GetResults(string url, ApiKeyInfo apiKeyInfo = null, string type = "&platform=android&device=android&actionKey=appkey&build=5442100&mobi_app=android_comic")
+        public async Task<string> GetResults(string url, ApiKeyInfo apiKeyInfo = null, string type = "&platform=android&device=android&actionKey=appkey&build=5442100&mobi_app=android_comic",bool IsAccesskey = true)
         {
             try
             {
                 if (apiKeyInfo == null)
                     apiKeyInfo = ApiProvider.AndroidTVKey;
                 if (url.IndexOf("?") > -1)
-                    url += "&access_key=" + BiliBiliArgs.TokenSESSDATA.SECCDATA + "&appkey=" + apiKeyInfo.Appkey + type +"&ts="+ ApiProvider.TimeSpanSeconds;
+                    url += (IsAccesskey == true ? "?access_key=" + BiliBiliArgs.TokenSESSDATA.SECCDATA : "") + "&appkey=" + apiKeyInfo.Appkey + type + "&ts=" + ApiProvider.TimeSpanSeconds;
                 else
-                    url += "?access_key=" + BiliBiliArgs.TokenSESSDATA.SECCDATA + "&appkey=" + apiKeyInfo.Appkey + type + "&ts=" + ApiProvider.TimeSpanSeconds;
+                    url += (IsAccesskey == true? "?access_key=" + BiliBiliArgs.TokenSESSDATA.SECCDATA:"") + "&appkey=" + apiKeyInfo.Appkey + type + "&ts=" + ApiProvider.TimeSpanSeconds;
                 url += "&sign=" + ApiProvider.GetSign(url, apiKeyInfo);
                 HttpResponseMessage hr = await HttpClient.GetAsync(url).ConfigureAwait(false);
                 hr.Headers.Add("referer","https:bilibili.com");

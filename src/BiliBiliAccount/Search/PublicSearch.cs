@@ -1,4 +1,6 @@
-﻿using BiliBiliAPI.Models.Search;
+﻿using BilibiliAPI.ApiTools;
+using BiliBiliAPI.Models;
+using BiliBiliAPI.Models.Search;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,39 +15,51 @@ namespace BilibiliAPI.Search
         /// <summary>
         /// 自带参数搜索
         /// </summary>
-        /// <param name="query"></param>
-        /// <param name="uri"></param>
+        /// <param name="query">参数</param>
+        /// <param name="uri">目标主机</param>
         /// <returns></returns>
-        public async Task<object> Search(string query,string uri= "https://app.bilibili.com/x/v2/search")
+        public async Task<string> Search(string query, bool isacceyc =true,string uri= "https://app.bilibili.com/x/v2/search")
         {
-            var value = await HttpClient.GetResults(uri + query);
-            return value;
+             return await HttpClient.GetResults(uri + query, ApiProvider.AndroidTVKey, "&mobi_app=iphone&order=totalrank&platform=ios", isacceyc);
         }
 
         /// <summary>
         /// 搜索视频
         /// </summary>
         /// <param name="KeyWord">关键字</param>
-        /// <param name="pagesize">页数</param>
-        /// <param name="Order">排序方式</param>
-        /// <param name="Duration">时长：All:0  <10min:1  10-30min:2  30min-1hour:3    >1hour:4</param>
-        /// <param name="Tids">视频的分区</param>
+        /// <param name="PageSize">页数</param>
+        /// <param name="order">排序方式</param>
+        /// <param name="duration">时长</param>
         /// <returns></returns>
-        public async Task<object> SearchVideo(string KeyWord, string pagesize,string Order=null, string Duration = null, string Tids = null)
+        public async Task<ResultCode<SearchVideo>> GetVideo(string KeyWord, int PageSize, OrderBy order, int duration)
         {
-            var value =  await Search($"?search_type=video&keyword={KeyWord}&order={Order}&duration={Duration}&tids={Tids}&page={pagesize}");
-            return value;
+            var value = await Search($"?keyword={KeyWord}&pn={PageSize}&order={GetOrder(order)}&ps=20&duration={duration}");
+            return JsonConvert.ReadObject<SearchVideo>(value);
         }
 
-        /// <summary>
-        /// 搜索番剧，不分国产和海外
-        /// </summary>
-        /// <param name="KeyWord">关键字</param>
-        /// <param name="PageSize">页数</param>
-        /// <returns></returns>
-        public async Task<object> SearchAnimation(string KeyWord,string PageSize)
+        private string GetOrder(OrderBy order)
         {
-            return await Search($"?search_type=media_bangumi&keyword={KeyWord}&page={PageSize}");
+            switch (order)
+            {
+                case OrderBy.Default:
+                    return "default";
+                case OrderBy.view:
+                    return "view";
+                case OrderBy.pubdate:
+                    return "pubdate";
+                case OrderBy.danmaku:
+                    return "danmaku";
+                default:
+                    return "";
+            }
+        }
+
+
+        public async Task<ResultCode<SearchAnimation>> SearchAnimation(string KeyWord,int PageSize)
+        {
+            var value =  await Search($"?keyword={KeyWord}&pn={PageSize}&ps=20&type=7&build=5520400",false, "https://app.bilibili.com/x/v2/search/type");
+
+            return JsonConvert.ReadObject<SearchAnimation>(value);
         }
 
         /// <summary>
