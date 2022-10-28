@@ -1,4 +1,5 @@
 ﻿using BilibiliAPI;
+using BilibiliAPI.Search;
 using BilibiliAPI.TopVideos;
 using BilibiliAPI.User;
 using BilibiliAPI.Video;
@@ -13,7 +14,7 @@ namespace BilibiliTest
     public static class Program
     {
         static AccountToken token = AccountSettings.Read();
-
+        static PublicSearch Search = new PublicSearch();
         public static  async Task Main(string[] args)
         {
             #region 初始化视频相关
@@ -71,7 +72,14 @@ namespace BilibiliTest
             #endregion
 
             #region 获得排行榜
-            var list = await topvideo.GetTopVideo(Cid.Music,7);
+            // var list = await topvideo.GetTopVideo(Cid.Music,7);
+            #endregion
+
+            #region 搜索视频
+            var text = $"?search_type=video&keyword=崩坏3&page=5";
+            string uri = "http://api.bilibili.com/x/web-interface/search/type";
+            string str = (string)await Search.SearchVideo("崩坏世界的歌姬","5");
+            Console.WriteLine(str);
             #endregion
             Console.ReadLine();
         }

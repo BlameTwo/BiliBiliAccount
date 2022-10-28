@@ -15,12 +15,16 @@ namespace BiliBiliAPI.Models.TopList
 
         [JsonProperty("list")]
         public List<TopVideo> List { get; set; }
+
     }
 
     public class TopVideo: VideosContent
     {
         [JsonProperty("short_link")]
         public string Link { get; set; }
+
+        [JsonProperty("pic")]
+        public string Cover { get; set; }
 
         [JsonProperty("short_link_v2")]
         public string Link_V2 { get; set; }
@@ -33,6 +37,10 @@ namespace BiliBiliAPI.Models.TopList
 
         [JsonProperty("score")]
         public string Score { get; set; }
+
+
+        [JsonProperty("pts")]
+        public string Pts { get; set; }
 
     }
 }

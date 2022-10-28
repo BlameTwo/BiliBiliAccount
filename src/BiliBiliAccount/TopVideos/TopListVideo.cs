@@ -1,4 +1,5 @@
-﻿using BiliBiliAPI.Models;
+﻿using BilibiliAPI.ApiTools;
+using BiliBiliAPI.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,10 +21,10 @@ namespace BilibiliAPI.TopVideos
             }
             else
             {
-                Url = $"https://api.bilibili.com/x/web-interface/ranking/v2?rid={(int)cid}&day={day}";
+                Url = $"https://api.bilibili.com/x/web-interface/ranking/v2?rid={(int)cid}&day={day}&ps=20&pn1";
             }
-            
-            return JsonConvert.ReadObject<BiliBiliAPI.Models.TopList.Videos>(await HttpClient.GetResults(Url));
+            var text = "device_name=iPad206&device=pad&bulid=6235200&mobi_app=iphone&platform=ios&pull=true";
+            return JsonConvert.ReadObject<BiliBiliAPI.Models.TopList.Videos>(await HttpClient.GetResults(Url, ApiProvider.AndroidTVKey,text));
         }
     }
 }

@@ -16,9 +16,10 @@ namespace BilibiliAPI.Search
         /// <param name="query"></param>
         /// <param name="uri"></param>
         /// <returns></returns>
-        public async Task<object> Search(string query,string uri= "http://api.bilibili.com/x/web-interface/search/type")
+        public async Task<object> Search(string query,string uri= "https://app.bilibili.com/x/v2/search")
         {
-            return await HttpClient.GetResults(uri + query);
+            var value = await HttpClient.GetResults(uri + query);
+            return value;
         }
 
         /// <summary>
@@ -32,7 +33,8 @@ namespace BilibiliAPI.Search
         /// <returns></returns>
         public async Task<object> SearchVideo(string KeyWord, string pagesize,string Order=null, string Duration = null, string Tids = null)
         {
-            return await Search($"?search_type=video&keyword={KeyWord}&order={Order}&duration={Duration}&tids={Tids}&page={pagesize}");
+            var value =  await Search($"?search_type=video&keyword={KeyWord}&order={Order}&duration={Duration}&tids={Tids}&page={pagesize}");
+            return value;
         }
 
         /// <summary>
