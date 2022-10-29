@@ -26,19 +26,77 @@ namespace BilibiliAPI
         }
 
 
-        public async Task<string> GetResults(string url, ApiKeyInfo apiKeyInfo = null, string type = "&platform=android&device=android&actionKey=appkey&build=5442100&mobi_app=android_comic",bool IsAccesskey = true)
+        //public async Task<string> GetResults(string url, ApiKeyInfo apiKeyInfo = null, string type = "&platform=android&device=android&actionKey=appkey&build=5442100&mobi_app=android_comic",bool IsAccesskey = true)
+        //{
+        //    try
+        //    {
+        //        if (apiKeyInfo == null)
+        //            apiKeyInfo = ApiProvider.AndroidTVKey;
+        //        if (url.IndexOf("?") > -1)
+        //            url += (IsAccesskey == true ? "?access_key=" + BiliBiliArgs.TokenSESSDATA.SECCDATA : "") + "&appkey=" + apiKeyInfo.Appkey + type + "&ts=" + ApiProvider.TimeSpanSeconds;
+        //        else
+        //            url += (IsAccesskey == true? "?access_key=" + BiliBiliArgs.TokenSESSDATA.SECCDATA:"") + "&appkey=" + apiKeyInfo.Appkey + type + "&ts=" + ApiProvider.TimeSpanSeconds;
+        //        url += "&sign=" + ApiProvider.GetSign(url, apiKeyInfo);
+        //        HttpResponseMessage hr = await HttpClient.GetAsync(url).ConfigureAwait(false);
+        //        hr.Headers.Add("referer","https:bilibili.com");
+        //        hr.Headers.Add("Accept_Encoding", "gzip,deflate");
+        //        hr.EnsureSuccessStatusCode();
+        //        var encodeResults = await hr.Content.ReadAsByteArrayAsync().ConfigureAwait(false);
+        //        return Encoding.UTF8.GetString(encodeResults, 0, encodeResults.Length);
+        //    }
+        //    catch (Exception ex)
+        //    {
+
+        //        Debug.WriteLine(ex.Message);
+        //        return string.Empty;
+        //    }
+        //}
+
+        //public async Task<string> GetResults(string url, string cookie,ApiKeyInfo apiKeyInfo = null)
+        //{
+        //    return await Task.Run(async () =>
+        //    {
+        //        try
+        //        {
+        //            if (apiKeyInfo == null)
+        //                apiKeyInfo = ApiProvider.AndroidKey;
+        //            if (url.IndexOf("?") > -1)
+        //                url += "&access_key=" + BiliBiliArgs.TokenSESSDATA.SECCDATA + "&appkey=" + apiKeyInfo.Appkey + "&platform=android&device=android&actionKey=appkey&build=5442100&mobi_app=android_comic&ts=" + ApiProvider.TimeSpanSeconds;
+        //            else
+        //                url += "?access_key=" + BiliBiliArgs.TokenSESSDATA.SECCDATA + "&appkey=" + apiKeyInfo.Appkey + "&platform=android&device=android&actionKey=appkey&build=5442100&mobi_app=android_comic&ts=" + ApiProvider.TimeSpanSeconds;
+        //            url += "&sign=" + ApiProvider.GetSign(url, apiKeyInfo);
+
+        //            HttpResponseMessage hr = await HttpClient.GetAsync(url).ConfigureAwait(false);
+
+        //            hr.Headers.Add("Cookie", cookie);
+        //            hr.EnsureSuccessStatusCode();
+        //            var encodeResults = await hr.Content.ReadAsByteArrayAsync().ConfigureAwait(false);
+        //            return Encoding.UTF8.GetString(encodeResults, 0, encodeResults.Length);
+        //        }
+        //        catch (Exception ex)
+        //        {
+
+        //            Debug.WriteLine(ex.Message);
+        //            return string.Empty;
+        //        }
+        //    });
+        //}
+
+
+        public async Task<string> GetResults(string url, ApiKeyInfo apiKeyInfo = null, string type = "&platform=android&device=android&actionKey=appkey&build=5442100&mobi_app=android_comic",bool IsAcess = true)
         {
+            //(IsAcess == true ? "?access_key="+BiliBiliArgs.TokenSESSDATA.SECCDATA : "")
             try
             {
                 if (apiKeyInfo == null)
                     apiKeyInfo = ApiProvider.AndroidTVKey;
                 if (url.IndexOf("?") > -1)
-                    url += (IsAccesskey == true ? "?access_key=" + BiliBiliArgs.TokenSESSDATA.SECCDATA : "") + "&appkey=" + apiKeyInfo.Appkey + type + "&ts=" + ApiProvider.TimeSpanSeconds;
+                    url += (IsAcess == true ? "&access_key=" + BiliBiliArgs.TokenSESSDATA.SECCDATA : "") + "&appkey=" + apiKeyInfo.Appkey + type + "&ts=" + ApiProvider.TimeSpanSeconds;
                 else
-                    url += (IsAccesskey == true? "?access_key=" + BiliBiliArgs.TokenSESSDATA.SECCDATA:"") + "&appkey=" + apiKeyInfo.Appkey + type + "&ts=" + ApiProvider.TimeSpanSeconds;
+                    url += (IsAcess == true ? "?access_key=" + BiliBiliArgs.TokenSESSDATA.SECCDATA : "") + "&appkey=" + apiKeyInfo.Appkey + type + "&ts=" + ApiProvider.TimeSpanSeconds;
                 url += "&sign=" + ApiProvider.GetSign(url, apiKeyInfo);
                 HttpResponseMessage hr = await HttpClient.GetAsync(url).ConfigureAwait(false);
-                hr.Headers.Add("referer","https:bilibili.com");
+                hr.Headers.Add("referer", "https:bilibili.com");
                 hr.Headers.Add("Accept_Encoding", "gzip,deflate");
                 hr.EnsureSuccessStatusCode();
                 var encodeResults = await hr.Content.ReadAsByteArrayAsync().ConfigureAwait(false);
@@ -52,7 +110,7 @@ namespace BilibiliAPI
             }
         }
 
-        public async Task<string> GetResults(string url, string cookie,ApiKeyInfo apiKeyInfo = null)
+        public async Task<string> GetResults(string url, string cookie, ApiKeyInfo apiKeyInfo = null)
         {
             return await Task.Run(async () =>
             {
@@ -67,7 +125,7 @@ namespace BilibiliAPI
                     url += "&sign=" + ApiProvider.GetSign(url, apiKeyInfo);
 
                     HttpResponseMessage hr = await HttpClient.GetAsync(url).ConfigureAwait(false);
-                    
+
                     hr.Headers.Add("Cookie", cookie);
                     hr.EnsureSuccessStatusCode();
                     var encodeResults = await hr.Content.ReadAsByteArrayAsync().ConfigureAwait(false);
@@ -81,7 +139,6 @@ namespace BilibiliAPI
                 }
             });
         }
-
 
         public async Task<string> GetStringAsync(string url)
         {

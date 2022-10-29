@@ -18,9 +18,9 @@ namespace BilibiliAPI.Search
         /// <param name="query">参数</param>
         /// <param name="uri">目标主机</param>
         /// <returns></returns>
-        public async Task<string> Search(string query, bool isacceyc =true,string uri= "https://app.bilibili.com/x/v2/search")
+        public async Task<string> Search(string query, bool isacceyc =false,string uri= "https://app.bilibili.com/x/v2/search")
         {
-             return await HttpClient.GetResults(uri + query, ApiProvider.AndroidTVKey, "&mobi_app=iphone&order=totalrank&platform=ios", isacceyc);
+             return await HttpClient.GetResults(uri + query, ApiProvider.AndroidTVKey, "&mobi_app=iphone&order=totalrank&platform=ios&build=5520400", isacceyc);
         }
 
         /// <summary>
@@ -54,7 +54,12 @@ namespace BilibiliAPI.Search
             }
         }
 
-
+        /// <summary>
+        /// 搜索番剧
+        /// </summary>
+        /// <param name="KeyWord">番剧关键字</param>
+        /// <param name="PageSize">页数</param>
+        /// <returns></returns>
         public async Task<ResultCode<SearchAnimation>> SearchAnimation(string KeyWord,int PageSize)
         {
             var value =  await Search($"?keyword={KeyWord}&pn={PageSize}&ps=20&type=7&build=5520400",false, "https://app.bilibili.com/x/v2/search/type");
