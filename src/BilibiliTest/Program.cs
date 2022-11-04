@@ -5,6 +5,7 @@ using BilibiliAPI.User;
 using BilibiliAPI.Video;
 using BiliBiliAPI.Models;
 using BiliBiliAPI.Models.Account;
+using BiliBiliAPI.Models.Movie;
 using BiliBiliAPI.Models.Settings;
 using BiliBiliAPI.Models.Videos;
 using System.Security.Cryptography;
@@ -76,9 +77,14 @@ namespace BilibiliTest
             #endregion
 
             #region 搜索视频
-            var text = $"?search_type=video&keyword=崩坏3&page=5";
-            string uri = "http://api.bilibili.com/x/web-interface/search/type";
-            var str = await Search.SearchAnimation("夏日重现",1);
+            // var text = $"?search_type=video&keyword=崩坏3&page=5";
+            // string uri = "http://api.bilibili.com/x/web-interface/search/type";
+            // var str = await Search.SearchAnimation("夏日重现",1);
+            #endregion
+            #region 获得电影的基本信息
+            BilibiliAPI.Movie.Movie movie = new BilibiliAPI.Movie.Movie();
+            var result = await movie.GetMovie("33343", BilibiliAPI.Movie.Movie.MovieEnum.SSID);
+
             #endregion
             Console.ReadLine();
         }

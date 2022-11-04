@@ -3,7 +3,9 @@ using BiliBiliAPI.Models;
 using BiliBiliAPI.Models.Search;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -64,8 +66,20 @@ namespace BilibiliAPI.Search
         {
             var value =  await Search($"?keyword={KeyWord}&pn={PageSize}&ps=20&type=7&build=5520400",false, "https://app.bilibili.com/x/v2/search/type");
 
-            return JsonConvert.ReadObject<SearchAnimation>(value);
+            var result =  JsonConvert.ReadObject<SearchAnimation>(value);
+            foreach (var item in result.Data.Items)
+            {
+                if (item.Episodes == null)
+                    continue;
+                if (item.Episodes.Count > 25)
+                {
+                    item.Episodes = item.Episodes.Take(26).ToList();
+                }
+            }
+            return result;
         }
+
+        
 
         /// <summary>
         /// 搜索专栏
