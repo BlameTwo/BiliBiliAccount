@@ -153,6 +153,21 @@ namespace BiliBiliAPI.Models.Videos
         [JsonProperty("relates")]
         public List<Relates> Relates { get; set; }
 
+        [JsonProperty("history")]
+        public History History { get; set; }
+    }
+
+
+    public class History
+    {
+        [JsonProperty("cid")]
+        public string Cid { get; set; }
+
+        /// <summary>
+        /// 播放进度，以秒为单位
+        /// </summary>
+        [JsonProperty("progress")]
+        public string Progress { get; set;   }
     }
 
     public class Relates

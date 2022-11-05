@@ -23,7 +23,7 @@ namespace BilibiliTest
             BiliBiliArgs.TokenSESSDATA = token;
             Video video = new Video();
             TopListVideo topvideo = new TopListVideo();
-            var bv = await video.GetVideosContent("BV1DF41137BG", VideoIDType.BV);
+            var bv = await video.GetVideosContent("BV1GF411Y7FC", VideoIDType.BV);
             #endregion
 
             #region 检查视频是否是用户收藏
@@ -82,9 +82,8 @@ namespace BilibiliTest
             // var str = await Search.SearchAnimation("夏日重现",1);
             #endregion
             #region 获得电影的基本信息
-            BilibiliAPI.Movie.Movie movie = new BilibiliAPI.Movie.Movie();
-            var result = await movie.GetMovie("33343", BilibiliAPI.Movie.Movie.MovieEnum.SSID);
-
+            //BilibiliAPI.Movie.Movie movie = new BilibiliAPI.Movie.Movie();
+            //var result = await movie.GetMovie("33343", BilibiliAPI.Movie.Movie.MovieEnum.SSID);
             #endregion
             Console.ReadLine();
         }
