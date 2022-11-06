@@ -25,10 +25,7 @@ namespace BilibiliTest
             TopListVideo topvideo = new TopListVideo();
             var bv = await video.GetVideosContent("BV1Jg411a7jt", VideoIDType.BV);
             #endregion
-            foreach (var item in bv.Data.Tag)
-            {
-                Console.WriteLine($"{item.Name}    {item.ID}   {item.Uri}");
-            }
+
             #region 检查视频是否是用户收藏
             //Console.WriteLine((await user.CoinsVideo(1,bv.Data.Aid)).Data.Guide.Title);
             //string url = $"http://api.bilibili.com/x/v3/fav/folder/created/list-all?up_mid={token.Mid}";
@@ -85,12 +82,27 @@ namespace BilibiliTest
             // var str = await Search.SearchAnimation("夏日重现",1);
             #endregion
 
+            #region 获得视频简介
+            var result = await video.GetVideoDesc("BV1Jg411a7jt", VideoIDType.BV);
+            #endregion
+
+            #region 标签相关
             // 标签搜索，channel_id为搜索频道，Tag的Tag_Type为new是为频道，Tag的Tag_Type为common时为普通搜索
             //标签搜索：https://api.bilibili.com/x/web-interface/web/channel/multiple/list?channel_id=10242316&sort_type=hot&offset=&page_size=30
             //标签年份搜索：https://api.bilibili.com/x/web-interface/web/channel/featured/list?channel_id=25483&filter_type=2022&offset=&page_size=30
             //热度搜索  https://api.bilibili.com/x/web-interface/web/channel/multiple/list?channel_id=7945544&sort_type=hot&offset=389814532_1667725405&page_size=30
             //三十天内  https://api.bilibili.com/x/web-interface/web/channel/multiple/list?channel_id=7945544&sort_type=view&offset=944748123_17905658123&page_size=30
             //标签最新更新：https://api.bilibili.com/x/web-interface/web/channel/multiple/list?channel_id=7945544&sort_type=new&offset=&page_size=30
+            //foreach (var item in bv.Data.Tag)
+            //{
+            //    Console.WriteLine($"{item.Name}    {item.ID}   {item.Uri}");
+            //}
+            #endregion
+
+
+            //关注操作
+            //https://github.com/SocialSisterYi/bilibili-API-collect/blob/6c844133afa9663dc46502af993809060875adb3/user/relation.md#%E6%93%8D%E4%BD%9C%E7%94%A8%E6%88%B7%E5%85%B3%E7%B3%BB
+
             #region 搜索电影
             // var result = await Search.SearchMovie("天气之子", 1);
             #endregion

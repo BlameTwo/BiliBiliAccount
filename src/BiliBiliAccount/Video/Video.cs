@@ -46,6 +46,15 @@ namespace BilibiliAPI.Video
             return JsonConvert.ReadObject<VideoState>(await HttpClient.GetResults(url));
         }
 
+
+        /// <summary>
+        /// 获得视频流信息
+        /// </summary>
+        /// <param name="info"></param>
+        /// <param name="videoIDType"></param>
+        /// <param name="dashEnum"></param>
+        /// <param name="fnvalEnum"></param>
+        /// <returns></returns>
         public async Task<ResultCode<VideoInfo>> GetVideo(VideosContent info,VideoIDType videoIDType, int dashEnum = 0, FnvalEnum fnvalEnum = FnvalEnum.FLV)
         {
             string url = null;
@@ -131,5 +140,16 @@ namespace BilibiliAPI.Video
             return result;
         }
 
+
+        public async Task<ResultCode<string>> GetVideoDesc(string id, VideoIDType videoIDType = VideoIDType.BV)
+        {
+            string url = "";
+            if (videoIDType == VideoIDType.BV)
+                url = $"https://api.bilibili.com/x/web-interface/archive/desc?bvid={id}";
+            else
+                url = $"https://api.bilibili.com/x/web-interface/archive/desc?aid={id}";
+
+            return JsonConvert.Deserialize<ResultCode<string>>(await HttpClient.GetResults(url));
+        }
     }
 }
