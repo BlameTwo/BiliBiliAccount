@@ -20,9 +20,9 @@ namespace BilibiliAPI.Search
         /// <param name="query">参数</param>
         /// <param name="uri">目标主机</param>
         /// <returns></returns>
-        public async Task<string> Search(string query, bool isacceyc =false,string uri= "https://app.bilibili.com/x/v2/search")
+        public async Task<string> Search(string query, bool isacceyc = false,string uri= "https://app.bilibili.com/x/v2/search")
         {
-             return await HttpClient.GetResults(uri + query, ApiProvider.AndroidTVKey, "&mobi_app=iphone&order=totalrank&platform=ios&build=5520400", isacceyc);
+             return await HttpClient.GetResults(uri + query, ApiProvider.AndroidTVKey, "&mobi_app=iphone&platform=ios&build=5520400", isacceyc);
         }
 
         /// <summary>
@@ -62,11 +62,11 @@ namespace BilibiliAPI.Search
         /// <param name="KeyWord">番剧关键字</param>
         /// <param name="PageSize">页数</param>
         /// <returns></returns>
-        public async Task<ResultCode<SearchAnimation>> SearchAnimation(string KeyWord,int PageSize)
+        public async Task<ResultCode<SearchAnimation_Movie>> SearchAnimation(string KeyWord,int PageSize)
         {
             var value =  await Search($"?keyword={KeyWord}&pn={PageSize}&ps=20&type=7&build=5520400",false, "https://app.bilibili.com/x/v2/search/type");
 
-            var result =  JsonConvert.ReadObject<SearchAnimation>(value);
+            var result =  JsonConvert.ReadObject<SearchAnimation_Movie>(value);
             foreach (var item in result.Data.Items)
             {
                 if (item.Episodes == null)
@@ -81,16 +81,10 @@ namespace BilibiliAPI.Search
 
         
 
-        /// <summary>
-        /// 搜索专栏
-        /// </summary>
-        /// <param name="KeyWord">关键字</param>
-        /// <param name="Order">排序方式</param>
-        /// <param name="Category_id">分区筛选</param>
-        /// <returns></returns>
-        public async Task<object> SearchDocument(string KeyWord,string Order, string Category_id)
+        public async Task<ResultCode<SearchAnimation_Movie>> SearchMovie(string keyword,int PageSize)
         {
-            return await Search($"?search-type=article&keyword={KeyWord}&order={Order}&category_id={Category_id}");
+            var value = await Search($"?keyword={keyword}&pn={PageSize}&ps=20&type=8&build=5520400",false, "https://app.bilibili.com/x/v2/search/type");
+            return JsonConvert.ReadObject<SearchAnimation_Movie>(value);
         }
     }
 }

@@ -89,13 +89,13 @@ namespace BiliBiliAPI.Models.Search
         public string UpCover { get; set; }
     }
 
-    public class SearchAnimation
+    public class SearchAnimation_Movie
     {
         [JsonProperty("items")]
-        public List<AniationItem> Items { get; set; }
+        public List<Aniation_Movie_Item> Items { get; set; }
     }
 
-    public class AniationItem
+    public class Aniation_Movie_Item
     {
         [JsonProperty("title")]
         public string Title { get; set; }

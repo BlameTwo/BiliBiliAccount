@@ -81,6 +81,10 @@ namespace BilibiliTest
             // string uri = "http://api.bilibili.com/x/web-interface/search/type";
             // var str = await Search.SearchAnimation("夏日重现",1);
             #endregion
+
+            #region 搜索电影
+            var result = await Search.SearchMovie("天气之子", 1);
+            #endregion
             #region 获得电影的基本信息
             //BilibiliAPI.Movie.Movie movie = new BilibiliAPI.Movie.Movie();
             //var result = await movie.GetMovie("33343", BilibiliAPI.Movie.Movie.MovieEnum.SSID);
