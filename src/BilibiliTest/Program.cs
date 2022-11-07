@@ -1,5 +1,6 @@
 ﻿using BilibiliAPI;
 using BilibiliAPI.Search;
+using BilibiliAPI.TopLists;
 using BilibiliAPI.TopVideos;
 using BilibiliAPI.User;
 using BilibiliAPI.Video;
@@ -83,7 +84,7 @@ namespace BilibiliTest
             #endregion
 
             #region 获得视频简介
-            var result = await video.GetVideoDesc("BV1Jg411a7jt", VideoIDType.BV);
+            // var result = await video.GetVideoDesc(bv.Data.Bvid, VideoIDType.BV);
             #endregion
 
             #region 标签相关
@@ -109,6 +110,16 @@ namespace BilibiliTest
             #region 获得电影的基本信息
             //BilibiliAPI.Movie.Movie movie = new BilibiliAPI.Movie.Movie();
             //var result = await movie.GetMovie("33343", BilibiliAPI.Movie.Movie.MovieEnum.SSID);
+            #endregion
+
+            #region 获得每周必看列表和视频
+            EveryoneWeak Weak = new EveryoneWeak();
+            var result = await Weak.GetWeakList();
+            foreach (var item in result.Data.List)
+            {
+                var result2 = await Weak.GetWeakTopList(item.Number);
+                Console.WriteLine(result2);
+            }
             #endregion
             Console.ReadLine();
         }

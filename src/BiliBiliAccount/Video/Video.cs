@@ -151,5 +151,10 @@ namespace BilibiliAPI.Video
 
             return JsonConvert.Deserialize<ResultCode<string>>(await HttpClient.GetResults(url));
         }
+
+        public Task GetVideoDesc()
+        {
+            throw new NotImplementedException();
+        }
     }
 }
