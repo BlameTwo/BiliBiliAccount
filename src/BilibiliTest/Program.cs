@@ -114,10 +114,10 @@ namespace BilibiliTest
 
             #region 获得每周必看列表和视频
             EveryoneWeak Weak = new EveryoneWeak();
-            var result = await Weak.GetWeakList();
+            var result = await Weak.GetWeekList();
             foreach (var item in result.Data.List)
             {
-                var result2 = await Weak.GetWeakTopList(item.Number);
+                var result2 = await Weak.GetWeekTopList(item.Number);
                 Console.WriteLine(result2);
             }
             #endregion

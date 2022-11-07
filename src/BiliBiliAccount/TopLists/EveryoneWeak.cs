@@ -15,17 +15,17 @@ namespace BilibiliAPI.TopLists
         /// 获得每周必看得每一期标题
         /// </summary>
         /// <returns></returns>
-        public async Task<ResultCode<EveryoneList>> GetWeakList()
+        public async Task<ResultCode<EveryoneList>> GetWeekList()
         {
             string url = "https://api.bilibili.com/x/web-interface/popular/series/list";
             return JsonConvert.ReadObject<EveryoneList>(await HttpClient.GetResults(url));
         }
 
 
-        public async Task<ResultCode<WeakItem>> GetWeakTopList(int number)
+        public async Task<ResultCode<WeekItem>> GetWeekTopList(int number)
         {
             string url = $"https://api.bilibili.com/x/web-interface/popular/series/one?number={number}";
-            return JsonConvert.ReadObject<WeakItem>(await HttpClient.GetResults(url));
+            return JsonConvert.ReadObject<WeekItem>(await HttpClient.GetResults(url));
         }
     }
 }

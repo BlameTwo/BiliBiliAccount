@@ -11,10 +11,10 @@ namespace BiliBiliAPI.Models.TopList
     public class EveryoneList
     {
         [JsonProperty("list")]
-        public List<EveryoneWeakData> List { get; set; }
+        public List<EveryoneWeekData> List { get; set; }
     }
 
-    public class EveryoneWeakData
+    public class EveryoneWeekData
     {
         [JsonProperty("number")]
         public int Number { get; set; }
@@ -33,7 +33,7 @@ namespace BiliBiliAPI.Models.TopList
     }
 
 
-    public class WeakItem
+    public class WeekItem
     {
         [JsonProperty("config")]
         public Config Config { get; set; }
@@ -42,7 +42,7 @@ namespace BiliBiliAPI.Models.TopList
         public string Title { get; set; }
 
         [JsonProperty("list")]
-        public List<WeakItemData> Items { get; set; }
+        public List<WeekItemData> Items { get; set; }
     }
 
     public class Config
@@ -93,7 +93,7 @@ namespace BiliBiliAPI.Models.TopList
         public string MMID { get; set; }
     }
 
-    public class WeakItemData : VideosContent
+    public class WeekItemData : VideosContent
     {
         [JsonProperty("rcmd_reason")]
         public string Bottom_Text { get; set; }
