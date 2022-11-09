@@ -1,7 +1,9 @@
 ﻿using BiliBiliAPI.Models;
 using BiliBiliAPI.Models.Account;
+using BiliBiliAPI.Models.Settings;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -29,6 +31,14 @@ namespace BilibiliAPI.Account
                 string str = await HttpClient.GetResults($"http://api.bilibili.com/x/web-interface/nav");
                 return await info.GetAccount(token);
             });
+        }
+
+        public void Unlogin()
+        {
+            BiliBiliAPI.Models.Settings.AccountSettings.Delete();
+            BiliBiliArgs.TokenSESSDATA = new AccountToken();
+            BiliBiliArgs.Cookie = "";
+            BiliBiliArgs.Refresh_Token = "";
         }
 
         /// <summary>

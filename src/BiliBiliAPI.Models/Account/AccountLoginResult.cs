@@ -147,24 +147,24 @@ namespace BiliBiliAPI.Models.Account
         /// 当前等级
         /// </summary>
         [JsonProperty("current_level")]
-        public string Level { get; set; }
+        public string Level { get; set; } = null;
 
         /// <summary>
         /// 当前的等级从多少经验开始
         /// </summary>
         [JsonProperty("current_min")]
-        public string Crrent_Min { get; set; }
+        public string Crrent_Min { get; set; } = "0";
 
         /// <summary>
         /// 当前账户的经验
         /// </summary>
         [JsonProperty("current_exp")]
-        public string Current_Exp { get; set; }
+        public string Current_Exp { get; set; } = "0";
 
         /// <summary>
         /// 下一个等级需要多少经验
         /// </summary>
         [JsonProperty("next_exp")]
-        public string Next_Exp { get; set; }
+        public string Next_Exp { get; set; } = "0";
     }
 }

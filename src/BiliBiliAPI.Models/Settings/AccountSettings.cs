@@ -50,5 +50,10 @@ namespace BiliBiliAPI.Models.Settings
             string str = JsonConvert.SerializeObject(args);
             File.WriteAllText(FilePath,str);
         }
+
+        public static void Delete()
+        {
+            File.Delete(FilePath);
+        }
     }
 }
