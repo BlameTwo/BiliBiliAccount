@@ -113,10 +113,23 @@ namespace BiliBiliAPI.Models.Videos
 
         [JsonProperty("frameRate")]
         public string FPS { get; set; }
+
+        [JsonProperty("SegmentBase")]
+        public SegmentBase SegmentBase { get; set; }
+
+        [JsonProperty("bandwidth")]
+        public string BandWidth { get; set; }
+
     }
 
+    public class SegmentBase
+    {
+        [JsonProperty("Initialization")]
+        public string Initialization { get; set; }
 
-
+        [JsonProperty("indexRange")]
+        public string indexRange { get; set; }
+    }
     public class Support_Formats
     {
         [JsonProperty("quality")]

@@ -44,8 +44,7 @@ namespace BilibiliTest
             #endregion
 
             #region 下载视频
-            //var a = await video.GetVideo(bv.Data, VideoIDType.AV, DashEnum.Dash4K);
-            //Console.WriteLine(a.Data.Durl[0].Url);
+            var a = await video.GetVideo(bv.Data, VideoIDType.AV);
             //DownLoad downLoad = new DownLoad();
             //downLoad.DownLoadAsync(a.Data.Durl[0].Url);
             #endregion
@@ -113,13 +112,13 @@ namespace BilibiliTest
             #endregion
 
             #region 获得每周必看列表和视频
-            EveryoneWeak Weak = new EveryoneWeak();
-            var result = await Weak.GetWeekList();
-            foreach (var item in result.Data.List)
-            {
-                var result2 = await Weak.GetWeekTopList(item.Number);
-                Console.WriteLine(result2);
-            }
+            //EveryoneWeak Weak = new EveryoneWeak();
+            //var result = await Weak.GetWeekList();
+            //foreach (var item in result.Data.List)
+            //{
+            //    var result2 = await Weak.GetWeekTopList(item.Number);
+            //    Console.WriteLine(result2);
+            //}
             #endregion
             Console.ReadLine();
         }
