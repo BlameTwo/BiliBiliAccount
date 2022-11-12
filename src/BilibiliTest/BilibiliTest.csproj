@@ -9,7 +9,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\BiliBiliAccount\BilibiliAPI.csproj" />
+    <ProjectReference Include="..\BiliBiliAccount\BiliBiliAPI.csproj" />
   </ItemGroup>
 
 </Project>

@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BilibiliAPI.TopLists
+namespace BiliBiliAPI.TopLists
 {
     public class EveryoneWeak
     {

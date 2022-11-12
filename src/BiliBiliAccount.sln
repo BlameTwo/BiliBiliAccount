@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.3.32519.111
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BilibiliAPI", "BiliBiliAccount\BilibiliAPI.csproj", "{7ECBB351-CC99-4E2B-A5DC-0947F1DD7792}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BiliBiliAPI", "BiliBiliAccount\BiliBiliAPI.csproj", "{7ECBB351-CC99-4E2B-A5DC-0947F1DD7792}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BiliBiliAPI.Models", "BiliBiliAPI.Models\BiliBiliAPI.Models.csproj", "{ADDA3AA5-2F39-41B7-94A6-30C8810D92D0}"
 EndProject

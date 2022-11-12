@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using static PInvoke.Kernel32;
 
-namespace BilibiliAPI
+namespace BiliBiliAPI
 {
     public class DowlLoadArgs:EventArgs
     {

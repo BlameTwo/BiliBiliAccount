@@ -9,7 +9,7 @@ using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BilibiliAPI.User
+namespace BiliBiliAPI.User
 {
     /// <summary>
     /// 用户面板信息

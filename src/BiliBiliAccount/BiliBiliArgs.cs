@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BilibiliAPI
+namespace BiliBiliAPI
 {
     public static class BiliBiliArgs
     {

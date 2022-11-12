@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BilibiliAPI.ApiTools
+namespace BiliBiliAPI.ApiTools
 {
     public static class Current
     {

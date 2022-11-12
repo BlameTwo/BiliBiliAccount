@@ -11,7 +11,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
-namespace BilibiliAPI.ApiTools
+namespace BiliBiliAPI.ApiTools
 {
     public sealed class ApiProvider
     {

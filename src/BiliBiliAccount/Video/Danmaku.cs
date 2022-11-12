@@ -1,4 +1,4 @@
-﻿using BilibiliAPI.ApiTools;
+﻿using BiliBiliAPI.ApiTools;
 using BiliBiliAPI.Models.Videos;
 using System;
 using System.Collections.Generic;
@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BilibiliAPI.Video
+namespace BiliBiliAPI.Video
 {
     public class Danmaku
     {

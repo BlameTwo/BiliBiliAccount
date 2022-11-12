@@ -1,4 +1,4 @@
-﻿using BilibiliAPI.ApiTools;
+﻿using BiliBiliAPI.ApiTools;
 using BiliBiliAPI.Models;
 using BiliBiliAPI.Models.Search;
 using System;
@@ -9,7 +9,7 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BilibiliAPI.Search
+namespace BiliBiliAPI.Search
 {
     public class PublicSearch
     {

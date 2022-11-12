@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BilibiliAPI.Account
+namespace BiliBiliAPI.Account
 {
     /// <summary>
     /// 粉丝相关

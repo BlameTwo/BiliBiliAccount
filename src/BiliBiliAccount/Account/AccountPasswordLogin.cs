@@ -1,4 +1,4 @@
-﻿using BilibiliAPI.ApiTools;
+﻿using BiliBiliAPI.ApiTools;
 using BiliBiliAPI.Models;
 using BiliBiliAPI.Models.Account;
 using Newtonsoft.Json.Linq;
@@ -12,7 +12,7 @@ using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using AsymmetricAlgorithm = PCLCrypto.AsymmetricAlgorithm;
 
-namespace BilibiliAPI.Account
+namespace BiliBiliAPI.Account
 {
     public class AccountPasswordLogin
     {

@@ -1,4 +1,4 @@
-﻿using BilibiliAPI.ApiTools;
+﻿using BiliBiliAPI.ApiTools;
 using BiliBiliAPI.Models.Account;
 using System;
 using System.Collections.Generic;
@@ -10,7 +10,7 @@ using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BilibiliAPI
+namespace BiliBiliAPI
 {
     public sealed class MyHttpClient : IDisposable
     {

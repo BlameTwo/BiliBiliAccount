@@ -8,7 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BilibiliAPI.Account
+namespace BiliBiliAPI.Account
 {
     /// <summary>
     /// Logins是一个调用集合，指登陆过后的第一次登录

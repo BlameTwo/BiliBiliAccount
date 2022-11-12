@@ -1,4 +1,4 @@
-﻿using BilibiliAPI.Account;
+﻿using BiliBiliAPI.Account;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -9,7 +9,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
-namespace BilibiliAPI
+namespace BiliBiliAPI
 {
     public static class Test
     {

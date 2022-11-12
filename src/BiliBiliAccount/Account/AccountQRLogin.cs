@@ -1,4 +1,4 @@
-﻿using BilibiliAPI.ApiTools;
+﻿using BiliBiliAPI.ApiTools;
 using BiliBiliAPI.Models;
 using BiliBiliAPI.Models.Account;
 using Newtonsoft.Json.Linq;
@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 using System.Timers;
 
 
-namespace BilibiliAPI.Account
+namespace BiliBiliAPI.Account
 {
     public class AccountQRLogin
     {

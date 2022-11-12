@@ -1,4 +1,4 @@
-﻿using BilibiliAPI.ApiTools;
+﻿using BiliBiliAPI.ApiTools;
 using BiliBiliAPI.Models;
 using BiliBiliAPI.Models.HomeVideo;
 using BiliBiliAPI.Models.Videos;
@@ -9,9 +9,9 @@ using System.Reflection;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
-using static BilibiliAPI.Video.Video;
+using static BiliBiliAPI.Video.Video;
 
-namespace BilibiliAPI.Video
+namespace BiliBiliAPI.Video
 {
     public class Video
     {
@@ -129,10 +129,20 @@ namespace BilibiliAPI.Video
             return result;
         }
 
-        public async Task<BiliBiliAPI.Models.HomeVideo.HotVideo> GetHotVideo()
+        /// <summary>
+        /// 获得热门视频
+        /// </summary>
+        /// <param name="lastvideo">已经加载得最后一个视频，如果第一次加载请设置为null</param>
+        /// <param name="idx">当前加载的总数</param>
+        /// <returns></returns>
+        public async Task<BiliBiliAPI.Models.HomeVideo.HotVideo> GetHotVideo(Item lastvideo,int idx)
         {
             var url = "https://app.bilibili.com/x/v2/show/popular/index?";
-            var text = "device_name=iPad206&device=pad&bulid=6235200&mobi_app=iphone&platform=ios&pull=true";
+            var text = "";
+            if(lastvideo != null)
+                text = $"device_name=iPad206&device=pad&bulid=6235200&mobi_app=iphone&platform=ios&pull=trueQ&last_param={lastvideo.Param}&idx={idx}";
+            else
+                text = $"device_name=iPad206&device=pad&bulid=6235200&mobi_app=iphone&platform=ios&pull=trueQ";
             string jo = await HttpClient.GetResults(url, ApiProvider.AndroidTVKey, text);
             var result = JsonConvert.Deserialize<BiliBiliAPI.Models.HomeVideo.HotVideo>(jo);
             var list = result.Item.Where(p => !string.IsNullOrWhiteSpace(p.Title));
