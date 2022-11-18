@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace BiliBiliAPI.TopLists
 {
-    public class EveryoneWeak
+    public class EveryoneWeek
     {
         MyHttpClient HttpClient = new MyHttpClient();
         /// <summary>

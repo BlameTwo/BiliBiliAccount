@@ -25,10 +25,13 @@ namespace BiliBiliAPI.ApiTools
         {
             try
             {
-                var asymmetricKeyAlgorithmProvider = WinRTCrypto.HashAlgorithmProvider.OpenAlgorithm(PCLCrypto.HashAlgorithm.Md5);
-                var cryptographicKey = WinRTCrypto.CryptographicBuffer.ConvertStringToBinary(input, Encoding.UTF8);
-                var hashData = asymmetricKeyAlgorithmProvider.HashData(cryptographicKey);
-                return WinRTCrypto.CryptographicBuffer.EncodeToHexString(hashData);
+                if(input != null)
+                {
+                    var asymmetricKeyAlgorithmProvider = WinRTCrypto.HashAlgorithmProvider.OpenAlgorithm(PCLCrypto.HashAlgorithm.Md5);
+                    var cryptographicKey = WinRTCrypto.CryptographicBuffer.ConvertStringToBinary(input, Encoding.UTF8);
+                    var hashData = asymmetricKeyAlgorithmProvider.HashData(cryptographicKey);
+                    return WinRTCrypto.CryptographicBuffer.EncodeToHexString(hashData);
+                }
             }
             catch { }
             return input;

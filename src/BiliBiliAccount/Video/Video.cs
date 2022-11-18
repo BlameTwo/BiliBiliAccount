@@ -8,6 +8,7 @@ using System.Linq;
 using System.Reflection;
 using System.Security.Cryptography;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using static BiliBiliAPI.Video.Video;
 
@@ -103,6 +104,7 @@ namespace BiliBiliAPI.Video
 
         public async Task<ResultCode<BiliBiliAPI.Models.HomeVideo.Video>> GetHomeVideo()
         {
+            Thread.Sleep(500);
             return await GetUrl(VideoType.Home);
         }
 
@@ -124,9 +126,22 @@ namespace BiliBiliAPI.Video
                     break;
             }
             var result = JsonConvert.ReadObject<BiliBiliAPI.Models.HomeVideo.Video>(await HttpClient.GetResults(url));
-            var list = result.Data.Item.Where(p => !string.IsNullOrWhiteSpace(p.Title));
-            result.Data.Item = list.ToList();
-            return result;
+            var value = new ResultCode<BiliBiliAPI.Models.HomeVideo.Video>() {
+                Code = result.Code,
+                Message = result.Message,
+                TTl = result.TTl,
+                Data = new Models.HomeVideo.Video() { Item = new List<Item>()}
+            };
+            if(result.Data != null)
+            {
+                foreach (var item in result.Data.Item)
+                {
+                    if (!string.IsNullOrWhiteSpace(item.Title))
+                        value.Data.Item.Add(item);
+                }
+                return value;
+            }
+            return null;
         }
 
         /// <summary>
