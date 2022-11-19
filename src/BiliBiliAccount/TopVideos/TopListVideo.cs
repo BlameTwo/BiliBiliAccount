@@ -26,5 +26,13 @@ namespace BiliBiliAPI.TopVideos
             var text = "device_name=iPad206&device=pad&bulid=6235200&mobi_app=iphone&platform=ios&pull=true";
             return JsonConvert.ReadObject<BiliBiliAPI.Models.TopList.Videos>(await HttpClient.GetResults(Url, ApiProvider.AndroidTVKey,text,true));
         }
+
+        public async Task<ResultCode<BiliBiliAPI.Models.TopList.Videos>> GetTopVideo(int cid, int day)
+        {
+            string Url = "";
+                Url = $"https://api.bilibili.com/x/web-interface/ranking/v2?rid={cid}&day={day}";
+            var text = "device_name=iPad206&device=pad&bulid=6235200&mobi_app=iphone&platform=ios&pull=true";
+            return JsonConvert.ReadObject<BiliBiliAPI.Models.TopList.Videos>(await HttpClient.GetResults(Url, ApiProvider.AndroidTVKey, text, true));
+        }
     }
 }
