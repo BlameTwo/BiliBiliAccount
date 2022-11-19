@@ -20,12 +20,18 @@ namespace BiliBiliAPI
         /// </summary>
         /// <param name="url"></param>
         /// <returns></returns>
-        public static async Task<string> Go(string url)
+        public static async Task<string> Go(string url,string text=null)
         {
             return await Task.Run(async () =>
             {
-                string str = await HttpClient.GetResults(url);
-                return str;
+                if(text == null)
+                {
+                    return await HttpClient.GetResults(url);
+                }
+                else
+                {
+                    return await HttpClient.GetResults(url, null, text, false) ;
+                }
             });
         }
 

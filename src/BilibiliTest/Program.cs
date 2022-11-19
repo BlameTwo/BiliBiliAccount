@@ -1,14 +1,13 @@
-﻿using BilibiliAPI;
-using BilibiliAPI.Search;
-using BilibiliAPI.TopLists;
-using BilibiliAPI.TopVideos;
-using BilibiliAPI.User;
-using BilibiliAPI.Video;
+﻿using BiliBiliAPI;
 using BiliBiliAPI.Models;
 using BiliBiliAPI.Models.Account;
 using BiliBiliAPI.Models.Movie;
 using BiliBiliAPI.Models.Settings;
 using BiliBiliAPI.Models.Videos;
+using BiliBiliAPI.Region;
+using BiliBiliAPI.Search;
+using BiliBiliAPI.TopVideos;
+using BiliBiliAPI.Video;
 using System.Security.Cryptography;
 
 namespace BilibiliTest
@@ -44,7 +43,7 @@ namespace BilibiliTest
             #endregion
 
             #region 下载视频
-            var a = await video.GetVideo(bv.Data, VideoIDType.AV);
+            //var a = await video.GetVideo(bv.Data, VideoIDType.AV);
             //DownLoad downLoad = new DownLoad();
             //downLoad.DownLoadAsync(a.Data.Durl[0].Url);
             #endregion
@@ -119,6 +118,14 @@ namespace BilibiliTest
             //    var result2 = await Weak.GetWeekTopList(item.Number);
             //    Console.WriteLine(result2);
             //}
+            #endregion
+
+            #region 获得分区索引
+            ////"https://app.bilibili.com/x/v2/region/index?build=5520400&appkey=4409e2ce8ffd12b8&mobi_app=android&platform=android&ts=1668834823&sign=efed6e3352c49d969df61e4b78c0c61c";
+            //string url = "https://app.bilibili.com/x/v2/region/index?build=5520400";
+            //var str =  await Test.Go(url, "&mobi_app=android&platform=android");
+            TidRegion region = new TidRegion();
+            var a = await region.GetTidIcon();
             #endregion
             Console.ReadLine();
         }
