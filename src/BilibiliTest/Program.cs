@@ -6,6 +6,7 @@ using BiliBiliAPI.Models.Settings;
 using BiliBiliAPI.Models.Videos;
 using BiliBiliAPI.Region;
 using BiliBiliAPI.Search;
+using BiliBiliAPI.TopLists;
 using BiliBiliAPI.TopVideos;
 using BiliBiliAPI.Video;
 using System.Security.Cryptography;
@@ -121,11 +122,23 @@ namespace BilibiliTest
             #endregion
 
             #region 获得分区索引
-            ////"https://app.bilibili.com/x/v2/region/index?build=5520400&appkey=4409e2ce8ffd12b8&mobi_app=android&platform=android&ts=1668834823&sign=efed6e3352c49d969df61e4b78c0c61c";
-            //string url = "https://app.bilibili.com/x/v2/region/index?build=5520400";
-            //var str =  await Test.Go(url, "&mobi_app=android&platform=android");
-            TidRegion region = new TidRegion();
-            var a = await region.GetTidIcon();
+            //TidRegion region = new TidRegion();
+            //var a = await region.GetTidIcon();
+            #endregion
+
+            #region 获得音乐排行榜
+            MusicRank Rank = new MusicRank();
+            var result = await Rank.GetRankList();
+            foreach (var item in result.Data.YearData)
+            {
+                Console.WriteLine($"循环年份为：{item.Year}");
+                foreach (var item2 in item.MusicRankItem)
+                {
+                    var result2 = await Rank.GetMusics(item2.ID);
+                    Console.WriteLine($"第{item2.priod}期,共计{result2.Data.Items.Count}个音乐上榜");
+                }
+            }
+            Console.WriteLine(result);
             #endregion
             Console.ReadLine();
         }
