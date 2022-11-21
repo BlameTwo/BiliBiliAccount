@@ -35,8 +35,11 @@ namespace BiliBiliAPI.Search
         /// <returns></returns>
         public async Task<ResultCode<SearchVideo>> GetVideo(string KeyWord, int PageSize, OrderBy order, int duration)
         {
-            var value = await Search($"?keyword={KeyWord}&pn={PageSize}&order={GetOrder(order)}&ps=20&duration={duration}");
-            return JsonConvert.ReadObject<SearchVideo>(value);
+            var value = await Search($"?keyword={KeyWord}&pn={PageSize}&order={GetOrder(order)}&ps=20&duration={duration}&device=phone&mobi_app=iphone");
+            
+            var result =  JsonConvert.ReadObject<SearchVideo>(value);
+
+            return result;
         }
 
         private string GetOrder(OrderBy order)
