@@ -67,13 +67,16 @@ namespace BiliBiliAPI.Search
             var value =  await Search($"?keyword={KeyWord}&pn={PageSize}&ps=20&type=7&build=5520400",false, "https://app.bilibili.com/x/v2/search/type");
 
             var result =  JsonConvert.ReadObject<SearchAnimation_Movie>(value);
-            foreach (var item in result.Data.Items)
+            if(result.Data.Items != null)
             {
-                if (item.Episodes == null)
-                    continue;
-                if (item.Episodes.Count > 25)
+                foreach (var item in result.Data.Items)
                 {
-                    item.Episodes = item.Episodes.Take(26).ToList();
+                    if (item.Episodes == null)
+                        continue;
+                    if (item.Episodes.Count > 25)
+                    {
+                        item.Episodes = item.Episodes.Take(26).ToList();
+                    }
                 }
             }
             return result;
