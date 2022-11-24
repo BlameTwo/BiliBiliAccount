@@ -127,18 +127,33 @@ namespace BilibiliTest
             #endregion
 
             #region 获得音乐排行榜
-            MusicRank Rank = new MusicRank();
-            var result = await Rank.GetRankList();
-            foreach (var item in result.Data.YearData)
+            //MusicRank Rank = new MusicRank();
+            //var result = await Rank.GetRankList();
+            //foreach (var item in result.Data.YearData)
+            //{
+            //    Console.WriteLine($"循环年份为：{item.Year}");
+            //    foreach (var item2 in item.MusicRankItem)
+            //    {
+            //        var result2 = await Rank.GetMusics(item2.ID);
+            //        Console.WriteLine($"第{item2.priod}期,共计{result2.Data.Items.Count}个音乐上榜");
+            //    }
+            //}
+            //Console.WriteLine(result);
+            #endregion
+
+            #region 获得搜索前的搜索关键字推荐
+            //BiliBiliAPI.Search.DefaultSearch defaultSearch = new BiliBiliAPI.Search.DefaultSearch();
+            //var str = await defaultSearch.GetDefault();
+            //Console.WriteLine(str.Data.Title);
+            #endregion
+
+            #region 入站必看
+            MustWatch Watch = new MustWatch();
+            var str = await Watch.GetVideos();
+            foreach (var item in str.Data.List)
             {
-                Console.WriteLine($"循环年份为：{item.Year}");
-                foreach (var item2 in item.MusicRankItem)
-                {
-                    var result2 = await Rank.GetMusics(item2.ID);
-                    Console.WriteLine($"第{item2.priod}期,共计{result2.Data.Items.Count}个音乐上榜");
-                }
+                Console.WriteLine(item.Title);
             }
-            Console.WriteLine(result);
             #endregion
             Console.ReadLine();
         }
