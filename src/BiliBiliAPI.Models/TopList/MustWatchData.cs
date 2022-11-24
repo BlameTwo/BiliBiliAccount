@@ -1,4 +1,6 @@
-﻿using Newtonsoft.Json;
+﻿using BiliBiliAPI.Models.HomeVideo;
+using BiliBiliAPI.Models.Videos;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,9 +24,11 @@ namespace BiliBiliAPI.Models.TopList
         public List<MustWatchDataItem> List { get; set; }
     }
 
-    public class MustWatchDataItem : TopVideo
+    public class MustWatchDataItem : VideosContent
     {
         [JsonProperty("achievement")]
         public string Subtitle { get; set; }
+
+        [JsonProperty("")]
     }
 }
