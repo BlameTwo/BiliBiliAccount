@@ -26,14 +26,21 @@ namespace BiliBiliAPI
 
         public static ResultCode<T> ReadObject<T>(string Data)
         {
+            try
+            {
+                JsonReader reader = new JsonTextReader(new StringReader(Data));
+                JsonSerializer jsonSerializer = new JsonSerializer();
+                JObject jo = JObject.Parse(Data);
+                var code = jsonSerializer.Deserialize<T>(reader);
+                ResultCode<T> result = new ResultCode<T>();
+                result = Deserialize<ResultCode<T>>(Data);
+                return result;
+            }
+            catch (Exception)
+            {
+                return new ResultCode<T>();
+            }
             
-            JsonReader reader = new JsonTextReader(new StringReader(Data));
-            JsonSerializer jsonSerializer = new JsonSerializer();
-            JObject jo = JObject.Parse(Data);
-            var code = jsonSerializer.Deserialize<T>(reader);
-            ResultCode<T> result = new ResultCode<T>();
-            result = Deserialize<ResultCode<T>>(Data);
-            return result;
         }
 
     }
