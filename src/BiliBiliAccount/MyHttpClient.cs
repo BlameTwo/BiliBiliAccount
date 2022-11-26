@@ -26,61 +26,7 @@ namespace BiliBiliAPI
         }
 
 
-        //public async Task<string> GetResults(string url, ApiKeyInfo apiKeyInfo = null, string type = "&platform=android&device=android&actionKey=appkey&build=5442100&mobi_app=android_comic",bool IsAccesskey = true)
-        //{
-        //    try
-        //    {
-        //        if (apiKeyInfo == null)
-        //            apiKeyInfo = ApiProvider.AndroidTVKey;
-        //        if (url.IndexOf("?") > -1)
-        //            url += (IsAccesskey == true ? "?access_key=" + BiliBiliArgs.TokenSESSDATA.SECCDATA : "") + "&appkey=" + apiKeyInfo.Appkey + type + "&ts=" + ApiProvider.TimeSpanSeconds;
-        //        else
-        //            url += (IsAccesskey == true? "?access_key=" + BiliBiliArgs.TokenSESSDATA.SECCDATA:"") + "&appkey=" + apiKeyInfo.Appkey + type + "&ts=" + ApiProvider.TimeSpanSeconds;
-        //        url += "&sign=" + ApiProvider.GetSign(url, apiKeyInfo);
-        //        HttpResponseMessage hr = await HttpClient.GetAsync(url).ConfigureAwait(false);
-        //        hr.Headers.Add("referer","https:bilibili.com");
-        //        hr.Headers.Add("Accept_Encoding", "gzip,deflate");
-        //        hr.EnsureSuccessStatusCode();
-        //        var encodeResults = await hr.Content.ReadAsByteArrayAsync().ConfigureAwait(false);
-        //        return Encoding.UTF8.GetString(encodeResults, 0, encodeResults.Length);
-        //    }
-        //    catch (Exception ex)
-        //    {
-
-        //        Debug.WriteLine(ex.Message);
-        //        return string.Empty;
-        //    }
-        //}
-
-        //public async Task<string> GetResults(string url, string cookie,ApiKeyInfo apiKeyInfo = null)
-        //{
-        //    return await Task.Run(async () =>
-        //    {
-        //        try
-        //        {
-        //            if (apiKeyInfo == null)
-        //                apiKeyInfo = ApiProvider.AndroidKey;
-        //            if (url.IndexOf("?") > -1)
-        //                url += "&access_key=" + BiliBiliArgs.TokenSESSDATA.SECCDATA + "&appkey=" + apiKeyInfo.Appkey + "&platform=android&device=android&actionKey=appkey&build=5442100&mobi_app=android_comic&ts=" + ApiProvider.TimeSpanSeconds;
-        //            else
-        //                url += "?access_key=" + BiliBiliArgs.TokenSESSDATA.SECCDATA + "&appkey=" + apiKeyInfo.Appkey + "&platform=android&device=android&actionKey=appkey&build=5442100&mobi_app=android_comic&ts=" + ApiProvider.TimeSpanSeconds;
-        //            url += "&sign=" + ApiProvider.GetSign(url, apiKeyInfo);
-
-        //            HttpResponseMessage hr = await HttpClient.GetAsync(url).ConfigureAwait(false);
-
-        //            hr.Headers.Add("Cookie", cookie);
-        //            hr.EnsureSuccessStatusCode();
-        //            var encodeResults = await hr.Content.ReadAsByteArrayAsync().ConfigureAwait(false);
-        //            return Encoding.UTF8.GetString(encodeResults, 0, encodeResults.Length);
-        //        }
-        //        catch (Exception ex)
-        //        {
-
-        //            Debug.WriteLine(ex.Message);
-        //            return string.Empty;
-        //        }
-        //    });
-        //}
+       
 
 
         public async Task<string> GetResults(string url, ApiKeyInfo apiKeyInfo = null, string type = "&platform=android&device=android&actionKey=appkey&build=5442100&mobi_app=android_comic",bool IsAcess = true)
@@ -161,20 +107,8 @@ namespace BiliBiliAPI
                 return default;
             }
         }
-        public async Task<byte[]> GetImageStream(string url)
-        {
-            try
-            {
-                HttpResponseMessage hr = await HttpClient.GetAsync(url).ConfigureAwait(false);
-                hr.EnsureSuccessStatusCode();
-                return await hr.Content.ReadAsByteArrayAsync().ConfigureAwait(false);
-            }
-            catch (Exception ex)
-            {
-                Debug.WriteLine(ex.Message);
-                return default;
-            }
-        }
+
+
         public async Task<string> PostResults(string url, string postContent, ApiKeyInfo apiKeyInfo = null)
         {
             try
@@ -203,29 +137,7 @@ namespace BiliBiliAPI
                 return "";
             }
         }
-        public async Task<string> GetImageStream(string url, string fileName)
-        {
-            try
-            {
-                var bytes = await GetImageStream(url);
-                if (string.IsNullOrWhiteSpace(fileName))
-                {
-                    string savePath = string.Format("{0}{1}", fileName, Path.GetExtension(url));
-                    FileInfo fileInfo = new FileInfo(savePath);
-                    if (fileInfo.Exists)
-                        fileInfo.Delete();
-                    using (var fs = fileInfo.Create())
-                        fs.Write(bytes, 0, bytes.Length);
-                    return savePath;
-                }
-            }
-            catch (Exception ex)
-            {
-
-                Debug.WriteLine(ex.Message);
-            }
-            return string.Empty;
-        }
+        
         public void Dispose()
         {
             try

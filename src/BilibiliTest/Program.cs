@@ -148,11 +148,32 @@ namespace BilibiliTest
             #endregion
 
             #region 入站必看
-            MustWatch Watch = new MustWatch();
-            var str = await Watch.GetVideos();
-            foreach (var item in str.Data.List)
+            //MustWatch Watch = new MustWatch();
+            //var str = await Watch.GetVideos();
+            //foreach (var item in str.Data.List)
+            //{
+            //    Console.WriteLine(item.Title);
+            //}
+            #endregion
+
+
+            #region 热搜排行
+            //https://api.bilibili.com/x/web-interface/search/square?limit=到第几个
+            //SearchSquare searchSquare = new();
+            //var result = await searchSquare.GetSearchHotRank(10);
+            //foreach (var item in result.Data.Trending.List)
+            //{
+            //    Console.WriteLine(item.ShowName);
+            //}
+            #endregion
+
+            #region 搜索建议
+            //https://s.search.bilibili.com/main/suggest?func=suggest&suggest_type=accurate&sub_type=tag&main_ver=v1&userid=108534711&special_acc_num=1&topic_acc_num=1&upuser_acc_num=3&tag_num=11&term=刀剑神域
+            SearchSquare searchSquare = new();
+            var result = await searchSquare.GetSearchSuggest("不要笑挑战");
+            foreach (var item in result.Result.Values)
             {
-                Console.WriteLine(item.Title);
+                Console.WriteLine(item.Value);
             }
             #endregion
             Console.ReadLine();

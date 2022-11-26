@@ -28,7 +28,5 @@ namespace BiliBiliAPI.Models.TopList
     {
         [JsonProperty("achievement")]
         public string Subtitle { get; set; }
-
-        [JsonProperty("")]
     }
 }
