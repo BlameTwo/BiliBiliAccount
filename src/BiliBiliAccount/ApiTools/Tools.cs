@@ -70,85 +70,88 @@ namespace BiliBiliAPI.ApiTools
         /// </summary>
         /// <param name="url"></param>
         /// <returns></returns>
-        public static string GetHtml(string url)
+        public static Task<string> GetHtml(string url)
         {
-            string htmlCode;
-            HttpWebRequest webRequest = (System.Net.HttpWebRequest)System.Net.WebRequest.Create(url);
-            webRequest.Timeout = 6000;
-            webRequest.Method = "GET";
-            webRequest.UserAgent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:75.0) Gecko/20100101 Firefox/75.0";
-            webRequest.Headers.Add("Accept-Encoding", "gzip, deflate");
-            webRequest.Referer = "https://www.bilibili.com/";
-
-            HttpWebResponse webResponse = null;
-            webResponse = (System.Net.HttpWebResponse)webRequest.GetResponse();
-
-            //获取目标网站的编码格式
-            string contentype = webResponse.Headers["Content-Type"];
-            Regex regex = new Regex("charset\\s*=\\s*[\\W]?\\s*([\\w-]+)", RegexOptions.IgnoreCase);
-            if (webResponse.ContentEncoding.ToLower() == "gzip")//如果使用了GZip则先解压
+            return Task.Run(() =>
             {
-                using (System.IO.Stream streamReceive = webResponse.GetResponseStream())
-                {
-                    using (System.IO.Compression.GZipStream zipStream = new System.IO.Compression.GZipStream(streamReceive, System.IO.Compression.CompressionMode.Decompress))
-                    {
+                string htmlCode;
+                HttpWebRequest webRequest = (System.Net.HttpWebRequest)System.Net.WebRequest.Create(url);
+                webRequest.Timeout = 6000;
+                webRequest.Method = "GET";
+                webRequest.UserAgent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:75.0) Gecko/20100101 Firefox/75.0";
+                webRequest.Headers.Add("Accept-Encoding", "gzip, deflate");
+                webRequest.Referer = "https://www.bilibili.com/";
 
-                        //匹配编码格式
-                        if (regex.IsMatch(contentype))
+                HttpWebResponse webResponse = null;
+                webResponse = (System.Net.HttpWebResponse)webRequest.GetResponse();
+
+                //获取目标网站的编码格式
+                string contentype = webResponse.Headers["Content-Type"];
+                Regex regex = new Regex("charset\\s*=\\s*[\\W]?\\s*([\\w-]+)", RegexOptions.IgnoreCase);
+                if (webResponse.ContentEncoding.ToLower() == "gzip")//如果使用了GZip则先解压
+                {
+                    using (System.IO.Stream streamReceive = webResponse.GetResponseStream())
+                    {
+                        using (System.IO.Compression.GZipStream zipStream = new System.IO.Compression.GZipStream(streamReceive, System.IO.Compression.CompressionMode.Decompress))
                         {
-                            Encoding ending = Encoding.GetEncoding(regex.Match(contentype).Groups[1].Value.Trim());
-                            using (StreamReader sr = new System.IO.StreamReader(zipStream, ending))
+
+                            //匹配编码格式
+                            if (regex.IsMatch(contentype))
                             {
-                                htmlCode = sr.ReadToEnd();
+                                Encoding ending = Encoding.GetEncoding(regex.Match(contentype).Groups[1].Value.Trim());
+                                using (StreamReader sr = new System.IO.StreamReader(zipStream, ending))
+                                {
+                                    htmlCode = sr.ReadToEnd();
+                                }
                             }
-                        }
-                        else
-                        {
-                            using (StreamReader sr = new System.IO.StreamReader(zipStream, Encoding.UTF8))
+                            else
                             {
-                                htmlCode = sr.ReadToEnd();
+                                using (StreamReader sr = new System.IO.StreamReader(zipStream, Encoding.UTF8))
+                                {
+                                    htmlCode = sr.ReadToEnd();
+                                }
                             }
                         }
                     }
                 }
-            }
-            else if (webResponse.ContentEncoding.ToLower() == "deflate")
-            {
-                using (System.IO.Stream streamReceive = webResponse.GetResponseStream())
+                else if (webResponse.ContentEncoding.ToLower() == "deflate")
                 {
-                    using (System.IO.Compression.DeflateStream zipStream = new System.IO.Compression.DeflateStream(streamReceive, System.IO.Compression.CompressionMode.Decompress))
+                    using (System.IO.Stream streamReceive = webResponse.GetResponseStream())
                     {
+                        using (System.IO.Compression.DeflateStream zipStream = new System.IO.Compression.DeflateStream(streamReceive, System.IO.Compression.CompressionMode.Decompress))
+                        {
 
-                        //匹配编码格式
-                        if (regex.IsMatch(contentype))
-                        {
-                            Encoding ending = Encoding.GetEncoding(regex.Match(contentype).Groups[1].Value.Trim());
-                            using (StreamReader sr = new System.IO.StreamReader(zipStream, ending))
+                            //匹配编码格式
+                            if (regex.IsMatch(contentype))
                             {
-                                htmlCode = sr.ReadToEnd();
+                                Encoding ending = Encoding.GetEncoding(regex.Match(contentype).Groups[1].Value.Trim());
+                                using (StreamReader sr = new System.IO.StreamReader(zipStream, ending))
+                                {
+                                    htmlCode = sr.ReadToEnd();
+                                }
                             }
-                        }
-                        else
-                        {
-                            using (StreamReader sr = new System.IO.StreamReader(zipStream, Encoding.UTF8))
+                            else
                             {
-                                htmlCode = sr.ReadToEnd();
+                                using (StreamReader sr = new System.IO.StreamReader(zipStream, Encoding.UTF8))
+                                {
+                                    htmlCode = sr.ReadToEnd();
+                                }
                             }
                         }
                     }
                 }
-            }
-            else
-            {
-                using (System.IO.Stream streamReceive = webResponse.GetResponseStream())
+                else
                 {
-                    using (System.IO.StreamReader sr = new System.IO.StreamReader(streamReceive, Encoding.Default))
+                    using (System.IO.Stream streamReceive = webResponse.GetResponseStream())
                     {
-                        htmlCode = sr.ReadToEnd();
+                        using (System.IO.StreamReader sr = new System.IO.StreamReader(streamReceive, Encoding.Default))
+                        {
+                            htmlCode = sr.ReadToEnd();
+                        }
                     }
                 }
-            }
-            return htmlCode;
+                return htmlCode;
+            });
         }
 
         /// <summary>

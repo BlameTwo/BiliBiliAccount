@@ -13,9 +13,14 @@ namespace BiliBiliAPI.Video
         public async Task<DanmakuText> GetDanmakuTest(string cid)
         {
             string url = $"http://comment.bilibili.com/{cid}.xml";
-            return await XmlConvert.GetXml<DanmakuText>(ApiProvider.GetHtml(url));
+            return await XmlConvert.GetXml<DanmakuText>(await ApiProvider.GetHtml(url));
         }
 
+        public async Task<string> GetDanmakuString(string cid)
+        {
+            string url = $"http://comment.bilibili.com/{cid}.xml";
+            return await ApiProvider.GetHtml(url);
+        }
 
         public async Task<List<FormatDanmakuTextModel>> GetFormatDanmakuText(DanmakuText Text)
         {
