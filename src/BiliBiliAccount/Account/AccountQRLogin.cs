@@ -1,4 +1,5 @@
-﻿using BiliBiliAPI.ApiTools;
+﻿using BilibiliAPI;
+using BiliBiliAPI.ApiTools;
 using BiliBiliAPI.Models;
 using BiliBiliAPI.Models.Account;
 using Newtonsoft.Json.Linq;
@@ -23,9 +24,8 @@ namespace BiliBiliAPI.Account
         private string QRKey { get; set; } = "";
         public async Task<ResultCode<AccountLoginData>> GetQR()
         {
-            string url = "https://passport.bilibili.com/x/passport-tv-login/qrcode/auth_code";
             string data = $"local_id={Current.LocalID}";
-            string result = await HttpClient.PostResults(url, data, ApiProvider.AndroidTVKey);
+            string result = await HttpClient.PostResults(Apis.LOGIN_QRKEY_GET, data, ApiProvider.AndroidTVKey);
             var model = JsonConvert.ReadObject<AccountLoginData>(result);
             QRKey = model.Data.QRKey;
             return model;
@@ -35,9 +35,8 @@ namespace BiliBiliAPI.Account
         {
             try
             {
-                string url = "https://passport.bilibili.com/x/passport-tv-login/qrcode/poll";
                 string data = $"auth_code={QRKey}&guid={Guid.NewGuid()}&local_id={Current.LocalID}";
-                string result = await HttpClient.PostResults(url, data, ApiProvider.AndroidTVKey);
+                string result = await HttpClient.PostResults(Apis.LOGIN_QRKEY_POLL, data, ApiProvider.AndroidTVKey);
                 var jo =  JObject.Parse(result);
                 switch (jo["code"].ToString())
                 {

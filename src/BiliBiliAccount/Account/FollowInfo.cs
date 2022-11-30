@@ -1,4 +1,5 @@
-﻿using BiliBiliAPI.Models;
+﻿using BilibiliAPI;
+using BiliBiliAPI.Models;
 using BiliBiliAPI.Models.Account;
 using System;
 using System.Collections.Generic;
@@ -23,7 +24,7 @@ namespace BiliBiliAPI.Account
         {
             return await Task.Run(async () =>
             {
-                return JsonConvert.ReadObject<MyFolloweData>(await Get("http://api.bilibili.com/x/msgfeed/unread"));
+                return JsonConvert.ReadObject<MyFolloweData>(await Get(Apis.MY_FOLLOW_API));
             });
         }
 
@@ -36,7 +37,7 @@ namespace BiliBiliAPI.Account
         {
             return await Task.Run(async () =>
             {
-                return JsonConvert.ReadObject<UpStatData>(await Get("http://api.bilibili.com/x/space/upstat?mid={BiliBiliArgs.TokenSESSDATA.Mid}"));
+                return JsonConvert.ReadObject<UpStatData>(await Get($"{Apis.UP_VIEWCOUNT_API}?mid={BiliBiliArgs.TokenSESSDATA.Mid}"));
             });
         }
 
@@ -45,7 +46,7 @@ namespace BiliBiliAPI.Account
         {
             return await Task.Run(async () =>
             {
-                return  JsonConvert.ReadObject<UpImageData>(await Get("http://api.vc.bilibili.com/link_draw/v1/doc/upload_count?uid={BiliBiliArgs.TokenSESSDATA.Mid}"));
+                return  JsonConvert.ReadObject<UpImageData>(await Get($"{Apis.UP_IMAGECOUNT}?uid={BiliBiliArgs.TokenSESSDATA.Mid}"));
             });
         }
 
@@ -53,7 +54,6 @@ namespace BiliBiliAPI.Account
         {
             return await Task.Run(async () =>
             {
-                string url = $"http://api.vc.bilibili.com/link_draw/v1/doc/upload_count?uid={BiliBiliArgs.TokenSESSDATA.Mid}";
                 string json = await HttpClient.GetResults(url);
                 return json;
             });

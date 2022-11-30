@@ -1,4 +1,5 @@
-﻿using BiliBiliAPI.Models;
+﻿using BilibiliAPI;
+using BiliBiliAPI.Models;
 using BiliBiliAPI.Models.Account;
 using System;
 using System.Collections.Generic;
@@ -15,8 +16,7 @@ namespace BiliBiliAPI.Account
         {
             return await Task.Run(async () =>
             {
-                string url2 = "https://api.bilibili.com/x/space/myinfo";
-                string results = await HttpClient.GetResults(url2);
+                string results = await HttpClient.GetResults(Apis.ACCOUNT_INFO_API);
                 return JsonConvert.ReadObject<AccountLoginResultData>(results);
             });
         }

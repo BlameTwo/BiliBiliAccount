@@ -1,4 +1,5 @@
-﻿using BiliBiliAPI.ApiTools;
+﻿using BilibiliAPI;
+using BiliBiliAPI.ApiTools;
 using BiliBiliAPI.Models;
 using BiliBiliAPI.Models.Account;
 using Newtonsoft.Json.Linq;
@@ -20,10 +21,9 @@ namespace BiliBiliAPI.Account
         private MyHttpClient HttpClient = new MyHttpClient();
         public async Task<ResultCode<PasswordLoginData>> LoginV3(string username, string password)
         {
-            string url = "https://passport.bilibili.com/x/passport-login/oauth2/login";
             var pwd = await FormatPassword(password);
             string data = $"username={Uri.EscapeDataString(username)}&password={Uri.EscapeDataString(pwd)}&gee_type=10";
-            var results = await HttpClient.PostResults(url, data, ApiProvider.AndroidTVKey);
+            var results = await HttpClient.PostResults(Apis.LOGIN_PASSWD_LOGIN, data, ApiProvider.AndroidTVKey);
             return JsonConvert.ReadObject<PasswordLoginData>(results);
         }
 
@@ -33,8 +33,7 @@ namespace BiliBiliAPI.Account
             string base64String;
             try
             {
-                string url = "https://passport.bilibili.com/api/oauth2/getKey";
-                string stringAsync = await HttpClient.PostResults(url, string.Empty);
+                string stringAsync = await HttpClient.PostResults(Apis.LOGIN_PASSWD_GET_KEY, string.Empty);
                 var jObjects = JObject.Parse(stringAsync);
                 string hash = jObjects["data"]["hash"].ToString();
                 string key = jObjects["data"]["key"].ToString();

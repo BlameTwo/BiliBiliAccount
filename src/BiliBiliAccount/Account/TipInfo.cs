@@ -1,4 +1,5 @@
-﻿using BiliBiliAPI.Models;
+﻿using BilibiliAPI;
+using BiliBiliAPI.Models;
 using BiliBiliAPI.Models.Account;
 using System;
 using System.Collections.Generic;
@@ -19,8 +20,7 @@ namespace BiliBiliAPI.Account
         {
             return await Task.Run( async() => 
             {
-                string url = "http://api.bilibili.com/x/msgfeed/unread";
-                string json = await HttpClient.GetResults(url);
+                string json = await HttpClient.GetResults(Apis.MY_TIP_COUNT);
                 return JsonConvert.ReadObject<MyTipsData>(json);
             });
         }
@@ -33,8 +33,7 @@ namespace BiliBiliAPI.Account
         {
             return await Task.Run(async () =>
             {
-                string url = "http://api.vc.bilibili.com/session_svr/v1/session_svr/single_unread";
-                string json = await HttpClient.GetResults(url);
+                string json = await HttpClient.GetResults(Apis.MY_LETTER_COUNT);
                 return JsonConvert.ReadObject<MyLetterData>(json);
             });
         }

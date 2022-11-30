@@ -39,18 +39,14 @@ namespace BiliBiliAPI
         /// </summary>
         /// <param name="xmlstr"></param>
         /// <returns></returns>
-        public async static Task<T> GetXml<T>(string xmlstr)
+        public static T GetXml<T>(string xmlstr)
         {
-            return await Task.Run(() =>
+            using (StringReader sr = new StringReader(xmlstr))
             {
-
-                using (StringReader sr = new StringReader(xmlstr))
-                {
-                    XmlSerializer serializer = new XmlSerializer(typeof(T));
-                    T result = (T)serializer.Deserialize(sr);
-                    return result;
-                }
-            });
+                XmlSerializer serializer = new XmlSerializer(typeof(T));
+                T result = (T)serializer.Deserialize(sr);
+                return result;
+            }
         }
     }
 }

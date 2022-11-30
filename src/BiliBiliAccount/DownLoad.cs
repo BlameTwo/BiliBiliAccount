@@ -33,6 +33,10 @@ namespace BiliBiliAPI
             HttpClient = new HttpClient();
         }
 
+        /// <summary>
+        /// 把视频下载到本地
+        /// </summary>
+        /// <param name="url"></param>
         public void DownLoadAsync(string url)
         {
             wc.Headers.Add("Cookie", BiliBiliArgs.Cookie);
