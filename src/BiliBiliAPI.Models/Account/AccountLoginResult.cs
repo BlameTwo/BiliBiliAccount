@@ -107,6 +107,10 @@ namespace BiliBiliAPI.Models.Account
         public string Official_Type { get; set; } = "";
         [JsonProperty("title")]
         public string Text { get; set; } = "";
+
+        [JsonProperty("desc")]public string Desc { get; set; }
+
+        [JsonProperty("type")]public string Type { get; set; }
     }
 
 

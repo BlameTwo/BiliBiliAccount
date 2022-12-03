@@ -64,5 +64,7 @@ namespace BilibiliAPI
         /// </summary>
         public const string UP_IMAGECOUNT = "http://api.vc.bilibili.com/link_draw/v1/doc/upload_count";
 
+
+        public const string MY_DYNAMIC_UPLIST = "https://api.bilibili.com/x/polymer/web-dynamic/v1/portal";
     }
 }

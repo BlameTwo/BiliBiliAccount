@@ -1,4 +1,5 @@
 ﻿using BiliBiliAPI;
+using BiliBiliAPI.Account.Dynamic;
 using BiliBiliAPI.Models;
 using BiliBiliAPI.Models.Account;
 using BiliBiliAPI.Models.Movie;
@@ -169,11 +170,28 @@ namespace BilibiliTest
 
             #region 搜索建议
             //https://s.search.bilibili.com/main/suggest?func=suggest&suggest_type=accurate&sub_type=tag&main_ver=v1&userid=108534711&special_acc_num=1&topic_acc_num=1&upuser_acc_num=3&tag_num=11&term=刀剑神域
-            SearchSquare searchSquare = new();
-            var result = await searchSquare.GetSearchSuggest("不要笑挑战");
-            foreach (var item in result.Result.Values)
+            //SearchSquare searchSquare = new();
+            //var result = await searchSquare.GetSearchSuggest("不要笑挑战");
+            //foreach (var item in result.Result.Values)
+            //{
+            //    Console.WriteLine(item.Value);
+            //}
+            #endregion
+
+            #region 动态头部信息
+            MyDynamic Dynamic = new();
+            var list = await Dynamic.GetDynamicUp_UpDateList();
+            Console.WriteLine($"正在直播的有{list.Data.LiveInfo.Count}个");
+            foreach (var item in list.Data.LiveInfo.Items)
             {
-                Console.WriteLine(item.Value);
+                Console.WriteLine($"{item.UpName}正在直播，标题为:{item.Title}");
+            }
+            Console.WriteLine("等等，你还有一些动态信息");
+            var updatelist = list.Data.UpList.Where((p) => p.IsUpDate == true).ToList();
+            Console.WriteLine($"在这几天里，共有{updatelist.Count()}个UP主有了一些重要信息");
+            foreach (var item in updatelist)
+            {
+                Console.WriteLine(item.UpName);
             }
             #endregion
             Console.ReadLine();
