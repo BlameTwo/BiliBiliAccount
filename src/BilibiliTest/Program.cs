@@ -179,20 +179,20 @@ namespace BilibiliTest
             #endregion
 
             #region 动态头部信息
-            MyDynamic Dynamic = new();
-            var list = await Dynamic.GetDynamicUp_UpDateList();
-            Console.WriteLine($"正在直播的有{list.Data.LiveInfo.Count}个");
-            foreach (var item in list.Data.LiveInfo.Items)
-            {
-                Console.WriteLine($"{item.UpName}正在直播，标题为:{item.Title}");
-            }
-            Console.WriteLine("等等，你还有一些动态信息");
-            var updatelist = list.Data.UpList.Where((p) => p.IsUpDate == true).ToList();
-            Console.WriteLine($"在这几天里，共有{updatelist.Count()}个UP主有了一些重要信息");
-            foreach (var item in updatelist)
-            {
-                Console.WriteLine(item.UpName);
-            }
+            //MyDynamic Dynamic = new();
+            //var list = await Dynamic.GetDynamicUp_UpDateList();
+            //Console.WriteLine($"正在直播的有{list.Data.LiveInfo.Count}个");
+            //foreach (var item in list.Data.LiveInfo.Items)
+            //{
+            //    Console.WriteLine($"{item.UpName}正在直播，标题为:{item.Title}");
+            //}
+            //Console.WriteLine("等等，你还有一些动态信息");
+            //var updatelist = list.Data.UpList.Where((p) => p.IsUpDate == true).ToList();
+            //Console.WriteLine($"在这几天里，共有{updatelist.Count()}个UP主有了一些重要信息");
+            //foreach (var item in updatelist)
+            //{
+            //    Console.WriteLine(item.UpName);
+            //}
             #endregion
             Console.ReadLine();
         }
