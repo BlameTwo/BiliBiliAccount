@@ -16,10 +16,10 @@ namespace BiliBiliAPI.Models.Account.Dynamic
         public Dynamic_MyInfo MyInfo { get; set; }
 
         [JsonProperty("up_list")]
-        public List<Dynamic_UpList> UpList { get; set; }
+        public List<Dynamic_Live_Items> UpList { get; set; }
     }
 
-    public class Dynamic_UpList
+    public class UpListItem
     {
         [JsonProperty("face")] public string Cover { get; set; }
 
@@ -34,9 +34,10 @@ namespace BiliBiliAPI.Models.Account.Dynamic
         [JsonProperty("uname")] public string UpName { get; set; }
     }
 
+
     public class Dynamic_MyInfo
     {
-        [JsonProperty("level_exp")]
+        [JsonProperty("level_info")]
         public Level_Exp Level { get; set; }
 
         [JsonProperty("official")]
@@ -92,7 +93,7 @@ namespace BiliBiliAPI.Models.Account.Dynamic
         public List<Dynamic_Live_Items> Items { get; set; }
     }
 
-    public class Dynamic_Live_Items: Dynamic_UpList
+    public class Dynamic_Live_Items: UpListItem
     {
 
         [JsonProperty("jump_url")] public string Url { get; set; }
