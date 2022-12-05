@@ -1,5 +1,6 @@
 ﻿using BiliBiliAPI.Models;
 using BiliBiliAPI.Models.Search;
+using BiliBiliAPI.Tools;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -15,7 +16,7 @@ namespace BiliBiliAPI.Search
     /// </summary>
     public class SearchSquare
     {
-        MyHttpClient HttpClient = new();
+        HttpTools HttpClient = new();
         /// <summary>
         /// 获得热搜排行
         /// </summary>
@@ -24,7 +25,7 @@ namespace BiliBiliAPI.Search
         public async Task<ResultCode<SearchHotRankData>> GetSearchHotRank(int number)
         {
             string url = $"https://api.bilibili.com/x/web-interface/search/square?limit={number}";
-            return JsonConvert.ReadObject<SearchHotRankData>(await HttpClient.GetResults(url));
+            return JsonConvert.ReadObject<SearchHotRankData>(await HttpClient.GetResults(url, HttpTools.ResponseEnum.App));
         }
 
         /// <summary>

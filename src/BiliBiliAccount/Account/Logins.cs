@@ -1,6 +1,7 @@
 ﻿using BiliBiliAPI.Models;
 using BiliBiliAPI.Models.Account;
 using BiliBiliAPI.Models.Settings;
+using BiliBiliAPI.Tools;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -16,7 +17,7 @@ namespace BiliBiliAPI.Account
     public class Logins
     {
 
-        private MyHttpClient HttpClient = new MyHttpClient();
+        private HttpTools HttpClient = new HttpTools();
 
         /// <summary>
         /// 使用保存的Cookie进行登录登录，获取登录信息
@@ -28,7 +29,7 @@ namespace BiliBiliAPI.Account
             return await Task.Run(async () =>
             {
                 AccountInfo info = new AccountInfo();
-                string str = await HttpClient.GetResults($"http://api.bilibili.com/x/web-interface/nav");
+                string str = await HttpClient.GetResults($"http://api.bilibili.com/x/web-interface/nav", HttpTools.ResponseEnum.App);
                 return await info.GetAccount(token);
             });
         }
@@ -78,7 +79,7 @@ namespace BiliBiliAPI.Account
             return await Task.Run(async () =>
             {
                 AccountInfo info = new AccountInfo();
-                string str = await HttpClient.GetResults(url);
+                string str = await HttpClient.GetResults(url, HttpTools.ResponseEnum.App);
                 return str;
             });
         }

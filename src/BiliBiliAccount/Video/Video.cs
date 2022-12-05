@@ -2,6 +2,7 @@
 using BiliBiliAPI.Models;
 using BiliBiliAPI.Models.HomeVideo;
 using BiliBiliAPI.Models.Videos;
+using BiliBiliAPI.Tools;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,7 +17,7 @@ namespace BiliBiliAPI.Video
 {
     public class Video
     {
-        private MyHttpClient HttpClient = new MyHttpClient();
+        private HttpTools HttpClient = new HttpTools();
 
 
         /// <summary>
@@ -31,7 +32,7 @@ namespace BiliBiliAPI.Video
                 url = $"https://app.bilibili.com/x/v2/view?bvid={id}";
             else
                 url = $"https://app.bilibili.com/x/v2/view?aid={id}";
-            object a = JsonConvert.ReadObject<VideosContent>(await HttpClient.GetResults(url));
+            object a = JsonConvert.ReadObject<VideosContent>(await HttpClient.GetResults(url, HttpTools.ResponseEnum.App));
 
             return (ResultCode<VideosContent>)a;
         }
@@ -44,7 +45,7 @@ namespace BiliBiliAPI.Video
         public async Task<ResultCode<VideoState>> GetVideoState(string aid)
         {
             string url = $"http://api.bilibili.com/archive_stat/stat?aid={aid}";
-            return JsonConvert.ReadObject<VideoState>(await HttpClient.GetResults(url));
+            return JsonConvert.ReadObject<VideoState>(await HttpClient.GetResults(url, HttpTools.ResponseEnum.App));
         }
 
 
@@ -71,7 +72,7 @@ namespace BiliBiliAPI.Video
             }
             
             if (url != null)
-                return JsonConvert.ReadObject<VideoInfo>(await HttpClient.GetResults(url));
+                return JsonConvert.ReadObject<VideoInfo>(await HttpClient.GetResults(url, HttpTools.ResponseEnum.App));
             else
                 return new ResultCode<VideoInfo>() { Code = "信息错误" };
         }
@@ -85,7 +86,7 @@ namespace BiliBiliAPI.Video
         {
             //http://bvc.bilivideo.com/pbp/data?cid=239973476
             string url = $"http://bvc.bilivideo.com/pbp/data?cid={cid}";
-            return JsonConvert.Deserialize<HigitPoint>(await HttpClient.GetResults(url));
+            return JsonConvert.Deserialize<HigitPoint>(await HttpClient.GetResults(url, HttpTools.ResponseEnum.App));
         }
 
         public async Task<ResultCode<VidonOnline>> GetVideoOnline(VideosContent info, string cid = null)
@@ -99,7 +100,7 @@ namespace BiliBiliAPI.Video
             {
                 url = $"http://api.bilibili.com/x/player/online/total?bvid={info.Bvid}&cid={info.First_Cid}";
             }
-            return JsonConvert.ReadObject<VidonOnline>(await HttpClient.GetResults(url));
+            return JsonConvert.ReadObject<VidonOnline>(await HttpClient.GetResults(url, HttpTools.ResponseEnum.App));
         }
 
         public async Task<ResultCode<BiliBiliAPI.Models.HomeVideo.Video>> GetHomeVideo()
@@ -125,7 +126,7 @@ namespace BiliBiliAPI.Video
                     url = "https://app.bilibili.com/x/v2/show/popular/index?device_name=iPad206&device=pad&bulid=6235200&mobi_app=iphone&platform=ios&pull=true";
                     break;
             }
-            var result = JsonConvert.ReadObject<BiliBiliAPI.Models.HomeVideo.Video>(await HttpClient.GetResults(url));
+            var result = JsonConvert.ReadObject<BiliBiliAPI.Models.HomeVideo.Video>(await HttpClient.GetResults(url, HttpTools.ResponseEnum.App));
             var value = new ResultCode<BiliBiliAPI.Models.HomeVideo.Video>() {
                 Code = result.Code,
                 Message = result.Message,
@@ -158,7 +159,7 @@ namespace BiliBiliAPI.Video
                 text = $"device_name=iPad206&device=pad&bulid=6235200&mobi_app=iphone&platform=ios&pull=trueQ&last_param={lastvideo.Param}&idx={idx}";
             else
                 text = $"device_name=iPad206&device=pad&bulid=6235200&mobi_app=iphone&platform=ios&pull=trueQ";
-            string jo = await HttpClient.GetResults(url, ApiProvider.AndroidTVKey, text);
+            string jo = await HttpClient.GetResults(url, HttpTools.ResponseEnum.App,null,true, text);
             var result = JsonConvert.Deserialize<BiliBiliAPI.Models.HomeVideo.HotVideo>(jo);
             var list = result.Item.Where(p => !string.IsNullOrWhiteSpace(p.Title));
             result.Item = list.ToList();
@@ -174,7 +175,7 @@ namespace BiliBiliAPI.Video
             else
                 url = $"https://api.bilibili.com/x/web-interface/archive/desc?aid={id}";
 
-            return JsonConvert.Deserialize<ResultCode<string>>(await HttpClient.GetResults(url));
+            return JsonConvert.Deserialize<ResultCode<string>>(await HttpClient.GetResults(url, HttpTools.ResponseEnum.App));
         }
 
         public Task GetVideoDesc()

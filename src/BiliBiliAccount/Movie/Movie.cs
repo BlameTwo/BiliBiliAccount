@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BiliBiliAPI.Tools;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,7 +9,7 @@ namespace BiliBiliAPI.Movie
 {
     public class Movie
     {
-        MyHttpClient HttpClient = new MyHttpClient();
+        HttpTools HttpClient = new HttpTools();
         /// <summary>
         /// 获得电影基本信息
         /// </summary>
@@ -29,7 +30,7 @@ namespace BiliBiliAPI.Movie
             }
             if(url != null)
             {
-                return JsonConvert.Deserialize<BiliBiliAPI.Models.Movie.Movie>(await HttpClient.GetResults(url));
+                return JsonConvert.Deserialize<BiliBiliAPI.Models.Movie.Movie>(await HttpClient.GetResults(url, HttpTools.ResponseEnum.App));
             }
             else
             {

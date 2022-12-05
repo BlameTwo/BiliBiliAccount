@@ -1,6 +1,7 @@
 ﻿
 using BiliBiliAPI.Models;
 using BiliBiliAPI.Models.Account;
+using BiliBiliAPI.Tools;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,7 +12,7 @@ namespace BiliBiliAPI.Account
 {
     public class TipInfo
     {
-        private MyHttpClient HttpClient = new MyHttpClient();
+        private HttpTools HttpClient = new HttpTools();
         /// <summary>
         /// 消息数量
         /// </summary>
@@ -20,7 +21,7 @@ namespace BiliBiliAPI.Account
         {
             return await Task.Run( async() => 
             {
-                string json = await HttpClient.GetResults(Apis.MY_TIP_COUNT);
+                string json = await HttpClient.GetResults(Apis.MY_TIP_COUNT, HttpTools.ResponseEnum.App);
                 return JsonConvert.ReadObject<MyTipsData>(json);
             });
         }
@@ -33,7 +34,7 @@ namespace BiliBiliAPI.Account
         {
             return await Task.Run(async () =>
             {
-                string json = await HttpClient.GetResults(Apis.MY_LETTER_COUNT);
+                string json = await HttpClient.GetResults(Apis.MY_LETTER_COUNT, HttpTools.ResponseEnum.App);
                 return JsonConvert.ReadObject<MyLetterData>(json);
             });
         }

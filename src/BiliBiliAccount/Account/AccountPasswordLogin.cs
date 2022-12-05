@@ -2,6 +2,7 @@
 using BiliBiliAPI.ApiTools;
 using BiliBiliAPI.Models;
 using BiliBiliAPI.Models.Account;
+using BiliBiliAPI.Tools;
 using Newtonsoft.Json.Linq;
 using PCLCrypto;
 using System;
@@ -18,12 +19,12 @@ namespace BiliBiliAPI.Account
     public class AccountPasswordLogin
     {
 
-        private MyHttpClient HttpClient = new MyHttpClient();
+        private HttpTools HttpClient = new HttpTools();
         public async Task<ResultCode<PasswordLoginData>> LoginV3(string username, string password)
         {
             var pwd = await FormatPassword(password);
             string data = $"username={Uri.EscapeDataString(username)}&password={Uri.EscapeDataString(pwd)}&gee_type=10";
-            var results = await HttpClient.PostResults(Apis.LOGIN_PASSWD_LOGIN, data, ApiProvider.AndroidTVKey);
+            var results = await HttpClient.PostResults(Apis.LOGIN_PASSWD_LOGIN, data, HttpTools.ResponseEnum.App,null);
             return JsonConvert.ReadObject<PasswordLoginData>(results);
         }
 
@@ -33,7 +34,7 @@ namespace BiliBiliAPI.Account
             string base64String;
             try
             {
-                string stringAsync = await HttpClient.PostResults(Apis.LOGIN_PASSWD_GET_KEY, string.Empty);
+                string stringAsync = await HttpClient.PostResults(Apis.LOGIN_PASSWD_GET_KEY, string.Empty, HttpTools.ResponseEnum.App,null);
                 var jObjects = JObject.Parse(stringAsync);
                 string hash = jObjects["data"]["hash"].ToString();
                 string key = jObjects["data"]["key"].ToString();

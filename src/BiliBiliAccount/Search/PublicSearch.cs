@@ -1,6 +1,7 @@
 ﻿using BiliBiliAPI.ApiTools;
 using BiliBiliAPI.Models;
 using BiliBiliAPI.Models.Search;
+using BiliBiliAPI.Tools;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -13,7 +14,7 @@ namespace BiliBiliAPI.Search
 {
     public class PublicSearch
     {
-        MyHttpClient HttpClient = new MyHttpClient();
+        HttpTools HttpClient = new HttpTools();
         /// <summary>
         /// 自带参数搜索
         /// </summary>
@@ -22,7 +23,7 @@ namespace BiliBiliAPI.Search
         /// <returns></returns>
         public async Task<string> Search(string query, bool isacceyc = false,string uri= "https://app.bilibili.com/x/v2/search")
         {
-             return await HttpClient.GetResults(uri + query, ApiProvider.AndroidTVKey, "&mobi_app=iphone&platform=ios&build=5520400", isacceyc);
+             return await HttpClient.GetResults(uri + query, HttpTools.ResponseEnum.App,null,isacceyc, "&mobi_app=iphone&platform=ios&build=5520400");
         }
 
         /// <summary>

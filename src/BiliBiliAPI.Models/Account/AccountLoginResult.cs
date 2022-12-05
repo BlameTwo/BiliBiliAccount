@@ -35,6 +35,7 @@ namespace BiliBiliAPI.Models.Account
         [JsonProperty("face")]
         public string Face_Image { get; set; } = "";
 
+
         /// <summary>
         /// 性别，文字
         /// </summary>
@@ -61,11 +62,13 @@ namespace BiliBiliAPI.Models.Account
         [JsonProperty("vip")]
         public Vip MyVIp { get; set; } = new Vip();
 
+
         /// <summary>
         /// 经验信息
         /// </summary>
         [JsonProperty("level_exp")]
         public Level_Exp Exp { get; set; } = new Level_Exp();
+
 
     }
 

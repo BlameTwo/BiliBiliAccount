@@ -1,6 +1,7 @@
 ﻿
 using BiliBiliAPI.Models;
 using BiliBiliAPI.Models.Account;
+using BiliBiliAPI.Tools;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,7 +15,7 @@ namespace BiliBiliAPI.Account
     /// </summary>
     public class FollowInfo
     {
-        private MyHttpClient HttpClient = new MyHttpClient();
+        private HttpTools HttpClient = new HttpTools();
 
         /// <summary>
         /// 获得本身关注
@@ -54,7 +55,7 @@ namespace BiliBiliAPI.Account
         {
             return await Task.Run(async () =>
             {
-                string json = await HttpClient.GetResults(url);
+                string json = await HttpClient.GetResults(url, HttpTools.ResponseEnum.App);
                 return json;
             });
         }

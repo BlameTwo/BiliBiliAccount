@@ -260,4 +260,134 @@ namespace BiliBiliAPI.Models.User
         [JsonProperty("vip_statue")]
         public string Vip_Statue { get; set; }
     }
+
+
+    public class UpData
+    {
+        [JsonProperty("mid")]
+        public string Mid { get; set; } = ""; [JsonProperty("name")]
+        public string Name { get; set; } = "";
+        [JsonProperty("sign")] public string Sign { get; set; } = "";
+
+        /// <summary>
+        /// 硬币数量
+        /// </summary>
+        [JsonProperty("coins")] public string Conins { get; set; } = "";
+
+        /// <summary>
+        /// 生日
+        /// </summary>
+        [JsonProperty("birthday")] public string Birthday { get; set; } = "";
+
+        /// <summary>
+        /// 头像链接
+        /// </summary>
+        [JsonProperty("face")] public string Face_Image { get; set; } = "";
+
+
+        /// <summary>
+        /// 性别，文字
+        /// </summary>
+        [JsonProperty("sex")] public string Sex { get; set; } = "";
+
+
+
+
+        /// <summary>
+        /// 用户是否被封禁，0为正常，1为封禁
+        /// </summary>
+        [JsonProperty("silence")] public string Silence { get; set; } = "";
+
+        /// <summary>
+        /// 大会员信息
+        /// </summary>
+        [JsonProperty("vip")] public Vip MyVIp { get; set; } = new Vip();
+
+
+        /// <summary>
+        /// 经验信息
+        /// </summary>
+        [JsonProperty("level_info")] public Level_Exp Exp { get; set; }
+
+
+        [JsonProperty("level")] public int Level { get; set; }
+
+        [JsonProperty("face_nft")] public bool FaceNft { get; set; }
+
+        [JsonProperty("top_photo")] public string Top_Photo { get; set; }
+
+        [JsonProperty("fans_badge")] public string Fans_Badge { get; set; }
+
+        [JsonProperty("fans_medal")] public FansMedal Fans_Medal { get; set; }
+
+        [JsonProperty("official")] public Official OfficialP { get; set; }
+
+        [JsonProperty("school")] public School School{get;set;}
+    }
+    public class School
+    {
+        [JsonProperty("name")]public string Name { get; set; }  
+    }
+    public class FansMedal
+    {
+        [JsonProperty("show")]public bool Show { get; set; }
+        [JsonProperty("wear")]public bool Wear { get; set; }
+
+        [JsonProperty("medal")]public Fans_Medal medal { get; set; }
+    }
+
+    public class Fans_Medal
+    {
+        /// <summary>
+        /// 自己的mid
+        /// </summary>
+        [JsonProperty("mid")]public int Mid { get; set; }
+
+        /// <summary>
+        /// 被粉的up主mid
+        /// </summary>
+        [JsonProperty("target_id")]public int UpMid { get; set; }
+
+        /// <summary>
+        /// 粉丝勋章等级
+        /// </summary>
+        [JsonProperty("medal_id")]public int FattorMid { get; set; }
+
+        /// <summary>
+        /// 粉丝勋章等级
+        /// </summary>
+        [JsonProperty("level")]public int TargetLevel { get; set; }
+
+        /// <summary>
+        /// 粉丝勋章名称
+        /// </summary>
+        [JsonProperty("medal_name")]public string Name { get; set; }
+
+        [JsonProperty("medal_color")]public string Color { get; set; }
+
+        /// <summary>
+        /// 当前经验值
+        /// </summary>
+        [JsonProperty("intimacy")]public int LiveLevel { get; set; }
+
+        /// <summary>
+        /// 粉丝勋章升级到下一级的经验值
+        /// </summary>
+        [JsonProperty("next_intimacy")]public int NextLiveLevel { get; set; }
+
+        /// <summary>
+        /// 每日亲密度上线
+        /// </summary>
+        [JsonProperty("day_limit")]public int DayLimit { get; set; }
+
+        /// <summary>
+        /// 今日获得的亲密度
+        /// </summary>
+        [JsonProperty("today_feed")]public int DayFeedOk { get; set; }
+
+        /// <summary>
+        /// 是否穿戴该勋章
+        /// </summary>
+        [JsonProperty("wearing_status")]public int IsWearing { get; set; }
+    }
 }

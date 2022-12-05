@@ -2,6 +2,7 @@
 using BiliBiliAPI.ApiTools;
 using BiliBiliAPI.Models;
 using BiliBiliAPI.Models.Account;
+using BiliBiliAPI.Tools;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
@@ -16,7 +17,7 @@ namespace BiliBiliAPI.Account
 {
     public class AccountQRLogin
     {
-        private MyHttpClient HttpClient  = new MyHttpClient();
+        private HttpTools HttpClient  = new HttpTools();
         Timer time = new Timer();
         /// <summary>
         /// 当前实例的密钥校验码
@@ -25,7 +26,7 @@ namespace BiliBiliAPI.Account
         public async Task<ResultCode<AccountLoginData>> GetQR()
         {
             string data = $"local_id={Current.LocalID}";
-            string result = await HttpClient.PostResults(Apis.LOGIN_QRKEY_GET, data, ApiProvider.AndroidTVKey);
+            string result = await HttpClient.PostResults(Apis.LOGIN_QRKEY_GET, data, HttpTools.ResponseEnum.App);
             var model = JsonConvert.ReadObject<AccountLoginData>(result);
             QRKey = model.Data.QRKey;
             return model;
@@ -36,7 +37,7 @@ namespace BiliBiliAPI.Account
             try
             {
                 string data = $"auth_code={QRKey}&guid={Guid.NewGuid()}&local_id={Current.LocalID}";
-                string result = await HttpClient.PostResults(Apis.LOGIN_QRKEY_POLL, data, ApiProvider.AndroidTVKey);
+                string result = await HttpClient.PostResults(Apis.LOGIN_QRKEY_POLL, data, HttpTools.ResponseEnum.App);
                 var jo =  JObject.Parse(result);
                 switch (jo["code"].ToString())
                 {

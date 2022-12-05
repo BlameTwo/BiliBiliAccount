@@ -1,5 +1,6 @@
 ﻿using BiliBiliAPI.Models;
 using BiliBiliAPI.Models.TopList;
+using BiliBiliAPI.Tools;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,7 +11,7 @@ namespace BiliBiliAPI.TopLists
 {
     public class EveryoneWeek
     {
-        MyHttpClient HttpClient = new MyHttpClient();
+        HttpTools HttpClient = new HttpTools();
         /// <summary>
         /// 获得每周必看得每一期标题
         /// </summary>
@@ -18,14 +19,14 @@ namespace BiliBiliAPI.TopLists
         public async Task<ResultCode<EveryoneList>> GetWeekList()
         {
             string url = "https://api.bilibili.com/x/web-interface/popular/series/list";
-            return JsonConvert.ReadObject<EveryoneList>(await HttpClient.GetResults(url));
+            return JsonConvert.ReadObject<EveryoneList>(await HttpClient.GetResults(url, HttpTools.ResponseEnum.App));
         }
 
 
         public async Task<ResultCode<WeekItem>> GetWeekTopList(int number)
         {
             string url = $"https://api.bilibili.com/x/web-interface/popular/series/one?number={number}";
-            return JsonConvert.ReadObject<WeekItem>(await HttpClient.GetResults(url));
+            return JsonConvert.ReadObject<WeekItem>(await HttpClient.GetResults(url, HttpTools.ResponseEnum.App));
         }
     }
 }

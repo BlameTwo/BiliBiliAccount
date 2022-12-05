@@ -1,5 +1,6 @@
 ﻿using BiliBiliAPI.Models;
 using BiliBiliAPI.Models.Videos;
+using BiliBiliAPI.Tools;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,7 +11,7 @@ namespace BiliBiliAPI.Video
 {
     public class UserVideo
     {
-        MyHttpClient MyHttpClient = new MyHttpClient();
+        HttpTools HttpTools = new HttpTools();
 
         /// <summary>
         /// 点赞视频
@@ -22,7 +23,7 @@ namespace BiliBiliAPI.Video
         {
             int fl = Convert.ToInt32(!flage);
             string content = $"aid={aid}&like={fl}";
-            return JsonConvert.ReadObject<LikeToast>(await MyHttpClient.PostResults("http://app.bilibili.com/x/v2/view/like",content));
+            return JsonConvert.ReadObject<LikeToast>(await HttpTools.PostResults("http://app.bilibili.com/x/v2/view/like",content, HttpTools.ResponseEnum.App));
         }
 
         /// <summary>
@@ -48,7 +49,7 @@ namespace BiliBiliAPI.Video
             }
             if (!string.IsNullOrWhiteSpace(url))
             {
-                return JsonConvert.ReadObject<VideoConis>(await MyHttpClient.GetResults(url));
+                return JsonConvert.ReadObject<VideoConis>(await HttpTools.GetResults(url, HttpTools.ResponseEnum.App));
             }
             else
             {
@@ -68,7 +69,7 @@ namespace BiliBiliAPI.Video
         {
             int like = islike ? 1 : 0;
             string content = $"aid={aid}&multiply={multiply}&select_like={like}";
-            return JsonConvert.ReadObject<VideoToConis>(await MyHttpClient.PostResults("https://app.biliapi.net/x/v2/view/coin/add?",content));
+            return JsonConvert.ReadObject<VideoToConis>(await HttpTools.PostResults("https://app.biliapi.net/x/v2/view/coin/add?",content, HttpTools.ResponseEnum.App));
         }
 
         /// <summary>
@@ -91,7 +92,7 @@ namespace BiliBiliAPI.Video
             }
             int value = int.Parse(progress.Seconds.ToString())+value2;
             string data = $"aid={aid}&cid={cid}&progress={value}&platform=android";
-            return (await MyHttpClient.PostResults("http://api.bilibili.com/x/v2/history/report",data));
+            return (await HttpTools.PostResults("http://api.bilibili.com/x/v2/history/report",data, HttpTools.ResponseEnum.App));
         }
     }
 }

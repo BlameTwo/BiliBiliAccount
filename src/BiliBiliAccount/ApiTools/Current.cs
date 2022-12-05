@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BiliBiliAPI.Tools;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -14,13 +15,13 @@ namespace BiliBiliAPI.ApiTools
             {
                 HasInit = true;
                 Radom = new Random();
-                HttpClient = new MyHttpClient();
+                HttpClient = new HttpTools();
                 LocalID = Guid.NewGuid().ToString();
             }
         }
         public static string LocalID { get; private set; }
         private static object HasInit { get; set; } = false;
         public static Random Radom { get; private set; }
-        public static MyHttpClient HttpClient { get; private set; }
+        public static HttpTools HttpClient { get; private set; }
     }
 }

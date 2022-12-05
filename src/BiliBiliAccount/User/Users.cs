@@ -1,6 +1,7 @@
 ﻿using BiliBiliAPI.Models;
 using BiliBiliAPI.Models.Account;
 using BiliBiliAPI.Models.User;
+using BiliBiliAPI.Tools;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
@@ -17,26 +18,33 @@ namespace BiliBiliAPI.User
     public class Users
     {
         ///
-        private MyHttpClient HttpClient = new MyHttpClient();
+        private HttpTools HttpClient = new HttpTools();
 
         /// <summary>
         /// 获得用户的基本信息
         /// </summary>
         /// <param name="mid">用户的mid</param>
         /// <returns></returns>
-        public async Task<ResultCode<AccountLoginResultData>> GetUser(string mid)
+        public async Task<ResultCode<UpData>> GetUser(string mid)
         {
-            string url = $"http://api.bilibili.com/x/space/acc/info?mid={mid}";
-            return JsonConvert.ReadObject<AccountLoginResultData>(await HttpClient.GetResults(url));
+            string url = $"https://api.bilibili.com/x/space/acc/info?mid={mid}";
+            var str = await HttpClient.GetResults(url, HttpTools.ResponseEnum.Web);
+            return JsonConvert.ReadObject<UpData>(str);
         }
 
+        public async Task<ResultCode<UpData>> GetMySession()
+        {
+            string url = "https://api.bilibili.com/x/space/myinfo";
+            var str = await HttpClient.GetResults(url, HttpTools.ResponseEnum.App);
+            return JsonConvert.ReadObject<UpData> (str);
+        }
 
         public async Task<ResultCode<FavouritesData>> GetFavourites(string aid = "")
         {
             if(BiliBiliArgs.TokenSESSDATA != null)
             {
-                string url = $"http://api.bilibili.com/x/v3/fav/folder/created/list-all?up_mid={BiliBiliArgs.TokenSESSDATA.Mid}&rid={aid}";
-                return JsonConvert.ReadObject<FavouritesData>(await HttpClient.GetResults(url));
+                string url = $"https://api.bilibili.com/x/v3/fav/folder/created/list-all?up_mid={BiliBiliArgs.TokenSESSDATA.Mid}&rid={aid}";
+                return JsonConvert.ReadObject<FavouritesData>(await HttpClient.GetResults(url, HttpTools.ResponseEnum.App));
             }
             else
             {
@@ -51,14 +59,14 @@ namespace BiliBiliAPI.User
 
         public async Task<ResultCode<FavoriteData>> GetFavourite(FavoritesDataList Data)
         {
-            var url = $"http://api.bilibili.com/x/v3/fav/folder/info?media_id={Data.ID}";
-            return JsonConvert.ReadObject<FavoriteData>(await HttpClient.GetResults(url));  
+            var url = $"https://api.bilibili.com/x/v3/fav/folder/info?media_id={Data.ID}";
+            return JsonConvert.ReadObject<FavoriteData>(await HttpClient.GetResults(url, HttpTools.ResponseEnum.App));  
         }
 
         public async Task<ResultCode<MediasItem>> GetFavMedios(FavoritesDataList Data, int pagesize)
         {
-            string url = $"http://api.bilibili.com/x/v3/fav/resource/list?media_id={Data.ID}&ps={pagesize}";
-            return JsonConvert.ReadObject<MediasItem>(await HttpClient.GetResults(url));
+            string url = $"https://api.bilibili.com/x/v3/fav/resource/list?media_id={Data.ID}&ps={pagesize}";
+            return JsonConvert.ReadObject<MediasItem>(await HttpClient.GetResults(url, HttpTools.ResponseEnum.App));
         }
     }
 }

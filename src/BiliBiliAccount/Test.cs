@@ -1,4 +1,5 @@
 ﻿using BiliBiliAPI.Account;
+using BiliBiliAPI.Tools;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -14,7 +15,7 @@ namespace BiliBiliAPI
     public static class Test
     {
 
-        private static MyHttpClient HttpClient = new MyHttpClient();
+        private static HttpTools HttpClient = new HttpTools();
         /// <summary>
         /// 测试接口
         /// </summary>
@@ -26,11 +27,11 @@ namespace BiliBiliAPI
             {
                 if(text == null)
                 {
-                    return await HttpClient.GetResults(url);
+                    return await HttpClient.GetResults(url, HttpTools.ResponseEnum.App);
                 }
                 else
                 {
-                    return await HttpClient.GetResults(url, null, text, false) ;
+                    return await HttpClient.GetResults(url, HttpTools.ResponseEnum.App,null,false,text) ;
                 }
             });
         }
@@ -39,7 +40,7 @@ namespace BiliBiliAPI
         {
             return await Task.Run(async () =>
             {
-                return await HttpClient.PostResults(url,content);
+                return await HttpClient.PostResults(url,content, HttpTools.ResponseEnum.App);
             });
         }
 

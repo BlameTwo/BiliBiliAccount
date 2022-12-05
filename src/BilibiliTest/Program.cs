@@ -9,6 +9,7 @@ using BiliBiliAPI.Region;
 using BiliBiliAPI.Search;
 using BiliBiliAPI.TopLists;
 using BiliBiliAPI.TopVideos;
+using BiliBiliAPI.User;
 using BiliBiliAPI.Video;
 using System.Security.Cryptography;
 
@@ -25,11 +26,11 @@ namespace BilibiliTest
             BiliBiliArgs.TokenSESSDATA = token;
             Video video = new Video();
             TopListVideo topvideo = new TopListVideo();
-            var bv = await video.GetVideosContent("BV1Jg411a7jt", VideoIDType.BV);
+            var bv = await video.GetVideosContent("BV1894y1X763", VideoIDType.BV);
             #endregion
 
             #region 检查视频是否是用户收藏
-            //Console.WriteLine((await user.CoinsVideo(1,bv.Data.Aid)).Data.Guide.Title);
+            //Console.WriteLine((await user.CoinsVideo(1, bv.Data.Aid)).Data.Guide.Title);
             //string url = $"http://api.bilibili.com/x/v3/fav/folder/created/list-all?up_mid={token.Mid}";
             //var a = await Test.Go(url);
             //Users users = new Users();
@@ -39,7 +40,11 @@ namespace BilibiliTest
             //    if (item.FavState == "1")
             //        Console.WriteLine($"视频:  【{bv.Data.Title}】  存在于  【{item.Title}】  收藏夹中");
 
-            //    var a = await users.GetFavMedios(item,20);
+            //    var value = await users.GetFavMedios(item, 20);
+            //    foreach (var item2 in value.Data.Items)
+            //    {
+            //        Console.WriteLine(item.Title);
+            //    }
             //}
 
             #endregion
@@ -55,6 +60,7 @@ namespace BilibiliTest
             #endregion
             #region 获得视频在线信息
             //var test2 = await video.GetVideoOnline(bv.Data);
+            //Console.WriteLine(test2.Data.AllCount);
             #endregion
 
             #region 获得首页推荐
@@ -63,28 +69,34 @@ namespace BilibiliTest
             #endregion
 
             #region 获得视频弹幕
-            //Danmaku danmaku = new Danmaku();
+            Danmaku danmaku = new Danmaku();
             //var result = await danmaku.GetDanmakuTest(bv.Data.First_Cid);
             #endregion
 
             #region 上传播放历史
             //string url = $"http://api.bilibili.com/x/v2/history/report";
             //string data = $"aid={bv.Data.Aid}&cid={bv.Data.First_Cid}&progress={5}&platform=android";
-            //var text = await Test.PostGo(url,data);
+            //var text = await Test.PostGo(url, data);
             #endregion
 
             #region 获得排行榜
-            // var list = await topvideo.GetTopVideo(Cid.Music,7);
+            //var list = await topvideo.GetTopVideo(Cid.Music, 7);
+            //foreach (var item in list.Data.List)
+            //{
+            //    Console.WriteLine(item.Title);
+            //}
             #endregion
 
             #region 搜索视频
             // var text = $"?search_type=video&keyword=崩坏3&page=5";
-            // string uri = "http://api.bilibili.com/x/web-interface/search/type";
-            // var str = await Search.SearchAnimation("夏日重现",1);
+            //string uri = "http://api.bilibili.com/x/web-interface/search/type";
+            //var str = await Search.SearchAnimation("夏日重现", 1);
+            //Console.WriteLine(str.Data.Items.Count);
             #endregion
 
             #region 获得视频简介
             // var result = await video.GetVideoDesc(bv.Data.Bvid, VideoIDType.BV);
+            //Console.WriteLine(result.Data);
             #endregion
 
             #region 标签相关
@@ -105,15 +117,17 @@ namespace BilibiliTest
             //https://github.com/SocialSisterYi/bilibili-API-collect/blob/6c844133afa9663dc46502af993809060875adb3/user/relation.md#%E6%93%8D%E4%BD%9C%E7%94%A8%E6%88%B7%E5%85%B3%E7%B3%BB
 
             #region 搜索电影
-            // var result = await Search.SearchMovie("天气之子", 1);
+            //var result = await Search.SearchMovie("天气之子", 1);
+            //Console.WriteLine(result.Data.Items.Count);
             #endregion
             #region 获得电影的基本信息
-            //BilibiliAPI.Movie.Movie movie = new BilibiliAPI.Movie.Movie();
-            //var result = await movie.GetMovie("33343", BilibiliAPI.Movie.Movie.MovieEnum.SSID);
+            //BiliBiliAPI.Movie.Movie movie = new();
+            //var result = await movie.GetMovie("33343", BiliBiliAPI.Movie.Movie.MovieEnum.SSID);
+            //Console.WriteLine(result.Result.Title);
             #endregion
 
             #region 获得每周必看列表和视频
-            //EveryoneWeak Weak = new EveryoneWeak();
+            //EveryoneWeek Weak = new EveryoneWeek();
             //var result = await Weak.GetWeekList();
             //foreach (var item in result.Data.List)
             //{
@@ -125,6 +139,7 @@ namespace BilibiliTest
             #region 获得分区索引
             //TidRegion region = new TidRegion();
             //var a = await region.GetTidIcon();
+            //Console.WriteLine($"共{a.Data.Count}个分区");
             #endregion
 
             #region 获得音乐排行榜
@@ -193,6 +208,12 @@ namespace BilibiliTest
             //{
             //    Console.WriteLine(item.UpName);
             //}
+            #endregion
+
+            #region 获得个人页面的信息
+            Users users = new Users();
+            var user2 = await users.GetUser("797614");
+            
             #endregion
             Console.ReadLine();
         }
