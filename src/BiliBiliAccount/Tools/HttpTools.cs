@@ -21,7 +21,15 @@ namespace BiliBiliAPI.Tools
         public enum ResponseEnum { App,Web}
 
 
-
+        public HttpTools()
+        {
+            var clientHandler = new HttpClientHandler();
+            clientHandler.ServerCertificateCustomValidationCallback += (sender, cert, chaun, ssl) => { return true; };
+            WebClient = new HttpClient(clientHandler) { Timeout = Timeout };
+            AppClient = new HttpClient(clientHandler) { Timeout = Timeout };
+            WebClient.DefaultRequestHeaders.Referrer = new Uri("http://www.bilibili.com/");
+            AppClient.DefaultRequestHeaders.Referrer = new Uri("http://www.bilibili.com/");
+        }
         public async Task<string> GetResults(string url,ResponseEnum responseEnum,Dictionary<string,string> keyValues =null, bool IsAcess = true,string BuildString= "&platform=android&device=android&actionKey=appkey&build=5442100&mobi_app=android_comic")
         {
             switch (responseEnum)
@@ -33,7 +41,6 @@ namespace BiliBiliAPI.Tools
                         url += (IsAcess == true ? "?access_key=" + BiliBiliArgs.TokenSESSDATA.SECCDATA : "") + "&appkey=" + ApiProvider.AndroidTVKey.Appkey + BuildString + "&ts=" + ApiProvider.TimeSpanSeconds;
                     url += (IsAcess == true ? "&sign=" + ApiProvider.GetSign(url, ApiProvider.AndroidTVKey) : "");
                     HttpResponseMessage apphr = await AppClient.GetAsync(url).ConfigureAwait(false);
-                    apphr.Headers.Add("referer", "https:bilibili.com");
                     apphr.Headers.Add("Accept_Encoding", "gzip,deflate");
                     apphr.EnsureSuccessStatusCode();
                     var appencodeResults = await apphr.Content.ReadAsByteArrayAsync().ConfigureAwait(false);
@@ -65,18 +72,23 @@ namespace BiliBiliAPI.Tools
             return await HttpClient.GetStringAsync(url);
         }
 
-        public async Task<string> PostResults(string url, string postContent, ResponseEnum responseEnum, Dictionary<string, string> keyValues = null)
+        public async Task<string> PostResults(string url, string postContent, ResponseEnum responseEnum, Dictionary<string, string> keyValues = null,bool isclear=false)
         {
             switch (responseEnum)
             {
                 case ResponseEnum.App:
+
+                    var OldWebClient2 = AppClient;
+                    AppClient = isclear == true ? 
+                        AppClient = new() : 
+                        OldWebClient2;
                     if (!string.IsNullOrEmpty(postContent))
                     {
-                        postContent += "&access_key=" + BiliBiliArgs.TokenSESSDATA.SECCDATA + "&appkey=" + ApiProvider.AndroidTVKey.Appkey
+                        postContent += "&access_key=" + BiliBiliArgs.TokenSESSDATA.SECCDATA + "&appkey=" + ApiProvider.AndroidTVKey.Appkey + "&mobi_app=android_comic&device=android&version="
                             + ApiProvider.version + "&actionKey=appkey&platform=android&ts=" + ApiProvider.TimeSpanSeconds;
                     }
                     else
-                        postContent += "access_key=" + BiliBiliArgs.TokenSESSDATA.SECCDATA + "&appkey=" + ApiProvider.AndroidTVKey.Appkey
+                        postContent += "access_key=" + BiliBiliArgs.TokenSESSDATA.SECCDATA + "&appkey=" + ApiProvider.AndroidTVKey.Appkey + "&mobi_app=android_comic&device=android&version="
                             + ApiProvider.version + "&actionKey=appkey&platform=android&ts=" + ApiProvider.TimeSpanSeconds;
                     postContent += "&sign=" + ApiProvider.GetSign(postContent, ApiProvider.AndroidTVKey);
                     StringContent stringContent = new StringContent(postContent, Encoding.UTF8, "application/x-www-form-urlencoded");
@@ -84,8 +96,9 @@ namespace BiliBiliAPI.Tools
                     response.EnsureSuccessStatusCode();
                     var encodeResults = await response.Content.ReadAsByteArrayAsync();
                     return Encoding.UTF8.GetString(encodeResults, 0, encodeResults.Length);
-                    break; 
                 case ResponseEnum.Web:
+                    var OldWebClient = WebClient;
+                    WebClient = isclear == true ? WebClient = new() : OldWebClient;
                     WebClient.DefaultRequestHeaders.Add("Cookie", BiliBiliArgs.TokenSESSDATA.CookieString);
                     WebClient.DefaultRequestHeaders.Add("user-agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/107.0.0.0 Safari/537.36 Edg/107.0.1418.62");
                     if(keyValues != null)

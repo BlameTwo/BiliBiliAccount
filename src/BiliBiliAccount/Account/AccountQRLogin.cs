@@ -18,6 +18,7 @@ namespace BiliBiliAPI.Account
     public class AccountQRLogin
     {
         private HttpTools HttpClient  = new HttpTools();
+        private MyHttpClient MyHttpClient = new();
         Timer time = new Timer();
         /// <summary>
         /// 当前实例的密钥校验码
@@ -26,7 +27,8 @@ namespace BiliBiliAPI.Account
         public async Task<ResultCode<AccountLoginData>> GetQR()
         {
             string data = $"local_id={Current.LocalID}";
-            string result = await HttpClient.PostResults(Apis.LOGIN_QRKEY_GET, data, HttpTools.ResponseEnum.App);
+            //string result = await MyHttpClient.PostResults(Apis.LOGIN_QRKEY_GET, data);
+            string result = await HttpClient.PostResults(Apis.LOGIN_QRKEY_GET, data, HttpTools.ResponseEnum.App,null,true);
             var model = JsonConvert.ReadObject<AccountLoginData>(result);
             QRKey = model.Data.QRKey;
             return model;
@@ -37,7 +39,7 @@ namespace BiliBiliAPI.Account
             try
             {
                 string data = $"auth_code={QRKey}&guid={Guid.NewGuid()}&local_id={Current.LocalID}";
-                string result = await HttpClient.PostResults(Apis.LOGIN_QRKEY_POLL, data, HttpTools.ResponseEnum.App);
+                string result = await HttpClient.PostResults(Apis.LOGIN_QRKEY_POLL, data, HttpTools.ResponseEnum.App,null,true);
                 var jo =  JObject.Parse(result);
                 switch (jo["code"].ToString())
                 {
