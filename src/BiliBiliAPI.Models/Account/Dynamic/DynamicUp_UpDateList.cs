@@ -27,7 +27,7 @@ namespace BiliBiliAPI.Models.Account.Dynamic
 
         [JsonProperty("has_update")]public bool IsUpDate { get; set; }
 
-        [JsonProperty("mid")] public int Mid { get; set; }
+        [JsonProperty("mid")] public string Mid { get; set; }
 
         [JsonProperty("title")] public string Title { get; set; }
 

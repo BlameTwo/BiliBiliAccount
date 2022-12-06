@@ -211,9 +211,29 @@ namespace BilibiliTest
             #endregion
 
             #region 获得个人页面的信息
-            Users users = new Users();
-            var user2 = await users.GetUser("797614");
-            
+            //Users users = new Users();
+            //var user2 = await users.GetUser("797614");
+            #endregion
+
+            #region 获得全部的动态
+            MyDynamic Dynamic = new();
+            int index = 1;
+            string offset = "";
+            Console.WriteLine("输入回车获得下一页动态，输入N结束获取");
+            while (Console.ReadLine() != "N")
+            {
+                Console.WriteLine("输入回车获得下一页动态，输入N结束获取");
+                var value = await Dynamic.GetDynamic(MyDynamic.DynamicEnum.All,offset,index);
+                if(value != null)
+                {
+                    Console.WriteLine(value.Data.OffSet);
+                }
+                if(value.Data.OffSet != null)
+                {
+                    offset= value.Data.OffSet;
+                }
+                index++;
+            }
             #endregion
             Console.ReadLine();
         }

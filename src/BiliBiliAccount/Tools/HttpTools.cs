@@ -106,6 +106,7 @@ namespace BiliBiliAPI.Tools
             return null;
         }
 
+
         public TimeSpan Timeout { get; set; } = TimeSpan.FromSeconds(8);
 
     }

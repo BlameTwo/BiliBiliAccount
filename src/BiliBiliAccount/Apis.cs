@@ -64,7 +64,14 @@ namespace BiliBiliAPI
         /// </summary>
         public const string UP_IMAGECOUNT = "http://api.vc.bilibili.com/link_draw/v1/doc/upload_count";
 
-
+        /// <summary>
+        /// 动态头部信息API
+        /// </summary>
         public const string MY_DYNAMIC_UPLIST = "https://api.bilibili.com/x/polymer/web-dynamic/v1/portal";
+
+        /// <summary>
+        /// 动态API
+        /// </summary>
+        public const string MY_DYNAMIC = "https://api.bilibili.com/x/polymer/web-dynamic/v1/feed/all";
     }
 }

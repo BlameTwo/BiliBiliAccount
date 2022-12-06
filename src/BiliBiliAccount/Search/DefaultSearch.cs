@@ -16,7 +16,7 @@ namespace BiliBiliAPI.Search
         public async Task<ResultCode<SearchDefaultData>> GetDefault()
         {
             string url = "https://api.bilibili.com/x/web-interface/search/default";
-            return JsonConvert.ReadObject<SearchDefaultData>(await HttpClient.GetResults(url, HttpTools.ResponseEnum.App));
+            return JsonConvert.ReadObject<SearchDefaultData>(await HttpClient.GetResults(url, HttpTools.ResponseEnum.Web));
         }
 
 
