@@ -84,6 +84,7 @@ namespace BiliBiliAPI.Models.Account.Dynamic
     [JsonConverter(typeof(Dynamic_Desc_Convert))]
     public class DescNodes
     {
+        [JsonProperty("emoji")] public Emoji Emoji { get; set; }
         [JsonProperty("orig_text")] public string OrigeText { get; set; }
         [JsonProperty("rid")] public string Rid { get; set; }
         [JsonProperty("text")] public string Text { get; set; }
@@ -91,6 +92,16 @@ namespace BiliBiliAPI.Models.Account.Dynamic
         [JsonProperty("type")]public string Type { get; set; }
     }
 
+    public class Emoji
+    {
+        [JsonProperty("icon_url")]public string Cover { get; set; }
+
+        [JsonProperty("size")]public string Size { get; set; }
+
+        [JsonProperty("text")]public string Text { get; set; }
+
+        [JsonProperty("type")]public string Type { get; set; }
+    }
 
     public class Additional
     {

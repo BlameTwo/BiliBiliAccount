@@ -61,7 +61,17 @@ namespace BiliBiliAPI.Models.JsonConverts
             drawItem.OrigeText = jobj["orig_text"].ToString();
             drawItem.Rid = jobj.GetValue("rid") == null?null:jobj["rid"].ToString();
             drawItem.Text = jobj["text"].ToString();
-            drawItem.Type = jobj["type"].ToString(); 
+            drawItem.Type = jobj["type"].ToString();
+            if(jobj.GetValue("emoji") != null)
+            {
+                Emoji emo = new Emoji();
+                JObject jo = JObject.FromObject(jobj["emoji"]);
+                emo.Cover = jo["icon_url"].ToString();
+                emo.Text = jo["text"].ToString();
+                emo.Size = jo["size"].ToString();
+                emo.Type = jo["type"].ToString();
+                drawItem.Emoji = emo;
+            }
             return drawItem;
         }
 
