@@ -54,6 +54,39 @@ namespace BiliBiliAPI.Models.Account.Dynamic
         [JsonProperty("type")]public string Type { get; set; }
 
         [JsonProperty("draw")]public Major_Draw Draw { get; set; }
+
+        [JsonProperty("archive")]public Major_Acrchive Major_Acrchive { get; set; }
+    }
+
+    public class Major_Acrchive
+    {
+        [JsonProperty("aid")]public string Aid { get; set; }
+
+        [JsonProperty("bvid")]public string Bvid { get; set; }
+
+        [JsonProperty("cover")]public string Cover { get; set; }
+
+        [JsonProperty("desc")]public string Desc { get; set; }
+
+        [JsonProperty("disable_preview")]public int DisablePreview { get; set; }
+
+        [JsonProperty("duration_text")]public string Duration { get; set; }
+
+        [JsonProperty("jump_url")]public string JumpUrl { get; set; }
+
+        [JsonProperty("title")]public string Title { get; set; }
+
+        [JsonProperty("type")]public int Type { get; set; }
+
+        [JsonProperty("stat")]public AV_Stat State { get; set; }
+
+    }
+
+    public class AV_Stat
+    {
+        [JsonProperty("danmaku")]public string DanmakuCount { get; set; }
+        [JsonProperty("play")]public string ViewCount { get; set; }
+
     }
 
     public class Major_Draw

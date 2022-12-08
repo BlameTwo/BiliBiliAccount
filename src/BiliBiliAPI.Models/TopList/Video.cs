@@ -42,5 +42,8 @@ namespace BiliBiliAPI.Models.TopList
         [JsonProperty("pts")]
         public string Pts { get; set; }
 
+        [JsonProperty("redirect_url")]
+        public string RedirectUrl { get; set; }
+
     }
 }
