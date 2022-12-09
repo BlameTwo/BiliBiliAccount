@@ -1,5 +1,6 @@
 ﻿
 using BiliBiliAPI.Models.JsonConverts;
+using BiliBiliAPI.Models.User;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -21,13 +22,15 @@ namespace BiliBiliAPI.Models.Account.Dynamic
 
     public class DynamicDataList
     {
-        [JsonProperty("basic")]public DynamicList_Basic Basic { get; set; }
-        [JsonProperty("id_str")]public string ID { get; set; }
+        [JsonProperty("modules")] public DynamicList_Modules Modules { get; set; }
+        [JsonProperty("basic")] public DynamicList_Basic Basic { get; set; }
+        [JsonProperty("id_str")] public string ID { get; set; }
+        [JsonProperty("type")] public string DynamicType { get; set; }
+        [JsonProperty("visible")] public bool IsVisible { get; set; }
 
-        [JsonProperty("modules")]public DynamicList_Modules Modules { get; set; }
-        [JsonProperty("type")]public string DynamicType { get; set; }
-
-        [JsonProperty("visible")]public bool IsVisible { get; set; }
+        //忽略循环引用
+        [JsonProperty("orig")]
+        public DynamicDataList Orig { get; set; }
     }
 
     public class DynamicList_Modules
@@ -174,7 +177,10 @@ namespace BiliBiliAPI.Models.Account.Dynamic
     {
         [JsonProperty("face")]public string Cover { get;set; }
         [JsonProperty("face_nft")]public bool Face_NFT { get; set; }
-        [JsonProperty("following")]public bool Following { get; set; }
+
+        [JsonIgnore()]
+        [JsonProperty("following")]
+        public bool Following { get; set; }
 
         [JsonProperty("jump_url")]public string JumpUrl { get; set; }
 
@@ -198,6 +204,30 @@ namespace BiliBiliAPI.Models.Account.Dynamic
         [JsonProperty("official_verify")]public Official_verify Official_Verify { get; set; }
 
         [JsonProperty("pendant")]public Pendant Pendant { get; set; }
+
+        [JsonProperty("decorate")]public Decorate Decorate { get; set; }
+    }
+
+    public class Decorate
+    {
+        [JsonProperty("card_url")]public string Card_Url { get; set; }
+        [JsonProperty("id")]public string ID { get; set; }
+
+        [JsonProperty("jump_url")]public string URI { get; set; }
+        [JsonProperty("name")]public string Name { get; set; }
+
+        [JsonProperty("fan")]public Fan Fan { get; set; }
+        [JsonProperty("type")]public int Type { get; set; }
+    }
+
+    public class Fan
+    {
+        [JsonProperty("color")]public string Color { get; set; }
+
+        [JsonProperty("is_fan")]public string IsFan { get; set; }
+        [JsonProperty("numstr")]public string Num_Str { get; set; }
+        [JsonProperty("number")]public int Number { get; set; } 
+        
     }
 
     public class Pendant

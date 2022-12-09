@@ -227,6 +227,13 @@ namespace BilibiliTest
                 if(value != null)
                 {
                     Console.WriteLine(value.Data.OffSet);
+                    foreach (var item in value.Data.DynamicList)
+                    {
+                        if(item.DynamicType == "DYNAMIC_TYPE_FORWARD")
+                        {
+                            string a = "fdsaf";
+                        }
+                    }
                 }
                 if(value.Data.OffSet != null)
                 {

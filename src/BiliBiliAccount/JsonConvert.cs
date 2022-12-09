@@ -16,9 +16,13 @@ namespace BiliBiliAPI
     {
         public  static T Deserialize<T>(string data)
         {
+            var setting = new JsonSerializerSettings();
+            setting.PreserveReferencesHandling = PreserveReferencesHandling.Objects;
+            setting.ReferenceLoopHandling = ReferenceLoopHandling.Serialize;
             Type type = typeof(T);
             JsonReader reader = new JsonTextReader(new StringReader(data));
             JsonSerializer jsonSerializer = new JsonSerializer();
+            
             var d = jsonSerializer.Deserialize<T>(reader);
             return d;
         }
