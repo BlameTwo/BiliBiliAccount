@@ -61,6 +61,56 @@ namespace BiliBiliAPI.Models.Account.Dynamic
         [JsonProperty("archive")]public Major_Acrchive Major_Acrchive { get; set; }
 
         [JsonProperty("live_rcmd")]public Major_Live Major_Live { get; set; }
+
+        [JsonProperty("pgc")]public Major_Pgc PGC { get; set; }
+
+        [JsonProperty("ugc_season")]public UGC_Season UGC_Season { get; set; }
+    }
+
+    public class UGC_Season
+    {
+        [JsonProperty("badge")]public Pgc_Badge UGC_Badge { get; set; }
+
+        [JsonProperty("cover")]public string Cover { get; set; }
+
+        [JsonProperty("desc")]public string Desc { get; set; }
+        [JsonProperty("duration_text")]public string DurationText { get; set; }
+
+        [JsonProperty("jump_url")]public string Jump_Url { get; set; }
+
+        [JsonProperty("title")]public string Title { get; set; }
+
+        [JsonProperty("stat")]public AV_Stat Stat { get; set; }
+    }
+
+    public class Major_Pgc
+    {
+        [JsonProperty("badge")]public Pgc_Badge Pgc_Badge { get; set; }
+
+        [JsonProperty("cover")]public string Cover { get; set; }
+
+        [JsonProperty("epid")]public string Epid { get; set; }
+
+        [JsonProperty("jump_url")]public string Jump_Url { get; set; }
+
+        [JsonProperty("season_id")]public string Season_id { get; set; }
+
+        [JsonProperty("sub_type")]public string Sub_Type { get; set; }
+
+        [JsonProperty("title")]public string Title { get; set; }
+
+        [JsonProperty("stat")]public AV_Stat Stat { get; set; }
+
+        [JsonProperty("type")]public int Type { get; set; }
+    }
+
+
+    public class Pgc_Badge
+    {
+        public string bg_color { get; set; }
+
+        public string color { get; set; }
+        public string text { get; set; }
     }
 
     public class Major_Live
