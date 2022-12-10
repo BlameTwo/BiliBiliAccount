@@ -59,6 +59,76 @@ namespace BiliBiliAPI.Models.Account.Dynamic
         [JsonProperty("draw")]public Major_Draw Draw { get; set; }
 
         [JsonProperty("archive")]public Major_Acrchive Major_Acrchive { get; set; }
+
+        [JsonProperty("live_rcmd")]public Major_Live Major_Live { get; set; }
+    }
+
+    public class Major_Live
+    {
+        [JsonProperty("content")]public Live_Content LiveContent { get; set; }
+
+
+    }
+
+    [JsonConverter(typeof(Dynamic_Live_Convert))]
+    public class Live_Content
+    {
+        [JsonProperty("type")] public int Type { get; set; }
+
+        [JsonProperty("live_play_info")] public Live_Info LiveInfo { get; set; }
+
+        [JsonProperty("live_record_info")] public object Record_Info { get; set; }
+    }
+
+    public class Live_Info
+    {
+        [JsonProperty("cover")]public string Cover { get; set; }
+        [JsonProperty("parent_area_id")]public int Parent_Area_ID { get; set; }
+        [JsonProperty("online")]public int OnLine { get; set; }
+
+        [JsonProperty("live_status")]public int Live_Status { get; set; }
+
+        [JsonProperty("room_paid_type")]public int Room_PaidType { get; set; }
+
+        [JsonProperty("area_id")]public int Area_id { get; set; }
+
+        [JsonProperty("uid")]public string Uid { get; set; }
+
+        [JsonProperty("room_type")]public int Room_Type { get; set; }
+
+        [JsonProperty("parent_area_name")]public string AreaName { get; set; }
+
+        [JsonProperty("live_screen_type")]public int LiveScreenType { get; set; }
+
+        [JsonProperty("link")]public string Link { get; set; }
+        [JsonProperty("room_id")]public string Room_id { get; set; }
+
+        [JsonProperty("title")]public string Title { get; set; }
+
+        [JsonProperty("area_name")]public string Area_Name { get; set; }
+
+        [JsonProperty("live_start_time")]public string LiveStartTime { get; set; }
+
+        [JsonProperty("live_id")]public string LiveID { get; set; }
+
+        [JsonProperty("watched_show")]public Watch_Show Watch_Show { get; set; }
+
+        [JsonProperty("play_type")]public string PlayType { get; set; }
+
+    }
+
+    public class Watch_Show
+    {
+        [JsonProperty("switch")]public bool Switch { get; set; }
+        [JsonProperty("num")]public int Num { get; set; }
+        [JsonProperty("text_small")]public string ViewCount { get; set; }
+        [JsonProperty("text_large")]public string ViewCountTwo { get; set; }
+
+        [JsonProperty("icon")]public string Icon { get; set; }
+
+        [JsonProperty("icon_location")]public string IconLocation { get; set; }
+
+        [JsonProperty("icon_web")]public string Icon_Web { get; set; }
     }
 
     public class Major_Acrchive

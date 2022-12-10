@@ -3,6 +3,7 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -81,5 +82,65 @@ namespace BiliBiliAPI.Models.JsonConverts
         }
     }
 
-    
+    public sealed class Dynamic_Live_Convert : JsonConverter
+    {
+        public override bool CanConvert(Type objectType)
+        {
+            if (objectType == typeof(Live_Content))
+            {
+                return true;
+            }
+            return false;
+        }
+
+        public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
+        {
+            //真怪了，没办法序列化，只能老办法了，寄！
+            //if (reader.Value == null) return null;
+            //var value = serializer.Deserialize<Live_Content>(reader);
+            //return value;
+            if (reader.Value == null) return null;
+            Live_Content live = new();
+            JObject jo = JObject.Parse(reader.Value.ToString());
+            live.Type = (int)jo["type"];
+            JObject liveinfo = JObject.FromObject(jo["live_play_info"]);
+            JObject Watch = JObject.FromObject(liveinfo["watched_show"]);
+            live.LiveInfo = new Live_Info()
+            {
+                Parent_Area_ID = (int)liveinfo["parent_area_id"],
+                AreaName = (string)liveinfo["parent_area_name"],
+                Room_id = (string)liveinfo["room_id"],
+                Live_Status = (int)liveinfo["live_status"],
+                Room_Type = (int)liveinfo["room_type"],
+                Link = (string)liveinfo["link"],
+                LiveScreenType = (int)liveinfo["live_screen_type"],
+                LiveStartTime = (string)liveinfo["live_start_time"],
+                Room_PaidType = (int)liveinfo["room_paid_type"],
+                Title = (string)liveinfo["title"],
+                OnLine = (int)liveinfo["online"],
+                Area_Name = (string)liveinfo["area_name"],
+                Area_id = (int)liveinfo["area_id"],
+                LiveID = (string)liveinfo["live_id"],
+                Cover = (string)liveinfo["cover"],
+                PlayType = (string)liveinfo["play_type"],
+                Uid= (string)liveinfo["uid"],
+                Watch_Show = new Watch_Show()
+                {
+                    Icon = (string)Watch["icon"],
+                    Switch = (bool)Watch["switch"],
+                    Num = (int)Watch["num"],
+                    ViewCount = (string)Watch["text_small"],
+                    ViewCountTwo = (string)Watch["text_large"],
+                    IconLocation = (string)Watch["icon_location"],
+                    Icon_Web = (string)Watch["icon_web"]
+                }
+            };
+            return live;
+        }
+
+        public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
+        {
+            throw new NotImplementedException();
+        }
+    }
 }

@@ -229,7 +229,7 @@ namespace BilibiliTest
                     Console.WriteLine(value.Data.OffSet);
                     foreach (var item in value.Data.DynamicList)
                     {
-                        if(item.DynamicType == "DYNAMIC_TYPE_FORWARD")
+                        if(item.DynamicType == "DYNAMIC_TYPE_LIVE_RCMD")
                         {
                             string a = "fdsaf";
                         }
