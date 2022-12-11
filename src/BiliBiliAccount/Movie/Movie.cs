@@ -22,10 +22,10 @@ namespace BiliBiliAPI.Movie
             switch (movieEnum)
             {
                 case MovieEnum.SSID:
-                    url = $"http://api.bilibili.com/pgc/view/web/season?season_id={id}";
+                    url = $"{Apis.MOVIE_SESSION}?season_id={id}";
                     break;
                 case MovieEnum.EPID:
-                    url = $"http://api.bilibili.com/pgc/view/web/season?ep_id={id}";
+                    url = $"{Apis.MOVIE_SESSION}?ep_id={id}";
                     break;
             }
             if(url != null)

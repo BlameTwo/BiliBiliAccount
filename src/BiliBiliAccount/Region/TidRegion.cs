@@ -1,4 +1,5 @@
-﻿using BiliBiliAPI.Models.Region;
+﻿using BiliBiliAPI.ApiTools;
+using BiliBiliAPI.Models.Region;
 using BiliBiliAPI.Tools;
 using System;
 using System.Collections.Generic;
@@ -16,7 +17,7 @@ namespace BiliBiliAPI.Region
 
         public async Task<TidList> GetTidIcon()
         {
-            string url = "https://app.bilibili.com/x/v2/region/index?build=5520400";
+            string url = $"{Apis.TID_ICON}?build={Current.Build}";
             return JsonConvert.Deserialize<TidList> (await HttpClient.GetResults(url, HttpTools.ResponseEnum.App,null,false, "&mobi_app=android&platform=android"));
         }
     }
