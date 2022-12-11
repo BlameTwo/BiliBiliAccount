@@ -12,7 +12,7 @@ using BiliBiliAPI.TopVideos;
 using BiliBiliAPI.User;
 using BiliBiliAPI.Video;
 using System.Security.Cryptography;
-using static BiliBiliAPI.Movie.PGC;
+using static BiliBiliAPI.PGC.PGC;
 
 namespace BilibiliTest
 {
@@ -246,13 +246,13 @@ namespace BilibiliTest
 
 
             #region 获得电影的基本信息
-            BiliBiliAPI.Movie.PGC movie = new();
+            BiliBiliAPI.PGC.PGC movie = new();
             var result2 = await movie.GetPGC("704873", PGCEnum.EPID);
             Console.WriteLine(result2.Result.Title);
 
             #endregion
 
-            PGCVideo PGCVIDEO = new();
+            BiliBiliAPI.PGC.PGC PGCVIDEO = new();
             var str = await PGCVIDEO.GetPGCVideo(result2.Result.Episodes[0], PGCVideoEnum.EPID);
             Console.WriteLine(str);
             Console.ReadLine();
