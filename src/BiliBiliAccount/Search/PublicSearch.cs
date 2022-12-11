@@ -91,7 +91,7 @@ namespace BiliBiliAPI.Search
 
         public async Task<ResultCode<SearchAnimation_Movie>> SearchMovie(string keyword, int PageSize)
         {
-            var value = await Search($"?keyword={keyword}&pn={PageSize}&ps=20&type=8&build={Current.Build}", false, $"{Apis.SEARCH_TYPE}/search/type");
+            var value = await Search($"?keyword={keyword}&pn={PageSize}&ps=20&type=8&build={Current.Build}", false, $"{Apis.SEARCH_TYPE}");
             return JsonConvert.ReadObject<SearchAnimation_Movie>(value);
         }
     }

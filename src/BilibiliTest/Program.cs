@@ -2,9 +2,9 @@
 using BiliBiliAPI.Account.Dynamic;
 using BiliBiliAPI.Models;
 using BiliBiliAPI.Models.Account;
-using BiliBiliAPI.Models.Movie;
 using BiliBiliAPI.Models.Settings;
 using BiliBiliAPI.Models.Videos;
+using BiliBiliAPI.PGC;
 using BiliBiliAPI.Region;
 using BiliBiliAPI.Search;
 using BiliBiliAPI.TopLists;
@@ -12,6 +12,7 @@ using BiliBiliAPI.TopVideos;
 using BiliBiliAPI.User;
 using BiliBiliAPI.Video;
 using System.Security.Cryptography;
+using static BiliBiliAPI.Movie.PGC;
 
 namespace BilibiliTest
 {
@@ -26,9 +27,13 @@ namespace BilibiliTest
             BiliBiliArgs.TokenSESSDATA = token;
             Video video = new Video();
             TopListVideo topvideo = new TopListVideo();
-            var bv = await video.GetVideosContent("BV1894y1X763", VideoIDType.BV);
+            //var bv = await video.GetVideosContent("BV1894y1X763", VideoIDType.BV);
             #endregion
 
+            #region 选择其他漫游服务器
+            ////Apis.AddHost(); 添加一个漫游服务器
+            //Apis.Select("MyTest");
+            #endregion
             #region 检查视频是否是用户收藏
             //Console.WriteLine((await user.CoinsVideo(1, bv.Data.Aid)).Data.Guide.Title);
             //string url = $"http://api.bilibili.com/x/v3/fav/folder/created/list-all?up_mid={token.Mid}";
@@ -88,10 +93,10 @@ namespace BilibiliTest
             #endregion
 
             #region 搜索视频
-            var text = $"?search_type=video&keyword=崩坏3&page=5";
-            string uri = "http://api.bilibili.com/x/web-interface/search/type";
-            var str = await Search.SearchAnimation("电锯人", 1);
-            Console.WriteLine(str.Data.Items.Count);
+            //var text = $"?search_type=video&keyword=崩坏3&page=5";
+            //string uri = "http://api.bilibili.com/x/web-interface/search/type";
+            //var str = await Search.SearchAnimation("电锯人", 1);
+            //Console.WriteLine(str.Data.Items.Count);
             #endregion
 
             #region 获得视频简介
@@ -117,14 +122,10 @@ namespace BilibiliTest
             //https://github.com/SocialSisterYi/bilibili-API-collect/blob/6c844133afa9663dc46502af993809060875adb3/user/relation.md#%E6%93%8D%E4%BD%9C%E7%94%A8%E6%88%B7%E5%85%B3%E7%B3%BB
 
             #region 搜索电影
-            //var result = await Search.SearchMovie("天气之子", 1);
-            //Console.WriteLine(result.Data.Items.Count);
+            // var result = await Search.SearchMovie("天气之子", 1);
             #endregion
-            #region 获得电影的基本信息
-            //BiliBiliAPI.Movie.Movie movie = new();
-            //var result = await movie.GetMovie("33343", BiliBiliAPI.Movie.Movie.MovieEnum.SSID);
-            //Console.WriteLine(result.Result.Title);
-            #endregion
+
+
 
             #region 获得每周必看列表和视频
             //EveryoneWeek Weak = new EveryoneWeek();
@@ -242,6 +243,18 @@ namespace BilibiliTest
             //    index++;
             //}
             #endregion
+
+
+            #region 获得电影的基本信息
+            BiliBiliAPI.Movie.PGC movie = new();
+            var result2 = await movie.GetPGC("704873", PGCEnum.EPID);
+            Console.WriteLine(result2.Result.Title);
+
+            #endregion
+
+            PGCVideo PGCVIDEO = new();
+            var str = await PGCVIDEO.GetPGCVideo(result2.Result.Episodes[0], PGCVideoEnum.EPID);
+            Console.WriteLine(str);
             Console.ReadLine();
         }
     }

@@ -31,6 +31,11 @@ namespace BiliBiliAPI
             }
         }
 
+        public static void AddHost(string key,Host value)
+        {
+            HostManager.Add(key, value);
+        }
+
         /// <summary>
         /// 个人信息
         /// </summary>
@@ -206,13 +211,22 @@ namespace BiliBiliAPI
         /// </summary>
         public static string LIKEVIDEO = "http://app.bilibili.com/x/v2/view/like";
 
+        /// <summary>
+        /// 获得视频硬币数量
+        /// </summary>
         public static string GETVIDEOCOINS = "http://api.bilibili.com/x/web-interface/archive/coins";
 
+        /// <summary>
+        /// 投币视频
+        /// </summary>
         public static string SETVIDEOCOINS = "https://app.biliapi.net/x/v2/view/coin/add";
 
+        /// <summary>
+        /// 上传播放进度
+        /// </summary>
         public static string SETVIDEOPROGRESS = "http://api.bilibili.com/x/v2/history/report";
-            
 
+        public static string GETPGCVIDEO = "http://api.bilibili.com/pgc/player/web/playurl";
     }
 
 

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace BiliBiliAPI.Movie
 {
-    public class Movie
+    public class PGC
     {
         HttpTools HttpClient = new HttpTools();
         /// <summary>
@@ -15,22 +15,22 @@ namespace BiliBiliAPI.Movie
         /// </summary>
         /// <param name="SSID">电影的Session_id</param>
         /// <returns></returns>
-        public async Task<BiliBiliAPI.Models.Movie.Movie> GetMovie(string id,MovieEnum movieEnum)
+        public async Task<BiliBiliAPI.Models.PGC.PGC> GetPGC(string id,PGCEnum movieEnum)
         {
 
             string url = "";
             switch (movieEnum)
             {
-                case MovieEnum.SSID:
+                case PGCEnum.SSID:
                     url = $"{Apis.MOVIE_SESSION}?season_id={id}";
                     break;
-                case MovieEnum.EPID:
+                case PGCEnum.EPID:
                     url = $"{Apis.MOVIE_SESSION}?ep_id={id}";
                     break;
             }
             if(url != null)
             {
-                return JsonConvert.Deserialize<BiliBiliAPI.Models.Movie.Movie>(await HttpClient.GetResults(url, HttpTools.ResponseEnum.App));
+                return JsonConvert.Deserialize<BiliBiliAPI.Models.PGC.PGC>(await HttpClient.GetResults(url, HttpTools.ResponseEnum.App));
             }
             else
             {
@@ -38,7 +38,7 @@ namespace BiliBiliAPI.Movie
             }
         }
 
-        public enum MovieEnum
+        public enum PGCEnum
         {
             SSID,
             EPID,

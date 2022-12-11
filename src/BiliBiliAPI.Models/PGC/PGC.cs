@@ -6,9 +6,9 @@ using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BiliBiliAPI.Models.Movie
+namespace BiliBiliAPI.Models.PGC
 {
-    public class Movie
+    public class PGC
     {
         [JsonProperty("code")]
         public string code { get; set; }
@@ -20,10 +20,10 @@ namespace BiliBiliAPI.Models.Movie
         public string TTl { get; set; }
 
         [JsonProperty("result")]
-        public MovieArg Result { get; set; }
+        public PGCArg Result { get; set; }
     }
 
-    public class MovieArg
+    public class PGCArg
     {
         [JsonProperty("activity")]
         public Activity Activity { get; set; }
@@ -123,7 +123,7 @@ namespace BiliBiliAPI.Models.Movie
         public string Square_cover { get; set; }
 
         [JsonProperty("stat")]
-        public MovieState State { get; set; }
+        public PGCState State { get; set; }
 
         /// <summary>
         /// 剧集副标题
@@ -217,7 +217,7 @@ namespace BiliBiliAPI.Models.Movie
         /// 单集epid
         /// </summary>
         [JsonProperty("id")]
-        public string Id { get; set; }
+        public string Epid { get; set; }
 
         [JsonProperty("link")]
         public string IDLink { get; set; }
@@ -415,7 +415,7 @@ namespace BiliBiliAPI.Models.Movie
         public string reply { get; set; }
     }
 
-    public class MovieState : VideoState
+    public class PGCState : VideoState
     {
         public int favorite { get; set; }
         public int favorites { get; set; }
