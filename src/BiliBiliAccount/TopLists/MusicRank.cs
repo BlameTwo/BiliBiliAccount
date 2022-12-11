@@ -18,8 +18,7 @@ namespace BiliBiliAPI.TopLists
         HttpTools HttpClient = new HttpTools();
         public async Task<ResultCode<MusicRankList>> GetRankList()
         {
-            string url = "https://api.bilibili.com/x/copyright-music-publicity/toplist/all_period?&list_type=1";
-            string value =  await HttpClient.GetResults(url, HttpTools.ResponseEnum.App);
+            string value =  await HttpClient.GetResults(Apis.MUSICRANK_DATE, HttpTools.ResponseEnum.App);
             JObject jo = JObject.Parse(value);
             ResultCode<MusicRankList> result = new ResultCode<MusicRankList>()
             {
@@ -53,7 +52,7 @@ namespace BiliBiliAPI.TopLists
 
         public async Task<ResultCode<MusicRankItem>> GetMusics(string music_id)
         {
-            string url = $"https://api.bilibili.com/x/copyright-music-publicity/toplist/music_list?list_id={music_id}";
+            string url = $"{Apis.MUSICRANK_LIST}?list_id={music_id}";
             return JsonConvert.ReadObject<MusicRankItem>(await HttpClient.GetResults(url, HttpTools.ResponseEnum.App));
         }
     }

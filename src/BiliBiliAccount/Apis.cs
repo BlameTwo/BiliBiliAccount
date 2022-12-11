@@ -9,13 +9,13 @@ namespace BiliBiliAPI
     public static class Apis
     {
         static HostManager HostManager;
-        static Host Host=null;
+        static Host Host = null;
         static Apis()
         {
             HostManager = HostManager.GetDefault();
 
             //使用Select选择一个提前预备好的Host
-            Select("MyTest");
+            Select("Default");
         }
 
         public static string NowSelect = "";
@@ -110,17 +110,20 @@ namespace BiliBiliAPI
         {
             get
             {
-                if(Host.SearchHost == null)
+                if (Host.SearchHost == null)
                 {
                     return $"https://app.bilibili.com/x/v2/search";
                 }
                 else
                 {
-                    return $"{Host!.SearchHost ?? "wc出错了"}/x/v2/search";
+                    return $"{Host!.SearchHost!}/x/v2/search";
                 }
             }
         }
 
+        /// <summary>
+        /// 搜索属性API，包含漫游服务
+        /// </summary>
         public static string SEARCH_TYPE
         {
             get
@@ -135,6 +138,81 @@ namespace BiliBiliAPI
                 }
             }
         }
+
+        /// <summary>
+        /// 联想搜索API
+        /// </summary>
+        public static string SEARCH_DEFAULT = "https://api.bilibili.com/x/web-interface/search/default";
+
+        /// <summary>
+        /// 热搜API
+        /// </summary>
+        public static string SEARCH_HOTLIST = "https://api.bilibili.com/x/web-interface/search/square";
+
+        /// <summary>
+        /// 搜索建议API
+        /// </summary>
+        public static string SEARCH_SUGGEST = "https://s.search.bilibili.com/main/suggest";
+
+        /// <summary>
+        /// 每周必看的时间表API
+        /// </summary>
+        public static string EVERYWEEK_TITLE = "https://api.bilibili.com/x/web-interface/popular/series/list";
+
+        /// <summary>
+        /// 每周必看的视频列表API
+        /// </summary>
+        public static string EVERYWEEK_VIDEOLIST = "https://api.bilibili.com/x/web-interface/popular/series/one";
+
+        /// <summary>
+        /// 音乐排行榜的时间表API
+        /// </summary>
+        public static string MUSICRANK_DATE = "https://api.bilibili.com/x/copyright-music-publicity/toplist/all_period?&list_type=1";
+
+        /// <summary>
+        /// 音乐排行榜视频列表
+        /// </summary>
+        public static string MUSICRANK_LIST = "https://api.bilibili.com/x/copyright-music-publicity/toplist/music_list";
+
+
+        /// <summary>
+        /// 每周必看的api
+        /// </summary>
+        public static string MUSTWASATCH_LIST = "https://api.bilibili.com/x/web-interface/popular/precious";
+
+        /// <summary>
+        /// 排行榜API
+        /// </summary>
+        public static string TOPLIST = "https://api.bilibili.com/x/web-interface/ranking/v2";
+
+        /// <summary>
+        /// 获得一个mid的详细信息，如果为自己则包含一些隐私信息
+        /// </summary>
+        public static string USER = "https://api.bilibili.com/x/space/acc/info";
+
+        /// <summary>
+        /// 登录后的一些信息
+        /// </summary>
+        public static string MySESSION = "https://api.bilibili.com/x/space/myinfo";
+
+        /// <summary>
+        /// 弹幕服务器的地址
+        /// </summary>
+        public static string DANMAKUFILE = "http://comment.bilibili.com";
+
+
+        /// <summary>
+        /// 点赞视频
+        /// </summary>
+        public static string LIKEVIDEO = "http://app.bilibili.com/x/v2/view/like";
+
+        public static string GETVIDEOCOINS = "http://api.bilibili.com/x/web-interface/archive/coins";
+
+        public static string SETVIDEOCOINS = "https://app.biliapi.net/x/v2/view/coin/add";
+
+        public static string SETVIDEOPROGRESS = "http://api.bilibili.com/x/v2/history/report";
+            
+
     }
 
 

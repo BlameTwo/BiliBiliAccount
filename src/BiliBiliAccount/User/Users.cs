@@ -27,15 +27,14 @@ namespace BiliBiliAPI.User
         /// <returns></returns>
         public async Task<ResultCode<UpData>> GetUser(string mid)
         {
-            string url = $"https://api.bilibili.com/x/space/acc/info?mid={mid}";
+            string url = $"{Apis.USER}?mid={mid}";
             var str = await HttpClient.GetResults(url, HttpTools.ResponseEnum.Web);
             return JsonConvert.ReadObject<UpData>(str);
         }
 
         public async Task<ResultCode<UpData>> GetMySession()
         {
-            string url = "https://api.bilibili.com/x/space/myinfo";
-            var str = await HttpClient.GetResults(url, HttpTools.ResponseEnum.App);
+            var str = await HttpClient.GetResults(Apis.MySESSION, HttpTools.ResponseEnum.App);
             return JsonConvert.ReadObject<UpData> (str);
         }
 

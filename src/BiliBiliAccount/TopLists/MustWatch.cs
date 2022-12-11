@@ -15,9 +15,8 @@ namespace BiliBiliAPI.TopLists
 
         public async Task<ResultCode<MustWatchData>> GetVideos()
         {
-            string url = "https://api.bilibili.com/x/web-interface/popular/precious";
 
-            return JsonConvert.ReadObject<MustWatchData>( await HttpClient.GetResults(url, HttpTools.ResponseEnum.App));
+            return JsonConvert.ReadObject<MustWatchData>( await HttpClient.GetResults(Apis.MUSTWASATCH_LIST, HttpTools.ResponseEnum.App));
         }
     }
 }

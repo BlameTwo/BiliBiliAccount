@@ -23,7 +23,7 @@ namespace BiliBiliAPI.Video
         {
             int fl = Convert.ToInt32(!flage);
             string content = $"aid={aid}&like={fl}";
-            return JsonConvert.ReadObject<LikeToast>(await HttpTools.PostResults("http://app.bilibili.com/x/v2/view/like",content, HttpTools.ResponseEnum.App));
+            return JsonConvert.ReadObject<LikeToast>(await HttpTools.PostResults(Apis.LIKEVIDEO,content, HttpTools.ResponseEnum.App));
         }
 
         /// <summary>
@@ -38,11 +38,11 @@ namespace BiliBiliAPI.Video
             switch (type)
             {
                 case VideoIDType.AV:
-                    url = $"http://api.bilibili.com/x/web-interface/archive/coins?aid={av_bv}";
+                    url = $"{Apis.GETVIDEOCOINS}?aid={av_bv}";
                     break;
                 case VideoIDType.BV:
 
-                    url = $"http://api.bilibili.com/x/web-interface/archive/coins?bvid={av_bv}";
+                    url = $"{Apis.GETVIDEOCOINS}?bvid={av_bv}";
                     break;
                 default:
                     break;
@@ -68,8 +68,8 @@ namespace BiliBiliAPI.Video
         public async Task<ResultCode<VideoToConis>> CoinsVideo(int multiply,string aid, bool islike = false)
         {
             int like = islike ? 1 : 0;
-            string content = $"aid={aid}&multiply={multiply}&select_like={like}";
-            return JsonConvert.ReadObject<VideoToConis>(await HttpTools.PostResults("https://app.biliapi.net/x/v2/view/coin/add?",content, HttpTools.ResponseEnum.App));
+            string content = $"?aid={aid}&multiply={multiply}&select_like={like}";
+            return JsonConvert.ReadObject<VideoToConis>(await HttpTools.PostResults(Apis.SETVIDEOCOINS, content, HttpTools.ResponseEnum.App));
         }
 
         /// <summary>
@@ -92,7 +92,7 @@ namespace BiliBiliAPI.Video
             }
             int value = int.Parse(progress.Seconds.ToString())+value2;
             string data = $"aid={aid}&cid={cid}&progress={value}&platform=android";
-            return (await HttpTools.PostResults("http://api.bilibili.com/x/v2/history/report",data, HttpTools.ResponseEnum.App));
+            return (await HttpTools.PostResults(Apis.SETVIDEOPROGRESS, data, HttpTools.ResponseEnum.App));
         }
     }
 }

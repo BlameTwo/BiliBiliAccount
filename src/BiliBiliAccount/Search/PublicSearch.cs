@@ -23,7 +23,7 @@ namespace BiliBiliAPI.Search
         /// <returns></returns>
         public async Task<string> Search(string query, bool isacceyc = false, string url = null)
         {
-            url = url == null ? Apis.SEARCH_TYPE : url;  //判断URL是否为空
+            url = url == null ? Apis.SEARCH : url;  //判断URL是否为空
             return await HttpClient.GetResults(url + query, HttpTools.ResponseEnum.App, null, isacceyc, "&mobi_app=iphone&platform=ios&build=5520400");
         }
 

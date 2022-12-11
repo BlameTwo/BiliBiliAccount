@@ -18,15 +18,13 @@ namespace BiliBiliAPI.TopLists
         /// <returns></returns>
         public async Task<ResultCode<EveryoneList>> GetWeekList()
         {
-            string url = "https://api.bilibili.com/x/web-interface/popular/series/list";
-            return JsonConvert.ReadObject<EveryoneList>(await HttpClient.GetResults(url, HttpTools.ResponseEnum.App));
+            return JsonConvert.ReadObject<EveryoneList>(await HttpClient.GetResults(Apis.EVERYWEEK_TITLE, HttpTools.ResponseEnum.App));
         }
 
 
         public async Task<ResultCode<WeekItem>> GetWeekTopList(int number)
         {
-            string url = $"https://api.bilibili.com/x/web-interface/popular/series/one?number={number}";
-            return JsonConvert.ReadObject<WeekItem>(await HttpClient.GetResults(url, HttpTools.ResponseEnum.App));
+            return JsonConvert.ReadObject<WeekItem>(await HttpClient.GetResults(Apis.EVERYWEEK_VIDEOLIST, HttpTools.ResponseEnum.App));
         }
     }
 }
