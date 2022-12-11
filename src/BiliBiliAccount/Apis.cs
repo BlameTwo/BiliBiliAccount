@@ -9,10 +9,26 @@ namespace BiliBiliAPI
     public static class Apis
     {
         static HostManager HostManager;
-
+        static Host Host=null;
         static Apis()
         {
             HostManager = HostManager.GetDefault();
+
+            //使用Select选择一个提前预备好的Host
+            Select("MyTest");
+        }
+
+        public static string NowSelect = "";
+
+        public static void Select(string name)
+        {
+            foreach (var item in HostManager)
+            {
+                if (item.Key == name)
+                {
+                    Host = item.Value;
+                }
+            }
         }
 
         /// <summary>
@@ -88,6 +104,37 @@ namespace BiliBiliAPI
         public static string TID_ICON = "https://app.bilibili.com/x/v2/region/index";
 
 
+
+
+        public static string SEARCH
+        {
+            get
+            {
+                if(Host.SearchHost == null)
+                {
+                    return $"https://app.bilibili.com/x/v2/search";
+                }
+                else
+                {
+                    return $"{Host!.SearchHost ?? "wc出错了"}/x/v2/search";
+                }
+            }
+        }
+
+        public static string SEARCH_TYPE
+        {
+            get
+            {
+                if (Host.SearchHost == null)
+                {
+                    return $"https://app.bilibili.com/x/v2/search/type";
+                }
+                else
+                {
+                    return $"{SEARCH}/type";
+                }
+            }
+        }
     }
 
 

@@ -40,6 +40,7 @@ namespace BiliBiliAPI.Tools
                     else
                         url += (IsAcess == true ? "?access_key=" + BiliBiliArgs.TokenSESSDATA.SECCDATA : "") + "&appkey=" + ApiProvider.AndroidTVKey.Appkey + BuildString + "&ts=" + ApiProvider.TimeSpanSeconds;
                     url += (IsAcess == true ? "&sign=" + ApiProvider.GetSign(url, ApiProvider.AndroidTVKey) : "");
+                    AppClient.DefaultRequestHeaders.Add("Cookie", BiliBiliArgs.TokenSESSDATA.CookieString);
                     HttpResponseMessage apphr = await AppClient.GetAsync(url).ConfigureAwait(false);
                     apphr.Headers.Add("Accept_Encoding", "gzip,deflate");
                     apphr.EnsureSuccessStatusCode();

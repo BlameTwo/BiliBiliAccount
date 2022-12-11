@@ -21,9 +21,10 @@ namespace BiliBiliAPI.Search
         /// <param name="query">参数</param>
         /// <param name="uri">目标主机</param>
         /// <returns></returns>
-        public async Task<string> Search(string query, bool isacceyc = false,string uri= "https://app.bilibili.com/x/v2/search")
+        public async Task<string> Search(string query, bool isacceyc = false, string url = null)
         {
-             return await HttpClient.GetResults(uri + query, HttpTools.ResponseEnum.App,null,isacceyc, "&mobi_app=iphone&platform=ios&build=5520400");
+            url = url == null ? Apis.SEARCH_TYPE : url;  //判断URL是否为空
+            return await HttpClient.GetResults(url + query, HttpTools.ResponseEnum.App, null, isacceyc, "&mobi_app=iphone&platform=ios&build=5520400");
         }
 
         /// <summary>
@@ -37,8 +38,8 @@ namespace BiliBiliAPI.Search
         public async Task<ResultCode<SearchVideo>> GetVideo(string KeyWord, int PageSize, OrderBy order, int duration)
         {
             var value = await Search($"?keyword={KeyWord}&pn={PageSize}&order={GetOrder(order)}&ps=20&duration={duration}&device=phone&mobi_app=iphone");
-            
-            var result =  JsonConvert.ReadObject<SearchVideo>(value);
+
+            var result = JsonConvert.ReadObject<SearchVideo>(value);
 
             return result;
         }
@@ -66,12 +67,12 @@ namespace BiliBiliAPI.Search
         /// <param name="KeyWord">番剧关键字</param>
         /// <param name="PageSize">页数</param>
         /// <returns></returns>
-        public async Task<ResultCode<SearchAnimation_Movie>> SearchAnimation(string KeyWord,int PageSize)
+        public async Task<ResultCode<SearchAnimation_Movie>> SearchAnimation(string KeyWord, int PageSize)
         {
-            var value =  await Search($"?keyword={KeyWord}&pn={PageSize}&ps=20&type=7&build=5520400",false, "https://app.bilibili.com/x/v2/search/type");
+            var value = await Search($"?keyword={KeyWord}&pn={PageSize}&ps=20&type=7&build={Current.Build}&area=hk", false, $"{Apis.SEARCH_TYPE}");
 
-            var result =  JsonConvert.ReadObject<SearchAnimation_Movie>(value);
-            if(result.Data.Items != null)
+            var result = JsonConvert.ReadObject<SearchAnimation_Movie>(value);
+            if (result.Data.Items != null)
             {
                 foreach (var item in result.Data.Items)
                 {
@@ -86,11 +87,11 @@ namespace BiliBiliAPI.Search
             return result;
         }
 
-        
 
-        public async Task<ResultCode<SearchAnimation_Movie>> SearchMovie(string keyword,int PageSize)
+
+        public async Task<ResultCode<SearchAnimation_Movie>> SearchMovie(string keyword, int PageSize)
         {
-            var value = await Search($"?keyword={keyword}&pn={PageSize}&ps=20&type=8&build=5520400",false, "https://app.bilibili.com/x/v2/search/type");
+            var value = await Search($"?keyword={keyword}&pn={PageSize}&ps=20&type=8&build={Current.Build}", false, $"{Apis.SEARCH_TYPE}/search/type");
             return JsonConvert.ReadObject<SearchAnimation_Movie>(value);
         }
     }

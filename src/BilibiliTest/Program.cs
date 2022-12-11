@@ -88,10 +88,10 @@ namespace BilibiliTest
             #endregion
 
             #region 搜索视频
-            // var text = $"?search_type=video&keyword=崩坏3&page=5";
-            //string uri = "http://api.bilibili.com/x/web-interface/search/type";
-            //var str = await Search.SearchAnimation("夏日重现", 1);
-            //Console.WriteLine(str.Data.Items.Count);
+            var text = $"?search_type=video&keyword=崩坏3&page=5";
+            string uri = "http://api.bilibili.com/x/web-interface/search/type";
+            var str = await Search.SearchAnimation("电锯人", 1);
+            Console.WriteLine(str.Data.Items.Count);
             #endregion
 
             #region 获得视频简介
@@ -216,31 +216,31 @@ namespace BilibiliTest
             #endregion
 
             #region 获得全部的动态
-            MyDynamic Dynamic = new();
-            int index = 1;
-            string offset = "";
-            Console.WriteLine("输入回车获得下一页动态，输入N结束获取");
-            while (Console.ReadLine() != "N")
-            {
-                Console.WriteLine("输入回车获得下一页动态，输入N结束获取");
-                var value = await Dynamic.GetDynamic(MyDynamic.DynamicEnum.All,offset,index);
-                if(value != null)
-                {
-                    Console.WriteLine(value.Data.OffSet);
-                    foreach (var item in value.Data.DynamicList)
-                    {
-                        if(item.DynamicType == "DYNAMIC_TYPE_LIVE_RCMD")
-                        {
-                            string a = "fdsaf";
-                        }
-                    }
-                }
-                if(value.Data.OffSet != null)
-                {
-                    offset= value.Data.OffSet;
-                }
-                index++;
-            }
+            //MyDynamic Dynamic = new();
+            //int index = 1;
+            //string offset = "";
+            //Console.WriteLine("输入回车获得下一页动态，输入N结束获取");
+            //while (Console.ReadLine() != "N")
+            //{
+            //    Console.WriteLine("输入回车获得下一页动态，输入N结束获取");
+            //    var value = await Dynamic.GetDynamic(MyDynamic.DynamicEnum.All,offset,index);
+            //    if(value != null)
+            //    {
+            //        Console.WriteLine(value.Data.OffSet);
+            //        foreach (var item in value.Data.DynamicList)
+            //        {
+            //            if(item.DynamicType == "DYNAMIC_TYPE_LIVE_RCMD")
+            //            {
+            //                string a = "fdsaf";
+            //            }
+            //        }
+            //    }
+            //    if(value.Data.OffSet != null)
+            //    {
+            //        offset= value.Data.OffSet;
+            //    }
+            //    index++;
+            //}
             #endregion
             Console.ReadLine();
         }

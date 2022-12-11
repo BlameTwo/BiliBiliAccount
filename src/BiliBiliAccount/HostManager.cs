@@ -43,11 +43,18 @@ namespace BiliBiliAPI
         public static HostManager GetDefault()
         {
             HostManager host = new HostManager();
-            host.Add("Default", new Host()
+            //测试漫游地址
+            host.Add("MyTest", new Host()
             {
                 SearchHost = "https://xn--2vrub.plus",
                 DataHost= "https://xn--2vrub.plus",
                 PlayHost= "https://xn--2vrub.plus"
+            });
+            host.Add("Default", new Host()
+            {
+                SearchHost = "https://app.bilibili.com",
+                DataHost = "http://api.bilibili.com/pgc/view/",
+                PlayHost= "http://api.bilibili.com/"
             });
             return host;
         }
