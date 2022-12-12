@@ -57,18 +57,18 @@ namespace BiliBiliAPI.Video
         /// <param name="dashEnum"></param>
         /// <param name="fnvalEnum"></param>
         /// <returns></returns>
-        public async Task<ResultCode<VideoInfo>> GetVideo(VideosContent info,VideoIDType videoIDType, int dashEnum = 0, FnvalEnum fnvalEnum = FnvalEnum.FLV)
+        public async Task<ResultCode<VideoInfo>> GetVideo(VideosContent info,VideoIDType videoIDType,string cid, int dashEnum = 0, FnvalEnum fnvalEnum = FnvalEnum.FLV)
         {
             string url = null;
             string avorbv = videoIDType == VideoIDType.AV ? "avid" : "bvid";
             string value = videoIDType == VideoIDType.AV ? $"{info.Aid}" : $"{info.Bvid}";
             if(dashEnum == 0)
             {
-                url = $"http://api.bilibili.com/x/player/playurl?{avorbv}={value}&cid={info.First_Cid}&mid={BiliBiliArgs.TokenSESSDATA.Mid}&qn=64&otype=json&platform=web&fnval=4048&fnver=0&fourk=1";
+                url = $"http://api.bilibili.com/x/player/playurl?{avorbv}={value}&cid={cid}&mid={BiliBiliArgs.TokenSESSDATA.Mid}&qn=64&otype=json&platform=web&fnval=4048&fnver=0&fourk=1";
             }
             else
             {
-                url = $"http://api.bilibili.com/x/player/playurl?{avorbv}={value}&cid={info.First_Cid}&mid={BiliBiliArgs.TokenSESSDATA.Mid}&qn={(int)dashEnum}&otype=json&platform=web&fnval=4048&fnver=0&fourk=1";
+                url = $"http://api.bilibili.com/x/player/playurl?{avorbv}={value}&cid={cid}&mid={BiliBiliArgs.TokenSESSDATA.Mid}&qn={(int)dashEnum}&otype=json&platform=web&fnval=4048&fnver=0&fourk=1";
             }
             
             if (url != null)
