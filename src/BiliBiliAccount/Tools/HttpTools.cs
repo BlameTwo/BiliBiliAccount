@@ -1,11 +1,7 @@
 ﻿using BiliBiliAPI.ApiTools;
-using BiliBiliAPI.Models.Account;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
 using System.Net.Http;
-using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -122,6 +118,5 @@ namespace BiliBiliAPI.Tools
 
 
         public TimeSpan Timeout { get; set; } = TimeSpan.FromSeconds(8);
-
     }
 }

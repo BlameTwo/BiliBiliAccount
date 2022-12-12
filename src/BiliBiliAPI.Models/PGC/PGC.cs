@@ -29,7 +29,7 @@ namespace BiliBiliAPI.Models.PGC
         public Activity Activity { get; set; }
 
         /// <summary>
-        /// 网页背景风脉你
+        /// 网页背景原图
         /// </summary>
         [JsonProperty("bkg_cover")]
         public string Web_Back_Image { get; set; }
@@ -51,8 +51,8 @@ namespace BiliBiliAPI.Models.PGC
         /// </summary>
         [JsonProperty("episodes")]
         public List<Episodes> Episodes { get; set; }
-
-
+        
+        
         /// <summary>
         /// 简介
         /// </summary>
