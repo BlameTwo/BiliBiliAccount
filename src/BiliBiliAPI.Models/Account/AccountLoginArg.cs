@@ -81,6 +81,11 @@ namespace BiliBiliAPI.Models.Account
     public class AccountToken
     {
         /// <summary>
+        /// 0为扫码登陆，1为账号密码网页登录
+        /// </summary>
+        public int LoginType { get; set; }
+
+        /// <summary>
         /// 你滴账号
         /// </summary>
         [JsonProperty("mid")]

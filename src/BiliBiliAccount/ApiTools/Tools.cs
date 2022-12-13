@@ -19,6 +19,10 @@ namespace BiliBiliAPI.ApiTools
         public static ApiKeyInfo AndroidTVKey { get; } = new ApiKeyInfo("4409e2ce8ffd12b8", "59b43e04ad6965f34319062b478f83dd");
 
         public static ApiKeyInfo AndroidKey { get; } = new ApiKeyInfo("1d8b6e7d45233436", "560c52ccd288fed045859ed18bffd973");
+
+        public static ApiKeyInfo UWPKey { get; } = new ApiKeyInfo( "7d089525d3611b1c", "acd495b248ec528c2eed1e862d393126");
+
+
         private static string _AccessKey;
 
         public static string ToMD5( string input)

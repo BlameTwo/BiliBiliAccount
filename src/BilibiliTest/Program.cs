@@ -11,6 +11,7 @@ using BiliBiliAPI.TopLists;
 using BiliBiliAPI.TopVideos;
 using BiliBiliAPI.User;
 using BiliBiliAPI.Video;
+using BiliBiliAPI.WebHome;
 using System.Security.Cryptography;
 using static BiliBiliAPI.PGC.PGC;
 
@@ -252,9 +253,14 @@ namespace BilibiliTest
 
             #endregion
 
-            BiliBiliAPI.PGC.PGC PGCVIDEO = new();
-            var str = await PGCVIDEO.GetPGCVideo(result2.Result.Episodes[0], PGCVideoEnum.EPID);
-            Console.WriteLine(str);
+            //BiliBiliAPI.PGC.PGC PGCVIDEO = new();
+            //var str = await PGCVIDEO.GetPGCVideo(result2.Result.Episodes[0], PGCVideoEnum.EPID);
+            //Console.WriteLine(str);
+
+            #region 新首页API测试
+            WebHomeData webHome = new();
+            var result = await webHome.GetWebHomeVideo(30);
+            #endregion
             Console.ReadLine();
         }
     }

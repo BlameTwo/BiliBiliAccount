@@ -29,7 +29,7 @@ namespace BiliBiliAPI.Account
             return await Task.Run(async () =>
             {
                 AccountInfo info = new AccountInfo();
-                string str = await HttpClient.GetResults($"http://api.bilibili.com/x/web-interface/nav", HttpTools.ResponseEnum.App);
+                string str = await HttpClient.GetResults(Apis.APP_LOGIN_NAV, HttpTools.ResponseEnum.Web);
                 return await info.GetAccount(token);
             });
         }

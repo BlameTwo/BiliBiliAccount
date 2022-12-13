@@ -46,6 +46,8 @@ namespace BiliBiliAPI
         /// </summary>
         public static string LOGIN_QRKEY_GET = "https://passport.bilibili.com/x/passport-tv-login/qrcode/auth_code";
 
+        
+
         /// <summary>
         /// 验证二维码接口
         /// </summary>
@@ -56,6 +58,10 @@ namespace BiliBiliAPI
         /// </summary>
         public static string LOGIN_PASSWD_GET_KEY = "https://passport.bilibili.com/api/oauth2/getKey";
 
+        /// <summary>
+        /// 获得个人登录信息
+        /// </summary>
+        public static string APP_LOGIN_NAV = "http://api.bilibili.com/x/web-interface/nav";
         /// <summary>
         /// 密码登录接口
         /// </summary>
@@ -227,6 +233,8 @@ namespace BiliBiliAPI
         public static string SETVIDEOPROGRESS = "http://api.bilibili.com/x/v2/history/report";
 
         public static string GETPGCVIDEO = "http://api.bilibili.com/pgc/player/web/playurl";
+
+        public static string WEB_HOME = "https://api.bilibili.com/x/web-interface/index/top/feed/rcmd";
     }
 
 

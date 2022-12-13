@@ -17,7 +17,8 @@ namespace BiliBiliAPI.Account
         {
             return await Task.Run(async () =>
             {
-                string results = await HttpClient.GetResults(Apis.ACCOUNT_INFO_API, HttpTools.ResponseEnum.App);
+                //这里为web网页请求方式
+                string results = await HttpClient.GetResults(Apis.ACCOUNT_INFO_API, HttpTools.ResponseEnum.Web);
                 return JsonConvert.ReadObject<AccountLoginResultData>(results);
             });
         }
