@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static BiliBiliAPI.Tools.HttpTools;
 
 namespace BiliBiliAPI.Video
 {
@@ -68,8 +69,9 @@ namespace BiliBiliAPI.Video
         public async Task<ResultCode<VideoToConis>> CoinsVideo(int multiply,string aid, bool islike = false)
         {
             int like = islike ? 1 : 0;
-            string content = $"?aid={aid}&multiply={multiply}&select_like={like}";
-            return JsonConvert.ReadObject<VideoToConis>(await HttpTools.PostResults(Apis.SETVIDEOCOINS, content, HttpTools.ResponseEnum.App));
+            string content = $"aid={aid}&multiply={multiply}&select_like={like}";
+            var result =  JsonConvert.ReadObject<VideoToConis>(await HttpTools.PostResults(Apis.APPSETVIDEOCOINS, content, HttpTools.ResponseEnum.App,null));
+            return result;
         }
 
         /// <summary>

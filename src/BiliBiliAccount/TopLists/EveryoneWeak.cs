@@ -24,7 +24,8 @@ namespace BiliBiliAPI.TopLists
 
         public async Task<ResultCode<WeekItem>> GetWeekTopList(int number)
         {
-            return JsonConvert.ReadObject<WeekItem>(await HttpClient.GetResults(Apis.EVERYWEEK_VIDEOLIST, HttpTools.ResponseEnum.App));
+            return JsonConvert.ReadObject<WeekItem>(await HttpClient.GetResults(Apis.EVERYWEEK_VIDEOLIST+$"?number={number}", HttpTools.ResponseEnum.App));
+
         }
     }
 }

@@ -225,14 +225,18 @@ namespace BiliBiliAPI
         /// <summary>
         /// 投币视频
         /// </summary>
-        public static string SETVIDEOCOINS = "https://app.biliapi.net/x/v2/view/coin/add";
+        public static string APPSETVIDEOCOINS = "https://app.bilibili.com/x/v2/view/coin/add";
+
+        public static string WEBSETVIDEOCOINS = "https://api.bilibili.com/x/web-interface/coin/add";
 
         /// <summary>
         /// 上传播放进度
         /// </summary>
         public static string SETVIDEOPROGRESS = "http://api.bilibili.com/x/v2/history/report";
 
+
         public static string GETPGCVIDEO = "http://api.bilibili.com/pgc/player/web/playurl";
+
 
         public static string WEB_HOME = "https://api.bilibili.com/x/web-interface/index/top/feed/rcmd";
     }

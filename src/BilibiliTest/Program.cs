@@ -28,9 +28,11 @@ namespace BilibiliTest
             BiliBiliArgs.TokenSESSDATA = token;
             Video video = new Video();
             TopListVideo topvideo = new TopListVideo();
-            //var bv = await video.GetVideosContent("BV1894y1X763", VideoIDType.BV);
+            var bv = await video.GetVideosContent("BV1894y1X763", VideoIDType.BV);
             #endregion
-
+            UserVideo UVideo = new UserVideo();
+            var result =  await UVideo.CoinsVideo(1, bv.Data.Aid, false);
+            Console.WriteLine(result.Data.Guide.Title);
             #region 选择其他漫游服务器
             ////Apis.AddHost(); 添加一个漫游服务器
             //Apis.Select("MyTest");
@@ -64,6 +66,7 @@ namespace BilibiliTest
             #region 获得视频清晰度列表
             //var download = await video.GetVideo(bv.Data, VideoIDType.AV);
             #endregion
+
             #region 获得视频在线信息
             //var test2 = await video.GetVideoOnline(bv.Data);
             //Console.WriteLine(test2.Data.AllCount);
@@ -258,8 +261,8 @@ namespace BilibiliTest
             //Console.WriteLine(str);
 
             #region 新首页API测试
-            WebHomeData webHome = new();
-            var result = await webHome.GetWebHomeVideo(30);
+            //WebHomeData webHome = new();
+            //var result = await webHome.GetWebHomeVideo(30);
             #endregion
             Console.ReadLine();
         }
