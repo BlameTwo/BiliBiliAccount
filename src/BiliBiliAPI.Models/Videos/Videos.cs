@@ -350,19 +350,19 @@ namespace BiliBiliAPI.Models.Videos
         /// 是否收藏
         /// </summary>
         [JsonProperty("favorite")]
-        public string Favorite { get; set; } = "0";
+        public int Favorite { get; set; }
 
         /// <summary>
         /// 是否点赞
         /// </summary>
         [JsonProperty("like")]
-        public string Like { get; set; } = "0";
+        public int Like { get; set; }
 
         /// <summary>
         /// 受否投币
         /// </summary>
         [JsonProperty("coin")]
-        public string Coin { get; set; } = "0";
+        public int Coin { get; set; }
     }
 
     public class Stat

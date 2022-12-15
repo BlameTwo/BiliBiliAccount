@@ -234,6 +234,7 @@ namespace BiliBiliAPI
         /// </summary>
         public static string SETVIDEOPROGRESS = "http://api.bilibili.com/x/v2/history/report";
 
+        public static string SETFAVORITEVIDEO = "https://api.bilibili.com/x/v3/fav/resource/batch-deal";
 
         public static string GETPGCVIDEO = "http://api.bilibili.com/pgc/player/web/playurl";
 

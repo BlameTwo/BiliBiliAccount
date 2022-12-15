@@ -38,6 +38,7 @@ namespace BiliBiliAPI.User
             return JsonConvert.ReadObject<UpData> (str);
         }
 
+
         public async Task<ResultCode<FavouritesData>> GetFavourites(string aid = "")
         {
             if(BiliBiliArgs.TokenSESSDATA != null)
@@ -55,7 +56,11 @@ namespace BiliBiliAPI.User
             }
         }
 
-
+        /// <summary>
+        /// 获得收藏夹元数据
+        /// </summary>
+        /// <param name="Data"></param>
+        /// <returns></returns>
         public async Task<ResultCode<FavoriteData>> GetFavourite(FavoritesDataList Data)
         {
             var url = $"https://api.bilibili.com/x/v3/fav/folder/info?media_id={Data.ID}";

@@ -43,5 +43,8 @@ namespace BiliBiliAPI.Models.Videos
         public string Title { get; set; }
     }
 
-    
+    public class ADD_Del_FavouritesData
+    {
+        [JsonProperty("prompt")]public bool IsChecked { get; set; }
+    }
 }

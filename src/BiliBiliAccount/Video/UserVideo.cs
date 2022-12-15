@@ -1,6 +1,8 @@
-﻿using BiliBiliAPI.Models;
+﻿using BiliBiliAPI.ApiTools;
+using BiliBiliAPI.Models;
 using BiliBiliAPI.Models.Videos;
 using BiliBiliAPI.Tools;
+using BiliBiliAPI.User;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -95,6 +97,38 @@ namespace BiliBiliAPI.Video
             int value = int.Parse(progress.Seconds.ToString())+value2;
             string data = $"aid={aid}&cid={cid}&progress={value}&platform=android";
             return (await HttpTools.PostResults(Apis.SETVIDEOPROGRESS, data, HttpTools.ResponseEnum.App));
+        }
+
+
+        public async Task<string> AddOrDelFavorites(string aid,string addfavorite,bool addordel)
+        {
+            Users User = new();
+            var list = await User.GetFavourites(aid);
+            string Addstr = "";
+            string Delstr = "";
+            //首先把要操作的文件夹加进去
+            if (addordel)
+                Addstr += addfavorite;
+            else
+                Delstr += addfavorite;
+            foreach (var item in list.Data.List)
+            {
+                if (item.ID == addfavorite)
+                    continue;
+                //如果之前收藏存在，且当前要操作的文件夹与id不符，则加入预备数据
+                if (item.FavState == "1" && item.ID != addfavorite)
+                {
+                    Addstr += $",{item.ID}";
+                }
+                //如果之前收藏不存在，且和当前操作的文件夹id不服，则加入预备删除数据
+                if (item.FavState == "0" && item.ID != addfavorite)
+                {
+                    Delstr += $",{item.ID}";
+                }
+            }
+            string content = $"resources={aid}:2&add_media_ids={Addstr}&del_media_ids={Delstr}&build={Current.Build}";
+            var value =  await HttpTools.PostResults(Apis.SETFAVORITEVIDEO,content, HttpTools.ResponseEnum.App);
+            return value;
         }
     }
 }
