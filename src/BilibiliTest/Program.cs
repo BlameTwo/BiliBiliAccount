@@ -1,5 +1,6 @@
 ﻿using BiliBiliAPI;
 using BiliBiliAPI.Account.Dynamic;
+using BiliBiliAPI.BiliLive;
 using BiliBiliAPI.Models;
 using BiliBiliAPI.Models.Account;
 using BiliBiliAPI.Models.Settings;
@@ -24,15 +25,16 @@ namespace BilibiliTest
         public static  async Task Main(string[] args)
         {
             #region 初始化视频相关
-            UserVideo user = new UserVideo();
-            BiliBiliArgs.TokenSESSDATA = token;
-            Video video = new Video();
-            TopListVideo topvideo = new TopListVideo();
-            var bv = await video.GetVideosContent("BV1894y1X763", VideoIDType.BV);
+            //UserVideo user = new UserVideo();
+            //BiliBiliArgs.TokenSESSDATA = token;
+            //Video video = new Video();
+            //TopListVideo topvideo = new TopListVideo();
+            //var bv = await video.GetVideosContent("BV1894y1X763", VideoIDType.BV);
+            //#endregion
+            //UserVideo UVideo = new UserVideo();
+            //var result =  await UVideo.CoinsVideo(1, bv.Data.Aid, false);
+            //Console.WriteLine(result.Data.Guide.Title);
             #endregion
-            UserVideo UVideo = new UserVideo();
-            var result =  await UVideo.CoinsVideo(1, bv.Data.Aid, false);
-            Console.WriteLine(result.Data.Guide.Title);
             #region 选择其他漫游服务器
             ////Apis.AddHost(); 添加一个漫游服务器
             //Apis.Select("MyTest");
@@ -78,7 +80,7 @@ namespace BilibiliTest
             #endregion
 
             #region 获得视频弹幕
-            Danmaku danmaku = new Danmaku();
+            //Danmaku danmaku = new Danmaku();
             //var result = await danmaku.GetDanmakuTest(bv.Data.First_Cid);
             #endregion
 
@@ -264,7 +266,16 @@ namespace BilibiliTest
             //WebHomeData webHome = new();
             //var result = await webHome.GetWebHomeVideo(30);
             #endregion
-            Console.ReadLine();
+
+            LiveControl control = new(6203304);
+            await control.OnConnect();
+            control.OnMessageEvent += Control_OnMessageEvent;
+            Console.ReadKey();
+        }
+
+        private static void Control_OnMessageEvent(object? sender, BiliBiliAPI.BiliLive.MessageEvent e)
+        {
+            Console.WriteLine(e.Message);
         }
     }
 }

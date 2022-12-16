@@ -12,7 +12,6 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
-using AsymmetricAlgorithm = PCLCrypto.AsymmetricAlgorithm;
 
 namespace BiliBiliAPI.Account
 {
@@ -42,7 +41,7 @@ namespace BiliBiliAPI.Account
                 var collection = Regex.Match(key, "BEGIN PUBLIC KEY-----(?<key>[\\s\\S]+)-----END PUBLIC KEY");
                 string publicKey = collection.Groups["key"].Value.Trim();
                 byte[] numArray = Convert.FromBase64String(publicKey);
-                var asymmetricKeyAlgorithmProvider = WinRTCrypto.AsymmetricKeyAlgorithmProvider.OpenAlgorithm(AsymmetricAlgorithm.RsaPkcs1);
+                var asymmetricKeyAlgorithmProvider = WinRTCrypto.AsymmetricKeyAlgorithmProvider.OpenAlgorithm(PCLCrypto.AsymmetricAlgorithm.RsaPkcs1);
                 var cryptographicKey = asymmetricKeyAlgorithmProvider.ImportPublicKey(numArray, 0);
                 var buffer = WinRTCrypto.CryptographicEngine.Encrypt(cryptographicKey, Encoding.UTF8.GetBytes(hashPass), null);
                 base64String = Convert.ToBase64String(buffer);

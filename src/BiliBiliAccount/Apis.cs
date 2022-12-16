@@ -36,6 +36,9 @@ namespace BiliBiliAPI
             HostManager.Add(key, value);
         }
 
+
+        public static string LIVE_WEB_SOCKET_IP = "wss://broadcastlv.chat.bilibili.com/sub";
+
         /// <summary>
         /// 个人信息
         /// </summary>
