@@ -19,7 +19,7 @@ namespace BiliBiliAPI.Account
             {
                 //这里为web网页请求方式
                 string results = await HttpClient.GetResults(Apis.ACCOUNT_INFO_API, HttpTools.ResponseEnum.Web);
-                return JsonConvert.ReadObject<AccountLoginResultData>(results);
+                return BiliBiliAPI.Models.JsonConvert.ReadObject<AccountLoginResultData>(results);
             });
         }
 

@@ -267,9 +267,14 @@ namespace BilibiliTest
             //var result = await webHome.GetWebHomeVideo(30);
             #endregion
 
-            LiveControl control = new(6203304);
-            await control.OnConnect();
-            control.OnMessageEvent += Control_OnMessageEvent;
+
+            #region
+            //LiveControl biliControl = new(23138275);
+            //biliControl.OnMessageEvent += Control_OnMessageEvent;
+            //await biliControl.OnConnect();
+            #endregion
+
+
             Console.ReadKey();
         }
 

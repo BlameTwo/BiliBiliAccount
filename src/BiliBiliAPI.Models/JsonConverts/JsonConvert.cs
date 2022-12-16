@@ -10,10 +10,11 @@ using System.Runtime.Serialization.Json;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BiliBiliAPI
+namespace BiliBiliAPI.Models
 {
     public static class JsonConvert
     {
+
         public  static T Deserialize<T>(string data)
         {
             var setting = new JsonSerializerSettings();

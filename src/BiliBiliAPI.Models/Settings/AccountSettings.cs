@@ -6,7 +6,6 @@ using System.Threading.Tasks;
 using System.IO;
 using Newtonsoft.Json;
 using BiliBiliAPI.Models.Account;
-
 namespace BiliBiliAPI.Models.Settings
 {
     public static class AccountSettings
@@ -25,7 +24,7 @@ namespace BiliBiliAPI.Models.Settings
                 using (StreamReader reader = new StreamReader(FilePath))
                 {
                     string text = reader.ReadToEnd();
-                    return JsonConvert.DeserializeObject<AccountToken>(text)!;
+                    return Newtonsoft.Json.JsonConvert.DeserializeObject<AccountToken>(text)!;
                 }
             }
             else
@@ -47,7 +46,7 @@ namespace BiliBiliAPI.Models.Settings
         public static void Write(AccountToken args)
         {
             Init();
-            string str = JsonConvert.SerializeObject(args);
+            string str = Newtonsoft.Json.JsonConvert.SerializeObject(args);
             File.WriteAllText(FilePath,str);
         }
 

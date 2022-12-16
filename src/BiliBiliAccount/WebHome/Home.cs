@@ -19,7 +19,7 @@ public class WebHomeData
     /// <returns></returns>
     public async Task<ResultCode<BiliBiliAPI.Models.HomeVideo.HomeData>> GetWebHomeVideo(int maxcount)
     {
-        var model =  JsonConvert.ReadObject<HomeData>(await HttpTools.GetResults(Apis.WEB_HOME+ $"?fresh_idx=1&feed_version=V1&fresh_type=4&ps={maxcount}&plat=1", HttpTools.ResponseEnum.Web));
+        var model = Models.JsonConvert.ReadObject<HomeData>(await HttpTools.GetResults(Apis.WEB_HOME+ $"?fresh_idx=1&feed_version=V1&fresh_type=4&ps={maxcount}&plat=1", HttpTools.ResponseEnum.Web));
         foreach (var item in model.Data.Items)
         {
             if (string.IsNullOrWhiteSpace(item.Title))
