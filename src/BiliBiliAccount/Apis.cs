@@ -243,7 +243,12 @@ namespace BiliBiliAPI
 
 
         public static string WEB_HOME = "https://api.bilibili.com/x/web-interface/index/top/feed/rcmd";
+
+        /// <summary>
+        /// 追番API
+        /// </summary>
+        public static string PGC_ANIMATION_FOLLOW_Delete = "https://api.bilibili.com/pgc/app/follow/del";
+
+        public static string PGC_ANIMATION_FOLLOW_ADD = "https://api.bilibili.com/pgc/app/follow/add";
     }
-
-
 }

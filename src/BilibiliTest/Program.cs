@@ -24,9 +24,12 @@ namespace BilibiliTest
         static PublicSearch Search = new PublicSearch();
         public static  async Task Main(string[] args)
         {
+            #region 初始化账号
+            BiliBiliArgs.TokenSESSDATA = token;
+            #endregion
+            
             #region 初始化视频相关
             //UserVideo user = new UserVideo();
-            //BiliBiliArgs.TokenSESSDATA = token;
             //Video video = new Video();
             //TopListVideo topvideo = new TopListVideo();
             //var bv = await video.GetVideosContent("BV1894y1X763", VideoIDType.BV);
@@ -268,19 +271,20 @@ namespace BilibiliTest
             #endregion
 
 
-            #region
+            #region 直播间信息流
             //LiveControl biliControl = new(23138275);
-            //biliControl.OnMessageEvent += Control_OnMessageEvent;
             //await biliControl.OnConnect();
             #endregion
-
-
+            #region 追番操作
+            PGCAnimationFollow PGC = new();
+            var add = await PGC.PostAddPGCAnimationFollow("417");
+            Console.WriteLine(add.Result.Toast);
+            
+            var result = await PGC.PostDelPGCAnimationFollow("471");
+            Console.WriteLine(result.Result.Toast);
             Console.ReadKey();
+            #endregion 
         }
 
-        private static void Control_OnMessageEvent(object? sender, BiliBiliAPI.BiliLive.MessageEvent e)
-        {
-            Console.WriteLine(e.Message);
-        }
     }
 }

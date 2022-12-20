@@ -82,7 +82,7 @@ namespace BiliBiliAPI.Tools
                         OldWebClient2;
                     if (!string.IsNullOrEmpty(postContent))
                     {
-                        postContent += "&access_key=" + BiliBiliArgs.TokenSESSDATA.SECCDATA + "&appkey=" + ApiProvider.AndroidTVKey.Appkey + "&mobi_app=android_comic&device=android&version="
+                        postContent += "&access_key=" + BiliBiliArgs.TokenSESSDATA.SECCDATA + "&appkey=" + ApiProvider.AndroidTVKey.Appkey + "&mobi_app=android&device=android&version="
                             + ApiProvider.version + "&actionKey=appkey&platform=android&ts=" + ApiProvider.TimeSpanSeconds;
                     }
                     else

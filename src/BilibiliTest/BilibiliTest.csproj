@@ -15,7 +15,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\BiliBiliAccount\BiliBiliAPI.csproj" />
-    <ProjectReference Include="..\BiliBiliAPI.Live\BiliBiliAPI.Live.csproj" />
   </ItemGroup>
 
 </Project>
