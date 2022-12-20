@@ -14,6 +14,7 @@ using BiliBiliAPI.User;
 using BiliBiliAPI.Video;
 using BiliBiliAPI.WebHome;
 using System.Security.Cryptography;
+using BiliBiliAPI.Account;
 using static BiliBiliAPI.PGC.PGC;
 
 namespace BilibiliTest
@@ -62,6 +63,20 @@ namespace BilibiliTest
 
             #endregion
 
+            #region 手机号码登陆
+            //PhoneLogin login = new();
+            ////1.首先获得支持的国家列表和代码
+            //var result = await login.GetCounityList();
+            ////2.利用获得代码对手机号进行处理，进行发送验证码
+            //Console.WriteLine($"默认国家为:{result.Data.Default.DisplayName}，地区号码为：{result.Data.Default.Code}");
+            //var result2 = await login.PostSMSSend("1", "19569979932");
+            //Console.WriteLine("验证码发送成功");
+            //Console.WriteLine("输入验证码");
+            //string key = Console.ReadLine();
+            //Console.WriteLine($"{await login.PostSMSPoll(key,result2.Data.Captcha_Key,"19569979932","1")}");
+            //Console.ReadKey();
+            #endregion
+            
             #region 下载视频
             //var a = await video.GetVideo(bv.Data, VideoIDType.AV);
             //DownLoad downLoad = new DownLoad();
@@ -255,9 +270,9 @@ namespace BilibiliTest
 
 
             #region 获得电影的基本信息
-            BiliBiliAPI.PGC.PGC movie = new();
-            var result2 = await movie.GetPGC("704873", PGCEnum.EPID);
-            Console.WriteLine(result2.Result.Title);
+            //BiliBiliAPI.PGC.PGC movie = new();
+            //var result2 = await movie.GetPGC("704873", PGCEnum.EPID);
+            //Console.WriteLine(result2.Result.Title);
 
             #endregion
 
@@ -276,14 +291,16 @@ namespace BilibiliTest
             //await biliControl.OnConnect();
             #endregion
             #region 追番操作
-            PGCAnimationFollow PGC = new();
-            var add = await PGC.PostAddPGCAnimationFollow("417");
-            Console.WriteLine(add.Result.Toast);
+            //PGCAnimationFollow PGC = new();
+            //var add = await PGC.PostAddPGCAnimationFollow("417");
+            //Console.WriteLine(add.Result.Toast);
+            //
+            //var result = await PGC.PostDelPGCAnimationFollow("471");
+            //Console.WriteLine(result.Result.Toast);
             
-            var result = await PGC.PostDelPGCAnimationFollow("471");
-            Console.WriteLine(result.Result.Toast);
-            Console.ReadKey();
             #endregion 
+            
+            
         }
 
     }

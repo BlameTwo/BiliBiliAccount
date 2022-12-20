@@ -250,5 +250,11 @@ namespace BiliBiliAPI
         public static string PGC_ANIMATION_FOLLOW_Delete = "https://api.bilibili.com/pgc/app/follow/del";
 
         public static string PGC_ANIMATION_FOLLOW_ADD = "https://api.bilibili.com/pgc/app/follow/add";
+
+        public static string LOGIN_PHONE_LIST = "https://passport.bilibili.com/x/passport-login/country";
+
+        public static string LOGIN_PHONE_SEND = "https://passport.bilibili.com/x/passport-login/sms/send";
+
+        public static string LOGIN_PHONE_POLL = "https://passport.bilibili.com/x/passport-login/login/sms";
     }
 }
