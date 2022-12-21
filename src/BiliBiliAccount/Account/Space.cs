@@ -34,7 +34,7 @@ public class Space
     public async Task<ResultCode<SeriesData>> GetSpaceSeries(string mid,string series_id,string next,string sort="desc")
     {
         string content = $"?build=6780300&mobi_app=android&platform=android&vmid={mid}&sort={sort}&series_id={series_id}&next={next}&ps=10&qn=32";
-        var result = await SpaceHttp.GetResults(Apis.SPACE_Series+ content, HttpTools.ResponseEnum.App);
+        var result = await SpaceHttp.GetResults(Apis.SPACE_SERIES+ content, HttpTools.ResponseEnum.App);
         return JsonConvert.ReadObject<SeriesData>(result);
     }
 }

@@ -327,17 +327,20 @@ namespace BilibiliTest
             //    }
             //   
             //}
-//
             //Console.ReadKey();
             
             #endregion
             
-            #region B站旧首页推荐修复失败……
+            #region B站旧首页推荐修复失败……(额，就是用安卓key失败，安卓TVkey正常)
+            //Video video = new();
+            //var r = await video.GetHomeVideo();
+            #endregion
 
-            Video video = new();
-            var r = await video.GetHomeVideo();
-            Console.ReadKey();
-
+            #region 添加到稍后再看API
+            //UserVideo UV = new();
+            //var result = await UV.AddHistoryToView("221542003");
+            //Console.WriteLine(result.Code);
+            //Console.ReadKey();
             #endregion
         }
 

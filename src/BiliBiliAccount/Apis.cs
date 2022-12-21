@@ -271,6 +271,11 @@ namespace BiliBiliAPI
         /// </summary>
         public static string SPACE = "https://app.bilibili.com/x/v2/space";
 
-        public static string SPACE_Series = "https://app.biliapi.net/x/v2/space/series";
+        /// <summary>
+        /// 个人空间下的Series值列表视频
+        /// </summary>
+        public static string SPACE_SERIES = "https://app.biliapi.net/x/v2/space/series";
+
+        public static string ADD_HISTORY_TOPVIEW = "https://api.bilibili.com/x/v2/history/toview/add";
     }
 }

@@ -130,5 +130,12 @@ namespace BiliBiliAPI.Video
             var value =  await HttpTools.PostResults(Apis.SETFAVORITEVIDEO,content, HttpTools.ResponseEnum.App);
             return value;
         }
+
+        public async Task<ResultCode<object>> AddHistoryToView(string aid)
+        {
+            string content = $"build=6780300&aid={aid}";
+            string result = await HttpTools.PostResults(Apis.ADD_HISTORY_TOPVIEW, content, ResponseEnum.App);
+            return JsonConvert.ReadObject<object>(result);
+        }
     }
 }
