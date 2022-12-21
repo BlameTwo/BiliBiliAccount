@@ -15,6 +15,7 @@ using System.Threading.Tasks;
 
 namespace BiliBiliAPI.Account
 {
+    [Obsolete("由于API本身限制并不能友好的制作出账密登录，为了以后的API书写，所以启用此类")]
     public class AccountPasswordLogin
     {
 

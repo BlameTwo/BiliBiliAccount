@@ -43,7 +43,7 @@ namespace BiliBiliAPI.Account.Dynamic
             }
             string offsetvalue = offsetarg != null && page > 1 ? offsetarg:"";
             arg = $"?type={type}&timezone_offset=-480&offset={offsetvalue}&page={page}";
-            return JsonConvert.ReadObject<DynamicData>(await HttpClient.GetResults($"{Apis.MY_DYNAMIC}{arg}", HttpTools.ResponseEnum.App));
+            return JsonConvert.ReadObject<DynamicData>(await HttpClient.GetResults($"{Apis.MY_DYNAMIC}{arg}", HttpTools.ResponseEnum.Web));
         }
     }
 }

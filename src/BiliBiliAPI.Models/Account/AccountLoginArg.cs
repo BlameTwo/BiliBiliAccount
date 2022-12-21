@@ -81,7 +81,7 @@ namespace BiliBiliAPI.Models.Account
     public class AccountToken
     {
         /// <summary>
-        /// 0为扫码登陆，1为账号密码网页登录
+        /// 0为扫码登陆，1为短信验证登录
         /// </summary>
         public int LoginType { get; set; }
 

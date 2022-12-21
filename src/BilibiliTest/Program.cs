@@ -25,7 +25,7 @@ namespace BilibiliTest
         static PublicSearch Search = new PublicSearch();
         public static  async Task Main(string[] args)
         {
-            #region 初始化账号
+            #region 初始化账号信息，此处为存储活跃的账号信息
             BiliBiliArgs.TokenSESSDATA = token;
             #endregion
             
@@ -274,11 +274,14 @@ namespace BilibiliTest
             //var result2 = await movie.GetPGC("704873", PGCEnum.EPID);
             //Console.WriteLine(result2.Result.Title);
 
+            
             #endregion
 
+            #region 获得电影的流媒体信息
             //BiliBiliAPI.PGC.PGC PGCVIDEO = new();
             //var str = await PGCVIDEO.GetPGCVideo(result2.Result.Episodes[0], PGCVideoEnum.EPID);
             //Console.WriteLine(str);
+            #endregion
 
             #region 新首页API测试
             //WebHomeData webHome = new();
