@@ -25,6 +25,7 @@ namespace BiliBiliAPI.User
         /// </summary>
         /// <param name="mid">用户的mid</param>
         /// <returns></returns>
+        [Obsolete("此API仅限Web页面")]
         public async Task<ResultCode<UpData>> GetUser(string mid)
         {
             string url = $"{Apis.USER}?mid={mid}";

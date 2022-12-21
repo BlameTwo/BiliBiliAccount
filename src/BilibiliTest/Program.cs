@@ -28,7 +28,7 @@ namespace BilibiliTest
             #region 初始化账号信息，此处为存储活跃的账号信息
             BiliBiliArgs.TokenSESSDATA = token;
             #endregion
-            
+
             #region 初始化视频相关
             //UserVideo user = new UserVideo();
             //Video video = new Video();
@@ -76,7 +76,7 @@ namespace BilibiliTest
             //Console.WriteLine($"{await login.PostSMSPoll(key,result2.Data.Captcha_Key,"19569979932","1")}");
             //Console.ReadKey();
             #endregion
-            
+
             #region 下载视频
             //var a = await video.GetVideo(bv.Data, VideoIDType.AV);
             //DownLoad downLoad = new DownLoad();
@@ -274,7 +274,7 @@ namespace BilibiliTest
             //var result2 = await movie.GetPGC("704873", PGCEnum.EPID);
             //Console.WriteLine(result2.Result.Title);
 
-            
+
             #endregion
 
             #region 获得电影的流媒体信息
@@ -300,10 +300,38 @@ namespace BilibiliTest
             //
             //var result = await PGC.PostDelPGCAnimationFollow("471");
             //Console.WriteLine(result.Result.Toast);
+
+            #endregion
+
+
+            #region 个人空间新API
+            Space MySpace = new();
+            var result = await MySpace.GetSpace("2142762");
+            string next = "0";
+            foreach (var item in result.Data.SpaceSeries.SpaceSeriesItems)
+            {
+                while (true)
+                {
+                    string id = item.ID;
+                    //获得个人空间
+                    var result2 = await MySpace.GetSpaceSeries("2142762", id, next);
+                    if (result2 != null)
+                    {
+                        Console.WriteLine(result2.Data.Item[0].Title);
+                        next = result2.Data.Next.ToString();
+                        continue;
+                    }
+                    else
+                    {
+                        break;
+                    }
+                }
+               
+            }
+
+            Console.ReadKey();
             
-            #endregion 
-            
-            
+            #endregion
         }
 
     }

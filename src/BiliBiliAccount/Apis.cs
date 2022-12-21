@@ -251,10 +251,26 @@ namespace BiliBiliAPI
 
         public static string PGC_ANIMATION_FOLLOW_ADD = "https://api.bilibili.com/pgc/app/follow/add";
 
+        /// <summary>
+        /// 支持的手机号码列表
+        /// </summary>
         public static string LOGIN_PHONE_LIST = "https://passport.bilibili.com/x/passport-login/country";
 
+        /// <summary>
+        /// 发送短信验证码
+        /// </summary>
         public static string LOGIN_PHONE_SEND = "https://passport.bilibili.com/x/passport-login/sms/send";
 
+        /// <summary>
+        /// 短信验证码登录
+        /// </summary>
         public static string LOGIN_PHONE_POLL = "https://passport.bilibili.com/x/passport-login/login/sms";
+
+        /// <summary>
+        /// 手机个人空间API
+        /// </summary>
+        public static string SPACE = "https://app.bilibili.com/x/v2/space";
+
+        public static string SPACE_Series = "https://app.biliapi.net/x/v2/space/series";
     }
 }

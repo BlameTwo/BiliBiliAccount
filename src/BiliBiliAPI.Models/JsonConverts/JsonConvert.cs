@@ -29,7 +29,7 @@ namespace BiliBiliAPI.Models
         }
 
 
-        public static ResultCode<T> ReadObject<T>(string Data)
+        public static ResultCode<T> ReadObject<T>(string Data) where T : class
         {
             JsonReader reader = new JsonTextReader(new StringReader(Data));
             JsonSerializer jsonSerializer = new JsonSerializer();

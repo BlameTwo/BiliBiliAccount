@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 namespace BiliBiliAPI.Models
 {
     public class ResultCode<T>
+        where T: class
     {
         [JsonProperty("code")]
         public string Code { get; set; }

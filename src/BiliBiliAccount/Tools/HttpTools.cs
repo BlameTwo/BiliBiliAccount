@@ -13,7 +13,7 @@ namespace BiliBiliAPI.Tools
         //Web认证方式
         HttpClient WebClient = new();
         //App认证方式
-        HttpClient AppClient = new();
+        protected HttpClient AppClient = new();
 
         public enum ResponseEnum { App,Web}
 
@@ -27,7 +27,7 @@ namespace BiliBiliAPI.Tools
             WebClient.DefaultRequestHeaders.Referrer = new Uri("http://www.bilibili.com/");
             AppClient.DefaultRequestHeaders.Referrer = new Uri("http://www.bilibili.com/");
         }
-        public async Task<string> GetResults(string url,ResponseEnum responseEnum,Dictionary<string,string> keyValues =null, bool IsAcess = true,string BuildString= "&platform=android&device=android&actionKey=appkey&build=5442100&mobi_app=android_comic")
+        public virtual async Task<string> GetResults(string url,ResponseEnum responseEnum,Dictionary<string,string> keyValues =null, bool IsAcess = true,string BuildString= "&platform=android&device=android&actionKey=appkey&build=5442100&mobi_app=android_comic")
         {
             switch (responseEnum)
             {
@@ -68,13 +68,13 @@ namespace BiliBiliAPI.Tools
         }
 
 
-        public async Task<string> GetStringAsync(string url)
+        public virtual async Task<string> GetStringAsync(string url)
         {
             using HttpClient HttpClient = new HttpClient();
             return await HttpClient.GetStringAsync(url);
         }
 
-        public async Task<string> PostResults(string url, string postContent, ResponseEnum responseEnum, Dictionary<string, string> keyValues = null,bool isclear=false)
+        public virtual async Task<string> PostResults(string url, string postContent, ResponseEnum responseEnum, Dictionary<string, string> keyValues = null,bool isclear=false)
         {
             switch (responseEnum)
             {
@@ -121,7 +121,7 @@ namespace BiliBiliAPI.Tools
             return null;
         }
 
-        public async Task<string> JustPost(string url,string postContent, ResponseEnum responseEnum, Dictionary<string, string> keyValues = null, bool isclear = false)
+        public virtual async Task<string> JustPost(string url,string postContent, ResponseEnum responseEnum, Dictionary<string, string> keyValues = null, bool isclear = false)
         {
             switch (responseEnum)
             {

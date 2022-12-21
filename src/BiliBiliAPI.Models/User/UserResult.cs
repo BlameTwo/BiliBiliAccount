@@ -264,9 +264,8 @@ namespace BiliBiliAPI.Models.User
 
     public class UpData
     {
-        [JsonProperty("mid")]
-        public string Mid { get; set; } = ""; [JsonProperty("name")]
-        public string Name { get; set; } = "";
+        [JsonProperty("mid")]public string Mid { get; set; } = ""; 
+        [JsonProperty("name")]public string Name { get; set; } = "";
         [JsonProperty("sign")] public string Sign { get; set; } = "";
 
         /// <summary>
