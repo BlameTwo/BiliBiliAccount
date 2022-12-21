@@ -103,7 +103,7 @@ namespace BiliBiliAPI.Video
             return JsonConvert.ReadObject<VidonOnline>(await HttpClient.GetResults(url, HttpTools.ResponseEnum.App));
         }
 
-        [Obsolete("此api旧的推荐API")]
+        [Obsolete("此api旧的推荐API，为何遗弃：主要原因是B站鉴权加强，此接口使用的TV版密钥，目前无异常，指不定什么时候抽风。")]
         public async Task<ResultCode<BiliBiliAPI.Models.HomeVideo.Video>> GetHomeVideo()
         {
             Thread.Sleep(500);

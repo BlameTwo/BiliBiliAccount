@@ -303,34 +303,41 @@ namespace BilibiliTest
 
             #endregion
 
-
             #region 个人空间新API
-            Space MySpace = new();
-            var result = await MySpace.GetSpace("2142762");
-            string next = "0";
-            foreach (var item in result.Data.SpaceSeries.SpaceSeriesItems)
-            {
-                while (true)
-                {
-                    string id = item.ID;
-                    //获得个人空间
-                    var result2 = await MySpace.GetSpaceSeries("2142762", id, next);
-                    if (result2 != null)
-                    {
-                        Console.WriteLine(result2.Data.Item[0].Title);
-                        next = result2.Data.Next.ToString();
-                        continue;
-                    }
-                    else
-                    {
-                        break;
-                    }
-                }
-               
-            }
-
-            Console.ReadKey();
+            //Space MySpace = new();
+            //var result = await MySpace.GetSpace("2142762");
+            //string next = "0";
+            //foreach (var item in result.Data.SpaceSeries.SpaceSeriesItems)
+            //{
+            //    while (true)
+            //    {
+            //        string id = item.ID;
+            //        //获得个人空间
+            //        var result2 = await MySpace.GetSpaceSeries("2142762", id, next);
+            //        if (result2 != null)
+            //        {
+            //            Console.WriteLine(result2.Data.Item[0].Title);
+            //            next = result2.Data.Next.ToString();
+            //            continue;
+            //        }
+            //        else
+            //        {
+            //            break;
+            //        }
+            //    }
+            //   
+            //}
+//
+            //Console.ReadKey();
             
+            #endregion
+            
+            #region B站旧首页推荐修复失败……
+
+            Video video = new();
+            var r = await video.GetHomeVideo();
+            Console.ReadKey();
+
             #endregion
         }
 
