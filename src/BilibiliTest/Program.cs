@@ -15,6 +15,8 @@ using BiliBiliAPI.Video;
 using BiliBiliAPI.WebHome;
 using System.Security.Cryptography;
 using BiliBiliAPI.Account;
+using BiliBiliAPI.Comment;
+using BiliBiliAPI.Models.Account.Dynamic;
 using static BiliBiliAPI.PGC.PGC;
 
 namespace BilibiliTest
@@ -341,6 +343,19 @@ namespace BilibiliTest
             //var result = await UV.AddHistoryToView("221542003");
             //Console.WriteLine(result.Code);
             //Console.ReadKey();
+            #endregion
+
+            #region 视频评论区API
+
+            VideoComment coment = new();
+            int i = 1;
+            while (true)
+            {
+                var result = await coment.GetComment("260858060", i);
+                Console.WriteLine($"获得第{i}页数据");
+                i++;
+            }
+            Console.ReadKey();
             #endregion
         }
 

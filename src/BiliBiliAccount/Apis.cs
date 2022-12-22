@@ -276,6 +276,14 @@ namespace BiliBiliAPI
         /// </summary>
         public static string SPACE_SERIES = "https://app.biliapi.net/x/v2/space/series";
 
+        /// <summary>
+        /// 添加到稍后再看
+        /// </summary>
         public static string ADD_HISTORY_TOPVIEW = "https://api.bilibili.com/x/v2/history/toview/add";
+
+        /// <summary>
+        /// 视频评论API
+        /// </summary>
+        public static string VIDEO_COMMENT = "http://api.bilibili.com/x/v2/reply/main";
     }
 }
