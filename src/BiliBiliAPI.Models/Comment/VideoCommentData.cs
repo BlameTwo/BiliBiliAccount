@@ -56,6 +56,58 @@ namespace BiliBiliAPI.Models.Comment
         [JsonProperty("member")]public CommentUp Up { get; set; }
 
         [JsonProperty("content")] public CommentContent Content { get; set; }
+
+        [JsonProperty("reply_control")]public ReplyControl ReplyControl { get; set; }
+
+        [JsonProperty("card_label")] public List<Comment_Card_label> CardLabel { get; set; }
+    }
+
+    [JsonConverter(typeof(Comment_Card_LabelConvert))]
+    public class Comment_Card_label
+    {
+        public Comment_Card_labelItem Items { get; set; } = new();
+    }
+
+    
+    public class Comment_Card_labelItem
+    {
+        [JsonProperty("rpid")]public string Rpid { get; set; }
+        [JsonProperty("text_content")]public string Content { get; set; }
+    }
+
+    public class Comment_Card_LabelConvert : JsonConverter
+    {
+        public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
+        {
+            
+        }
+
+        public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
+        {
+            JObject jo = JObject.Load(reader);
+            Comment_Card_label label = new Comment_Card_label();
+            label.Items = new();
+            label.Items.Content = (string)jo.GetValue("text_content")??"";
+            label.Items.Rpid = (string)jo.GetValue("rpid")??"";
+            return label;
+        }
+
+        public override bool CanConvert(Type objectType)
+        {
+            return true;
+        }
+    }
+
+    public class ReplyControl
+    {
+        [JsonProperty("up_like")]public bool UpLike { get; set; }
+
+        [JsonProperty("sub_reply_entry_text")]public string SubReplayEntry { get; set; }
+
+        [JsonProperty("sub_reply_title_text")]public string SubReplayTitle { get; set; }
+        [JsonProperty("time_desc")]public string Time_Desc { get; set; }
+
+        [JsonProperty("location")]public string Location { get; set; }
     }
 
     public class CommentUp

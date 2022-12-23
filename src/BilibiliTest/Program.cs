@@ -351,7 +351,7 @@ namespace BilibiliTest
             int i = 1;
             while (true)
             {
-                var result = await coment.GetComment("260858060", i);
+                var result = await coment.GetComment("260858060", i).ConfigureAwait(false);
                 Console.WriteLine($"获得第{i}页数据");
                 i++;
             }
