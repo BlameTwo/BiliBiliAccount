@@ -285,5 +285,7 @@ namespace BiliBiliAPI
         /// 视频评论API
         /// </summary>
         public static string VIDEO_COMMENT = "http://api.bilibili.com/x/v2/reply/main";
+
+        public static string SET_COMMENT_STAUTE = "https://api.bilibili.com/x/v2/reply/action";
     }
 }
