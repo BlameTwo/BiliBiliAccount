@@ -1,9 +1,19 @@
 ﻿using BiliBiliAPI.Grpc.Interface;
+using BiliBiliAPI.Grpc.Tools;
+using Google.Protobuf;
+using Grpc.Core;
+using Protos.Grpc.Header;
+using Protos.Header;
+using System.Runtime.CompilerServices;
 
 namespace BiliBiliAPI.Grpc.Service;
 
 public class DefaultRequestHeader:IDefaultRequestHeader
 {
+    /// <summary>
+    /// 创建默认的请求头
+    /// </summary>
+    /// <returns></returns>
     public static DefaultRequestHeader Create()
     {
         return new DefaultRequestHeader()
@@ -23,14 +33,14 @@ public class DefaultRequestHeader:IDefaultRequestHeader
             Mobiapp = "android",
             Platform = "android"
             ,Env = "prod",
-            Appid = "1",
+            Appid = 1,
             Region = "CN",
             Language = "zh"
         };
     }
     
     /// <summary>
-    /// 创建请求UA
+    /// 创建默认请求UA
     /// </summary>
     /// <param name="header">自定义请求头，默认为默认设置</param>
     /// <returns></returns>
@@ -46,6 +56,9 @@ public class DefaultRequestHeader:IDefaultRequestHeader
                  + $"network/{header.NetWork_Type}";
         return ua;
     }
+
+    #region 继承属性
+
     public string Version { get; set; }
     public string Os_Version { get; set; }
     public string Os_Company { get; set; }
@@ -61,7 +74,81 @@ public class DefaultRequestHeader:IDefaultRequestHeader
     public string Mobiapp { get;set; }
     public string Platform { get;set; }
     public string Env { get;set; }
-    public string Appid { get;set; }
+    public int Appid { get;set; }
     public string Region { get;set; }
     public string Language { get; set;}
+    #endregion
+
+    #region 继承方法
+
+    public string GetFawkesreqBin()
+    {
+        return (new FawkesReq()
+        {
+            Appkey = Mobiapp,
+            Env = Env,
+        }).ToByteArray().ToBase64();
+    }
+
+    public string GetMetadataBin()
+    {
+        var req = new Protos.Header.Metadata();
+        req.MobiApp=Mobiapp;
+        req.Platform=Platform;
+        req.AccessKey = Apis.Token.SECCDATA;
+        req.Build= Build;
+        req.Channel= Channel;
+        req.Buvid= Buvid;
+        return req.ToByteArray().ToBase64();
+    }
+
+    public string GetDeviceBin()
+    {
+        return (new Protos.Header.Device()
+        {
+            AppId = this.Appid,
+            Brand = this.Os_Company,
+            Channel = Channel,
+            MobiApp = Mobiapp,
+            Build = Build,
+            Model = Os_Name,
+            Osver = Os_Version,
+            Buvid = Buvid,
+            Platform = Platform,
+        }).ToByteArray().ToBase64();
+    }
+
+    public string GetNetworkBin()
+    {
+        return (new Network()
+        {
+            Type= Network.Types.TYPE.Wifi,
+            Oid= NetWork_Oid
+            ,Tf =  Network.Types.TF.Unknown
+        }).ToByteArray().ToBase64();
+    }
+
+    public string GetRestrictionBin()
+    {
+        return (new Restriction()).ToByteArray().ToBase64();
+    }
+
+    public string GetLocaleBin()
+    {
+        return (new Locale()
+        {
+            CLocale = new Locale.Types.LocaleIds()
+            {
+                Language = this.Language,
+                Region= this.Region
+            },
+            SLocale= new Locale.Types.LocaleIds()
+            {
+                Language = this.Language,
+                Region= this.Region
+            }
+        }).ToByteArray().ToBase64();
+    }
+    #endregion
+    
 }

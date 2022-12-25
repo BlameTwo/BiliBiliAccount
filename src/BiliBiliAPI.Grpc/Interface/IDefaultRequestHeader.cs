@@ -2,6 +2,8 @@
 
 public interface IDefaultRequestHeader
 {
+    #region 属性
+
     string Version { get;  }
     string Os_Version { get;  }
     string Os_Company { get;  }
@@ -17,8 +19,22 @@ public interface IDefaultRequestHeader
     string Mobiapp { get; }
     string Platform { get; }
     string Env { get;}
-    string Appid { get;}
+    int Appid { get;}
     string Region { get;}
     string Language { get; }
+
+    #endregion
+
+    #region 方法
+
+    string GetFawkesreqBin();
+    string GetMetadataBin();
+    string GetDeviceBin();
+    string GetNetworkBin();
+    string GetRestrictionBin();
+    string GetLocaleBin();
+
+
+    #endregion
 
 }

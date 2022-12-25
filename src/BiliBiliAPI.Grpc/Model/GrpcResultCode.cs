@@ -15,7 +15,7 @@ public class GrpcResultCode<T> where T :IMessage
     /// <param name="message"></param>
     /// <param name="code"></param>
     /// <returns></returns>
-    public static GrpcResultCode<T>  Create(T result,string message,int code=0)
+    public static GrpcResultCode<T> Create(T result,string message,int code=0)
     {
         return new GrpcResultCode<T>()
         {

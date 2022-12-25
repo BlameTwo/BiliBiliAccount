@@ -1,6 +1,6 @@
 ﻿syntax = "proto3";
 
-package proto.reply;
+package protos.reply;
 
 message DanmakuElem {
     int64 id = 1;

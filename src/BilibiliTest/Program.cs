@@ -18,6 +18,9 @@ using BiliBiliAPI.Account;
 using BiliBiliAPI.Comment;
 using BiliBiliAPI.Models.Account.Dynamic;
 using static BiliBiliAPI.PGC.PGC;
+using BiliBiliAPI.Grpc.Service;
+using Bilibili.Main.Community.Reply.V1;
+using System;
 
 namespace BilibiliTest
 {
@@ -330,9 +333,9 @@ namespace BilibiliTest
             //   
             //}
             //Console.ReadKey();
-            
+
             #endregion
-            
+
             #region B站旧首页推荐修复失败……(额，就是用安卓key失败，安卓TVkey正常)
             //Video video = new();
             //var r = await video.GetHomeVideo();
@@ -347,16 +350,37 @@ namespace BilibiliTest
 
             #region 视频评论区API
 
-            VideoComment coment = new();
-            int i = 1;
-            while (true)
-            {
-                var result = await coment.GetComment("260858060", i).ConfigureAwait(false);
-                Console.WriteLine($"获得第{i}页数据");
-                i++;
-            }
-            Console.ReadKey();
+            //VideoComment coment = new();
+            //int i = 1;
+            //while (true)
+            //{
+            //    var result = await coment.GetComment("260858060", i).ConfigureAwait(false);
+            //    Console.WriteLine($"获得第{i}页数据");
+            //    i++;
+            //}
             #endregion
+
+            #region 使用grpc获得评论区信息
+            HttpProvider provider = new HttpProvider(BiliBiliAPI.BiliBiliArgs.TokenSESSDATA);
+            var result = await provider.SendData<MainListReply>(
+                BiliBiliAPI.Grpc.Apis.GrpcReply,
+                new MainListReq()
+                {
+                    Cursor = new CursorReq()
+                    {
+                        Next = 1
+                    },
+                    Oid = 521501521,
+                    Type = 1,
+                });
+
+            foreach (var item in result.Result.Replies)
+            {
+                Console.WriteLine(item.Content.Message);
+            }
+            #endregion
+
+            Console.ReadKey();
         }
 
     }

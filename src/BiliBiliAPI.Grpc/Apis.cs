@@ -10,9 +10,9 @@ public class Apis
     public const string grpcserver = "https://grpc.biliapi.net";
     
     /// <summary>
-    /// grpc账号存储位置
+    /// grpc账号存储位置,限制程序集内访问
     /// </summary>
-    public static AccountToken Token =new ();
+    internal static AccountToken Token =new ();
     
     /// <summary>
     /// 评论的地址
