@@ -21,6 +21,7 @@ using static BiliBiliAPI.PGC.PGC;
 using BiliBiliAPI.Grpc.Service;
 using Bilibili.Main.Community.Reply.V1;
 using System;
+using Grpc.Net.Client;
 
 namespace BilibiliTest
 {
@@ -395,29 +396,49 @@ namespace BilibiliTest
             #endregion
 
             #region 使用grpc获得视频的播放地址
-            var data2 = new Bilibili.App.Playurl.V1.PlayViewReq()
-            {
-                Aid=result2.Result.Arc.Aid,
-                Cid = result2.Result.Pages[0].Page.Cid,
-                Download=2,
-                Fourk=true,
-                Qn=120,
-                Fnval=4048,
-                Fnver=0,
-            };
             Bilibili.App.Playurl.V1.PlayViewReq url = new Bilibili.App.Playurl.V1.PlayViewReq()
             {
-                Aid = 902417700,
-                Cid = 886955631,
+                Aid = 934637444,
+                Cid = 455439756,
                 Download = 0,
                 Fourk = true,
-                Qn = 116,
+                Qn = 0,
                 Fnval = 4048,
-                Fnver = 0,
-                PreferCodecType = Bilibili.App.Playurl.V1.CodeType.Code264
+                Fnver = 0
             };
             var result4 = await provider.SendData<Bilibili.App.Playurl.V1.PlayViewReply>(BiliBiliAPI.Grpc.Apis.GrpcViewPlayConfig, url);
+            var result5 = await provider.SendData<Bilibili.App.Playurl.V1.PlayURLReply>("https://app.bilibili.com/bilibili.app.playurl.v1.PlayURL/PlayURL", new Bilibili.App.Playurl.V1.PlayURLReq()
+            {
+                Aid = 934637444,
+                Cid = 455439756,
+                Download = 0,
+                Fourk = true,
+                Qn = 0,
+                Fnval = 4048,
+                Fnver = 0
+            });
             #endregion
+
+            //using var channel = GrpcChannel.ForAddress(BiliBiliAPI.Grpc.Apis.GrpcViewPlayConfig);
+
+            //var client = new Bilibili.App.Playurl.V1.PlayURL.PlayURLClient(channel);
+            //var grpc = new Grpc.Core.Metadata();
+            //grpc.Add("authorization", "identify_v1 4d36153a8b47aca2b5d5fdb92e579fc1");
+
+            //var result = client.PlayURL(new Bilibili.App.Playurl.V1.PlayURLReq()
+            //{
+            //    Aid= 934637444,
+            //    Cid= 455439756,
+            //    Qn=0,
+            //    Fnver=0,
+            //    Fnval=4048,
+            //    Download=0,
+            //    ForceHost=0,
+            //    Fourk=true,
+            //    Spmid= "23d6bd49-7c93-44dd-a25c-05a391d568ee",
+            //    FromSpmid= "962b7c65-5a73-4b3e-864a-be10fcc7acf1",
+            //},grpc);
+
             Console.ReadKey();
         }
 
