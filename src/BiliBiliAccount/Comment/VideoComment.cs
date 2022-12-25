@@ -1,4 +1,5 @@
-﻿using BiliBiliAPI.Models;
+﻿using BiliBiliAPI.Grpc.Model;
+using BiliBiliAPI.Models;
 using BiliBiliAPI.Models.Comment;
 using BiliBiliAPI.Tools;
 using System.Threading.Tasks;
@@ -20,5 +21,7 @@ namespace BiliBiliAPI.Comment
         {
             return await comment.LikeComment(islike, rpid, oid, CommentType.AVVideo);
         }
+
+
     }
 }

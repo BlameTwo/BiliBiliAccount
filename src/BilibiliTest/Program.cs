@@ -30,8 +30,10 @@ namespace BilibiliTest
         static PublicSearch Search = new PublicSearch();
         public static  async Task Main(string[] args)
         {
+            HttpProvider provider = new HttpProvider(BiliBiliAPI.BiliBiliArgs.TokenSESSDATA);
             #region 初始化账号信息，此处为存储活跃的账号信息
             BiliBiliArgs.TokenSESSDATA = token;
+            BiliBiliAPI.Grpc.Apis.Token = token;
             #endregion
 
             #region 初始化视频相关
@@ -361,25 +363,61 @@ namespace BilibiliTest
             #endregion
 
             #region 使用grpc获得评论区信息
-            HttpProvider provider = new HttpProvider(BiliBiliAPI.BiliBiliArgs.TokenSESSDATA);
-            var result = await provider.SendData<MainListReply>(
-                BiliBiliAPI.Grpc.Apis.GrpcReply,
-                new MainListReq()
-                {
-                    Cursor = new CursorReq()
-                    {
-                        Next = 1
-                    },
-                    Oid = 521501521,
-                    Type = 1,
-                });
+            //var result = await provider.SendData<MainListReply>(
+            //    BiliBiliAPI.Grpc.Apis.GrpcReply,
+            //    new MainListReq()
+            //    {
+            //        Cursor = new CursorReq()
+            //        {
+            //            Next = 1
+            //        },
+            //        Oid = 521501521,
+            //        Type = 1,
+            //    });
 
-            foreach (var item in result.Result.Replies)
+            //foreach (var item in result.Result.Replies)
+            //{
+            //    Console.WriteLine(item.Content.Message);
+            //}
+
+
+            #endregion
+            #region 使用grpc获得稿件详细信息
+            var data = new Bilibili.App.View.V1.ViewReq()
             {
-                Console.WriteLine(item.Content.Message);
-            }
+                Bvid = "BV1j44y1f7gU"
+            };
+            var result2 = await provider.SendData<Bilibili.App.View.V1.ViewReply>(
+                BiliBiliAPI.Grpc.Apis.GrpcViewDetail, data
+                );
+            Console.WriteLine(result2.Result.Arc.Title);
+            Console.Write(result2.Result.Arc.Author.Name);
             #endregion
 
+            #region 使用grpc获得视频的播放地址
+            var data2 = new Bilibili.App.Playurl.V1.PlayViewReq()
+            {
+                Aid=result2.Result.Arc.Aid,
+                Cid = result2.Result.Pages[0].Page.Cid,
+                Download=2,
+                Fourk=true,
+                Qn=120,
+                Fnval=4048,
+                Fnver=0,
+            };
+            Bilibili.App.Playurl.V1.PlayViewReq url = new Bilibili.App.Playurl.V1.PlayViewReq()
+            {
+                Aid = 902417700,
+                Cid = 886955631,
+                Download = 0,
+                Fourk = true,
+                Qn = 116,
+                Fnval = 4048,
+                Fnver = 0,
+                PreferCodecType = Bilibili.App.Playurl.V1.CodeType.Code264
+            };
+            var result4 = await provider.SendData<Bilibili.App.Playurl.V1.PlayViewReply>(BiliBiliAPI.Grpc.Apis.GrpcViewPlayConfig, url);
+            #endregion
             Console.ReadKey();
         }
 

@@ -14,28 +14,45 @@ public class HttpProvider:IHttpProvider
     {
         BiliBiliAPI.Grpc.Apis.Token = token;
     }
+
+    public HttpProvider()
+    {
+
+    }
+
+
     public async Task<BiliBiliAPI.Grpc.Model.GrpcResultCode<T>> SendData<T>(string url, IMessage message)
         where T : IMessage<T>, new()
     {
-        try
+        var handler = new HttpClientHandler();
+        handler.ServerCertificateCustomValidationCallback +=
+        (sender, certificate, chain, errors) =>
         {
-            HttpClient httpClient = new HttpClient();
+            return true;
+        };
+        HttpClient httpClient = new HttpClient(handler);
             //默认方式导入
             string ua = DefaultRequestHeader.CreateUA(Header);
             httpClient.DefaultRequestHeaders.Add("User-Agent", ua);
-            httpClient.DefaultRequestHeaders.Add("APP-KEY", "android");
+            httpClient.DefaultRequestHeaders.Add("APP-KEY", "android64");
             httpClient.DefaultRequestHeaders.Add("x-bili-metadata-bin", Header.GetMetadataBin());
-            httpClient.DefaultRequestHeaders.Add("authorization", "identify_v1 " + Apis.Token.SECCDATA);
+            httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("identify_v1", Apis.Token.SECCDATA);
             httpClient.DefaultRequestHeaders.Add("x-bili-device-bin", Header.GetDeviceBin());
             httpClient.DefaultRequestHeaders.Add("x-bili-network-bin", Header.GetNetworkBin());
             httpClient.DefaultRequestHeaders.Add("x-bili-restriction-bin", "");
+            httpClient.DefaultRequestHeaders.Add("x-bili-mid", Apis.Token.Mid);
             httpClient.DefaultRequestHeaders.Add("x-bili-locale-bin", Header.GetLocaleBin());
+            httpClient.DefaultRequestHeaders.Add("x-bili-exps-bin", "CgIIAQ");
+            httpClient.DefaultRequestHeaders.Add("x-bili-aurora-eid", "UF0CT1ADD1IDXA==");
+            httpClient.DefaultRequestHeaders.Add("x-bili-trace-id", Header.GenTraceId());
             httpClient.DefaultRequestHeaders.Add("x-bili-fawkes-req-bin", Header.GetFawkesreqBin());
             httpClient.DefaultRequestHeaders.Add("grpc-accept-encoding", "identity");
-            httpClient.DefaultRequestHeaders.Add("grpc-timeout", "17985446u");
             httpClient.DefaultRequestHeaders.Add("env", "prod");
             httpClient.DefaultRequestHeaders.Add("Transfer-Encoding", "chunked");
+            httpClient.DefaultRequestHeaders.Add("buvid", "XYF2F19FA588E96DC2E9A62B358F164A3C5A7");
+            httpClient.DefaultRequestHeaders.Add("Connection", "Keep-Alive");
             httpClient.DefaultRequestHeaders.Add("TE", "trailers");
+            httpClient.DefaultRequestHeaders.Add("Host", "grpc.biliapi.net");
             var messbyte = message.ToByteArray();
             var stateBytes = new byte[] { 0, 0, 0, 0, (byte)messbyte.Length };
             byte[] bodyBytes = new byte[5 + messbyte.Length];
@@ -65,14 +82,7 @@ public class HttpProvider:IHttpProvider
                     Message = "Error!!!",
                 };
             }
-        }
-        catch (Exception ex)
-        {
-            return new GrpcResultCode<T>()
-            {
-                Code = ex.HResult,
-                Message = "Error:" + ex.Message
-            };
-        }
     }
+
+
 }

@@ -1,10 +1,10 @@
-﻿using BiliBiliAPI.Grpc.Interface;
+﻿using Bilibili.Metadata.Fawkes;
+using BiliBiliAPI.Grpc.Interface;
 using BiliBiliAPI.Grpc.Tools;
 using Google.Protobuf;
 using Grpc.Core;
-using Protos.Grpc.Header;
-using Protos.Header;
 using System.Runtime.CompilerServices;
+using System.Security.Cryptography;
 
 namespace BiliBiliAPI.Grpc.Service;
 
@@ -19,17 +19,17 @@ public class DefaultRequestHeader:IDefaultRequestHeader
         return new DefaultRequestHeader()
         {
             Version = "2.1.0",
-            Os_Version = "11",
+            Os_Version = "6",
             Os_Company = "Xiaomi",
             Os_Name = "MIUI",
             App_Version = "6.7.0",
-            Build = 6070600,
+            Build = 7110300,
             Channel = "bilibili140",
             NetWork_Type = 1,
             NetWork_TF = 0,
             NetWork_Oid = "46007",
             Cronet = "1.21.0",
-            Buvid = "XZFD48CFF1E68E637D0DF11A562468A8DC314",
+            Buvid = "XYF2F19FA588E96DC2E9A62B358F164A3C5A7",
             Mobiapp = "android",
             Platform = "android"
             ,Env = "prod",
@@ -87,12 +87,13 @@ public class DefaultRequestHeader:IDefaultRequestHeader
         {
             Appkey = Mobiapp,
             Env = Env,
+            SessionId= "dedf8669"
         }).ToByteArray().ToBase64();
     }
 
     public string GetMetadataBin()
     {
-        var req = new Protos.Header.Metadata();
+        var req = new Bilibili.Metadata.Metadata();
         req.MobiApp=Mobiapp;
         req.Platform=Platform;
         req.AccessKey = Apis.Token.SECCDATA;
@@ -104,7 +105,7 @@ public class DefaultRequestHeader:IDefaultRequestHeader
 
     public string GetDeviceBin()
     {
-        return (new Protos.Header.Device()
+        return (new Bilibili.Metadata.Device.Device()
         {
             AppId = this.Appid,
             Brand = this.Os_Company,
@@ -120,29 +121,42 @@ public class DefaultRequestHeader:IDefaultRequestHeader
 
     public string GetNetworkBin()
     {
-        return (new Network()
+        return (new Bilibili.Metadata.Network.Network()
         {
-            Type= Network.Types.TYPE.Wifi,
+            Type= Bilibili.Metadata.Network.NetworkType.Wifi,
             Oid= NetWork_Oid
-            ,Tf =  Network.Types.TF.Unknown
+            ,Tf = Bilibili.Metadata.Network.TFType.TfUnknown
         }).ToByteArray().ToBase64();
     }
 
     public string GetRestrictionBin()
     {
-        return (new Restriction()).ToByteArray().ToBase64();
+        return (new Bilibili.Metadata.Restriction.Restriction()).ToByteArray().ToBase64();
     }
 
+    public string GenTraceId()
+    {
+        var t = (long)(DateTime.UtcNow - new DateTime(1970, 1, 1)).TotalSeconds;
+        var x = string.Format("{0:x}", t).Substring(0, 6);
+        var randBytes = new byte[26 / 2];
+        using (var rng = RandomNumberGenerator.Create())
+        {
+            rng.GetBytes(randBytes);
+        }
+        var r = string.Join("", randBytes.Select(b => b.ToString("x2")));
+        var xBiliTraceId = string.Format("{0}{1}:{2}{3}:0:0", r, x, r, x);
+        return xBiliTraceId;
+    }
     public string GetLocaleBin()
     {
-        return (new Locale()
+        return (new Bilibili.Metadata.Locale.Locale()
         {
-            CLocale = new Locale.Types.LocaleIds()
+            CLocale = new Bilibili.Metadata.Locale.LocaleIds()
             {
                 Language = this.Language,
                 Region= this.Region
             },
-            SLocale= new Locale.Types.LocaleIds()
+            SLocale= new Bilibili.Metadata.Locale.LocaleIds()
             {
                 Language = this.Language,
                 Region= this.Region
