@@ -24,8 +24,8 @@ public class DefaultRequestHeader:IDefaultRequestHeader
             Os_Name = "MIUI",
             App_Version = "6.7.0",
             Build = 7110300,
-            Channel = "bilibili140",
-            NetWork_Type = 1,
+            Channel = "alifenfa",
+            NetWork_Type = 2,
             NetWork_TF = 0,
             NetWork_Oid = "46007",
             Cronet = "1.21.0",
@@ -50,7 +50,7 @@ public class DefaultRequestHeader:IDefaultRequestHeader
             header = DefaultRequestHeader.Create();
         
         var ua = $"Dalvik/{header.Version} "
-                 + $"(Linux; U; Android {header.Os_Version}; {header.Os_Company} {header.Os_Name}) {header.App_Version} "
+                 + $"(Linux; U; Android {header.Os_Version}; {header.Os_Company} {header.Os_Name} Build/V417IR) {header.App_Version} "
                  + $"os/android model/{header.Os_Company} mobi_app/android build/{header.Build} "
                  + $"channel/{header.Channel} innerVer/{header.Build} osVer/{header .Os_Version} "
                  + $"network/{header.NetWork_Type}";

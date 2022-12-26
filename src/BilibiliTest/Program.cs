@@ -363,82 +363,16 @@ namespace BilibiliTest
             //}
             #endregion
 
-            #region 使用grpc获得评论区信息
-            //var result = await provider.SendData<MainListReply>(
-            //    BiliBiliAPI.Grpc.Apis.GrpcReply,
-            //    new MainListReq()
-            //    {
-            //        Cursor = new CursorReq()
-            //        {
-            //            Next = 1
-            //        },
-            //        Oid = 521501521,
-            //        Type = 1,
-            //    });
-
-            //foreach (var item in result.Result.Replies)
-            //{
-            //    Console.WriteLine(item.Content.Message);
-            //}
-
-
-            #endregion
-            #region 使用grpc获得稿件详细信息
-            var data = new Bilibili.App.View.V1.ViewReq()
+            #region 历史记录操作
+            BiliBiliAPI.Account.History.History History = new();
+            var result0 = await History.GetHistoryState();
+            var result = await History.GetHistory(0, 25, GetHistoryType.AV);
+            var result2 = await History.DeleteKidHistory($"{result.Data.Items[0].History.Business}_{result.Data.Items[0].Kid}");
+            if (result2.Code == "0")
             {
-                Bvid = "BV1j44y1f7gU"
-            };
-            var result2 = await provider.SendData<Bilibili.App.View.V1.ViewReply>(
-                BiliBiliAPI.Grpc.Apis.GrpcViewDetail, data
-                );
-            Console.WriteLine(result2.Result.Arc.Title);
-            Console.Write(result2.Result.Arc.Author.Name);
+                Console.WriteLine("删除成功！");
+            }
             #endregion
-
-            #region 使用grpc获得视频的播放地址
-            Bilibili.App.Playurl.V1.PlayViewReq url = new Bilibili.App.Playurl.V1.PlayViewReq()
-            {
-                Aid = 934637444,
-                Cid = 455439756,
-                Download = 0,
-                Fourk = true,
-                Qn = 0,
-                Fnval = 4048,
-                Fnver = 0
-            };
-            var result4 = await provider.SendData<Bilibili.App.Playurl.V1.PlayViewReply>(BiliBiliAPI.Grpc.Apis.GrpcViewPlayConfig, url);
-            var result5 = await provider.SendData<Bilibili.App.Playurl.V1.PlayURLReply>("https://app.bilibili.com/bilibili.app.playurl.v1.PlayURL/PlayURL", new Bilibili.App.Playurl.V1.PlayURLReq()
-            {
-                Aid = 934637444,
-                Cid = 455439756,
-                Download = 0,
-                Fourk = true,
-                Qn = 0,
-                Fnval = 4048,
-                Fnver = 0
-            });
-            #endregion
-
-            //using var channel = GrpcChannel.ForAddress(BiliBiliAPI.Grpc.Apis.GrpcViewPlayConfig);
-
-            //var client = new Bilibili.App.Playurl.V1.PlayURL.PlayURLClient(channel);
-            //var grpc = new Grpc.Core.Metadata();
-            //grpc.Add("authorization", "identify_v1 4d36153a8b47aca2b5d5fdb92e579fc1");
-
-            //var result = client.PlayURL(new Bilibili.App.Playurl.V1.PlayURLReq()
-            //{
-            //    Aid= 934637444,
-            //    Cid= 455439756,
-            //    Qn=0,
-            //    Fnver=0,
-            //    Fnval=4048,
-            //    Download=0,
-            //    ForceHost=0,
-            //    Fourk=true,
-            //    Spmid= "23d6bd49-7c93-44dd-a25c-05a391d568ee",
-            //    FromSpmid= "962b7c65-5a73-4b3e-864a-be10fcc7acf1",
-            //},grpc);
-
             Console.ReadKey();
         }
 

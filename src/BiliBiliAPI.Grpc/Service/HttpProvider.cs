@@ -32,7 +32,7 @@ public class HttpProvider:IHttpProvider
         };
         HttpClient httpClient = new HttpClient(handler);
             //默认方式导入
-            string ua = DefaultRequestHeader.CreateUA(Header);
+            //string ua = DefaultRequestHeader.CreateUA(Header);
             //httpClient.DefaultRequestHeaders.Add("User-Agent", ua);
             //httpClient.DefaultRequestHeaders.Add("APP-KEY", "android64");
             //httpClient.DefaultRequestHeaders.Add("x-bili-metadata-bin", Header.GetMetadataBin());
@@ -53,7 +53,8 @@ public class HttpProvider:IHttpProvider
             //httpClient.DefaultRequestHeaders.Add("buvid", "XYF2F19FA588E96DC2E9A62B358F164A3C5A7");
             //httpClient.DefaultRequestHeaders.Add("Connection", "Keep-Alive");
             //httpClient.DefaultRequestHeaders.Add("TE", "trailers");
-            //httpClient.DefaultRequestHeaders.Add("Host", "grpc.biliapi.net");
+            //httpClient.DefaultRequestHeaders.Add("Host", "app.bilibili.com");
+            //httpClient.DefaultRequestHeaders.Add("Connection", "Keep-Alive");
             var messbyte = message.ToByteArray();
             var stateBytes = new byte[] { 0, 0, 0, 0, (byte)messbyte.Length };
             byte[] bodyBytes = new byte[5 + messbyte.Length];

@@ -286,6 +286,34 @@ namespace BiliBiliAPI
         /// </summary>
         public static string VIDEO_COMMENT = "http://api.bilibili.com/x/v2/reply/main";
 
+        /// <summary>
+        /// 给评论点赞API
+        /// </summary>
         public static string SET_COMMENT_STAUTE = "https://api.bilibili.com/x/v2/reply/action";
+
+        /// <summary>
+        ///获得历史记录
+        /// </summary>
+        public static string ACCOUNT_HISTORY_LIST = "http://api.bilibili.com/x/web-interface/history/cursor";
+
+        /// <summary>
+        /// 删除其中一个历史记录
+        /// </summary>
+        public static string ACCOUNT_HISTORY_DELETE = "http://api.bilibili.com/x/v2/history/delete";
+
+        /// <summary>
+        /// 清空历史记录
+        /// </summary>
+        public static string ACCOUNT_HISTORY_DELETEALL = "http://api.bilibili.com/x/v2/history/clear";
+
+        /// <summary>
+        /// 停用历史记录
+        /// </summary>
+        public static string ACCOUNT_HISTORY_CLOSE = "http://api.bilibili.com/x/v2/history/shadow/set";
+
+        /// <summary>
+        /// 历史记录状态
+        /// </summary>
+        public static string ACCOUNT_HISTORY_STATE = "http://api.bilibili.com/x/v2/history/shadow";
     }
 }

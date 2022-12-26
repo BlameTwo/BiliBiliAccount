@@ -7,7 +7,8 @@ public class Apis
     /// <summary>
     /// grpc服务器
     /// </summary>
-    public const string grpcserver = "https://grpc.biliapi.net";
+    const string grpcserver = "https://grpc.biliapi.net";
+    const string apiserver = "https://app.bilibili.com";
 
     /// <summary>
     /// grpc账号存储位置,公开访问
@@ -17,9 +18,9 @@ public class Apis
     /// <summary>
     /// 评论的地址
     /// </summary>
-    public  const string GrpcReply = grpcserver+"/bilibili.main.community.reply.v1.Reply/MainList";
+    public  const string GrpcReply = apiserver + "/bilibili.main.community.reply.v1.Reply/MainList";
 
-    public const string GrpcViewDetail = grpcserver + "/bilibili.app.view.v1.View/View";
+    public const string GrpcViewDetail = apiserver + "/bilibili.app.view.v1.View/View";
 
 
     public const string GrpcViewPlayConfig = "https://app.bilibili.com/bilibili.app.playurl.v1.PlayURL/PlayView";
