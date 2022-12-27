@@ -365,13 +365,28 @@ namespace BilibiliTest
 
             #region 历史记录操作
             BiliBiliAPI.Account.History.History History = new();
-            var result0 = await History.GetHistoryState();
-            var result = await History.GetHistory(0, 25, GetHistoryType.AV);
-            var result2 = await History.DeleteKidHistory($"{result.Data.Items[0].History.Business}_{result.Data.Items[0].Kid}");
-            if (result2.Code == "0")
-            {
-                Console.WriteLine("删除成功！");
-            }
+            //var result0 = await History.GetHistoryState();
+            //var result = await History.GetHistory("0", 25, GetHistoryType.AV);
+            //var result2 = await History.DeleteKidHistory($"{result.Data.Items[0].History.Business}_{result.Data.Items[0].Kid}");
+            //if (result2.Code == "0")
+            //{
+            //    Console.WriteLine("删除成功！");
+            //}
+            #endregion
+
+            //var result4 = await provider.SendData<Bilibili.App.Playurl.V1.PlayViewReply>(BiliBiliAPI.Grpc.Apis.GrpcViewPlayConfig, new Bilibili.App.Playurl.V1.PlayViewReq()
+            //{
+            //    Aid = 902417700,
+            //    Cid = 886955631,
+            //    Download = 0,
+            //    Fourk = true,
+            //    Qn = 116,
+            //    Fnval = 4048,
+            //    Fnver = 0,
+            //});
+            #region 退出登录
+            UnLogin unlogin = new();
+            var result =  await unlogin.Go();
             #endregion
             Console.ReadKey();
         }

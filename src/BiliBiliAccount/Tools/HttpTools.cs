@@ -26,6 +26,14 @@ namespace BiliBiliAPI.Tools
             AppClient = new HttpClient(clientHandler) { Timeout = Timeout };
             WebClient.DefaultRequestHeaders.Referrer = new Uri("http://www.bilibili.com/");
             AppClient.DefaultRequestHeaders.Referrer = new Uri("http://www.bilibili.com/");
+            WebClient.DefaultRequestHeaders.Add("user-agent", "Mozilla/5.0 BiliDroid/5.24.0 (bbcallen@gmail.com)");
+            WebClient.DefaultRequestHeaders.Add("x-bili-aurora-zone", "sh001");
+            WebClient.DefaultRequestHeaders.Add("APP-KEY", "android64");
+            WebClient.DefaultRequestHeaders.Add("x-bili-aurora-eid", "UlMFQVcABlAH");
+            AppClient.DefaultRequestHeaders.Add("user-agent", "Mozilla/5.0 BiliDroid/5.24.0 (bbcallen@gmail.com)");
+            AppClient.DefaultRequestHeaders.Add("x-bili-aurora-zone", "sh001");
+            AppClient.DefaultRequestHeaders.Add("APP-KEY", "android64");
+            AppClient.DefaultRequestHeaders.Add("x-bili-aurora-eid", "UlMFQVcABlAH");
         }
         
         
@@ -40,12 +48,8 @@ namespace BiliBiliAPI.Tools
                         url += (IsAcess == true ? "?access_key=" + BiliBiliArgs.TokenSESSDATA.SECCDATA : "") + "&appkey=" + ApiProvider.AndroidTVKey.Appkey + BuildString + "&ts=" + ApiProvider.TimeSpanSeconds;
                     url += (IsAcess == true ? "&sign=" + ApiProvider.GetSign(url, ApiProvider.AndroidTVKey) : "");
                     //AppClient.DefaultRequestHeaders.Add("Cookie", BiliBiliArgs.TokenSESSDATA.CookieString);
+                    
                     HttpResponseMessage apphr = await AppClient.GetAsync(url).ConfigureAwait(false);
-                    //伪装官方UA
-                    apphr.Headers.Add("user-agent","Mozilla/5.0 BiliDroid/5.24.0 (bbcallen@gmail.com)");
-                    apphr.Headers.Add("x-bili-aurora-zone","sh001");
-                    apphr.Headers.Add("APP-KEY","android64");
-                    apphr.Headers.Add("x-bili-aurora-eid","UF0CT1ADD1IDXA==");
                     apphr.EnsureSuccessStatusCode();
                     var appencodeResults = await apphr.Content.ReadAsByteArrayAsync().ConfigureAwait(false);
                     string appstr = Encoding.UTF8.GetString(appencodeResults, 0, appencodeResults.Length);
@@ -56,7 +60,6 @@ namespace BiliBiliAPI.Tools
                         WebClient.DefaultRequestHeaders.Add("Cookie",  BiliBiliArgs.TokenSESSDATA.CookieString);
                     }
                     
-                    WebClient.DefaultRequestHeaders.Add("user-agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/107.0.0.0 Safari/537.36 Edg/107.0.1418.62");
                     if (keyValues != null)
                     {
                         foreach (var item in keyValues)
@@ -108,7 +111,6 @@ namespace BiliBiliAPI.Tools
                     var OldWebClient = WebClient;
                     WebClient = isclear == true ? WebClient = new() : OldWebClient;
                     WebClient.DefaultRequestHeaders.Add("Cookie", BiliBiliArgs.TokenSESSDATA.CookieString);
-                    WebClient.DefaultRequestHeaders.Add("user-agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/107.0.0.0 Safari/537.36 Edg/107.0.1418.62");
                     if(keyValues != null)
                     {
                         foreach (var item in keyValues)

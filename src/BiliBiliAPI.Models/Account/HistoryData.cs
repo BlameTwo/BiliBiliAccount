@@ -12,7 +12,14 @@ namespace BiliBiliAPI.Models.Account
     {
         [JsonProperty("cursor")] public Cursor Cursor { get; set; }
 
+        [JsonProperty("tab")]public List<HistoryTabs> Tabs { get; set; }
         [JsonProperty("list")] public List<HisToryDataItem> Items { get; set; }
+    }
+
+    public class HistoryTabs
+    {
+        [JsonProperty("type")]public string Type { get; set; }
+        [JsonProperty("name")]public string DisplayName { get; set; }
     }
 
     public enum GetHistoryType
@@ -168,7 +175,7 @@ namespace BiliBiliAPI.Models.Account
 
     public class Cursor
     {
-        [JsonProperty("max")]public string Max { get; set; }
+        [JsonProperty("max")] public string Max { get; set; } = "0";
         [JsonProperty("view_at")]public string View_At { get; set; }
 
         [JsonProperty("business")]public string Business { get; set; }

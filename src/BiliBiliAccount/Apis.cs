@@ -315,5 +315,7 @@ namespace BiliBiliAPI
         /// 历史记录状态
         /// </summary>
         public static string ACCOUNT_HISTORY_STATE = "http://api.bilibili.com/x/v2/history/shadow";
+    
+        public static string ACCOUNT_UnLogin="https://passport.bilibili.com/x/passport-login/revoke";
     }
 }

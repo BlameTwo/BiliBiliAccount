@@ -17,9 +17,9 @@ namespace BiliBiliAPI.Account.History
     {
         HttpTools HttpTools = new();
 
-        public async Task<ResultCode<HistoryData>> GetHistory(int nowmax, int ps, GetHistoryType type)
+        public async Task<ResultCode<HistoryData>> GetHistory(Cursor current, int ps, GetHistoryType type)
         {
-            string content = $"?max={nowmax}&ps={ps}&business={HistoryTools.Convert(type)}";
+            string content = $"?max={current.Max}&view_at={current.View_At}&business={current.Business}&ps={ps}&type={HistoryTools.Convert(type)}";
             var result = await HttpTools.GetResults(Apis.ACCOUNT_HISTORY_LIST + content, HttpTools.ResponseEnum.Web);
             return JsonConvert.ReadObject<HistoryData>(result);
         }
