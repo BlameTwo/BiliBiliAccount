@@ -8,6 +8,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Newtonsoft.Json.Linq;
 
 namespace BiliBiliAPI.Account
 {
@@ -68,21 +69,14 @@ namespace BiliBiliAPI.Account
             });
         }
 
-
-        /// <summary>
-        /// 测试接口
-        /// </summary>
-        /// <param name="url"></param>
-        /// <returns></returns>
-        public async Task<string> Test(string url)
+        public async Task<AccountToken> RefreshToken()
         {
-            return await Task.Run(async () =>
-            {
-                AccountInfo info = new AccountInfo();
-                string str = await HttpClient.GetResults(url, HttpTools.ResponseEnum.App);
-                return str;
-            });
+            var content = $"refresh_token={BiliBiliArgs.TokenSESSDATA.RefToken}";
+            var json = await HttpClient.PostResults(Apis.RefreshToken, content,
+                HttpTools.ResponseEnum.App);
+            return JsonConvert.Deserialize<AccountToken>(JObject.Parse(json).GetValue("data").ToString());
         }
+        
 
         /// <summary>
         /// 获得关注

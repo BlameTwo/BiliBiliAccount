@@ -3,7 +3,6 @@
   <PropertyGroup>
     <TargetFramework>net7.0</TargetFramework>
 	  <Nullable>enable</Nullable>
-	  <PublishAot>true</PublishAot>
 	  <PlatformTarget>AnyCPU</PlatformTarget>
   </PropertyGroup>
 
@@ -15,7 +14,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\BiliBiliAPI.Grpc\BiliBiliAPI.Grpc.csproj" />
     <ProjectReference Include="..\BiliBiliAPI.Models\BiliBiliAPI.Models.csproj" />
   </ItemGroup>
 

@@ -22,6 +22,7 @@ using BiliBiliAPI.Grpc.Service;
 using Bilibili.Main.Community.Reply.V1;
 using System;
 using Grpc.Net.Client;
+using System.Threading.Tasks;
 
 namespace BilibiliTest
 {
@@ -374,19 +375,23 @@ namespace BilibiliTest
             //}
             #endregion
 
-            //var result4 = await provider.SendData<Bilibili.App.Playurl.V1.PlayViewReply>(BiliBiliAPI.Grpc.Apis.GrpcViewPlayConfig, new Bilibili.App.Playurl.V1.PlayViewReq()
-            //{
-            //    Aid = 902417700,
-            //    Cid = 886955631,
-            //    Download = 0,
-            //    Fourk = true,
-            //    Qn = 116,
-            //    Fnval = 4048,
-            //    Fnver = 0,
-            //});
-            #region 退出登录
-            UnLogin unlogin = new();
-            var result =  await unlogin.Go();
+            
+            #region 退出登录(测试失败
+            //UnLogin unlogin = new();
+            //var result =  await unlogin.Go();
+            #endregion
+
+            #region 刷新登录Token
+
+            //var login = new Logins();
+            //var result = await login.RefreshToken();
+            //result.SECCDATA = result.Info.SECCDATA;
+            //result.Expires_in = result.Info.Expires_in;
+            //result.Mid = result.Info.Mid;
+            //result.cookies = result.Info.cookies;
+            ////刷新token后旧token失效
+            //AccountSettings.Write(result);
+            
             #endregion
             Console.ReadKey();
         }

@@ -18,7 +18,6 @@ namespace BiliBiliAPI.Account
     public class AccountQRLogin
     {
         private HttpTools HttpClient  = new HttpTools();
-        private MyHttpClient MyHttpClient = new();
         Timer time = new Timer();
         /// <summary>
         /// 当前实例的密钥校验码

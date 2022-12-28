@@ -317,5 +317,10 @@ namespace BiliBiliAPI
         public static string ACCOUNT_HISTORY_STATE = "http://api.bilibili.com/x/v2/history/shadow";
     
         public static string ACCOUNT_UnLogin="https://passport.bilibili.com/x/passport-login/revoke";
+
+        /// <summary>
+        /// 刷新token的接口
+        /// </summary>
+        public static string RefreshToken = "https://passport.bilibili.com/api/v2/oauth2/refresh_token";
     }
 }
